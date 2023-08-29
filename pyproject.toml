@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "criticalmaas-schemas"
+version = "0.1.0"
+description = "Schemas for the DARPA CriticalMAAS project"
+authors = ["Daven Quinn <dev@davenquinn.com>"]
+readme = "README.md"
+packages = [{include = "criticalmaas_schemas"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pydantic = "^2.3.0"
+erdantic = "^0.6.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
