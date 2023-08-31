@@ -1,0 +1,770 @@
+{
+  "$defs": {
+    "ConfidenceEstimation": {
+      "description": "Confidence information for a map extraction",
+      "properties": {
+        "model": {
+          "$ref": "#/$defs/ExtractionIdentifier"
+        },
+        "scale": {
+          "$ref": "#/$defs/ConfidenceScale"
+        },
+        "confidence": {
+          "description": "Certainty",
+          "title": "Confidence",
+          "type": "number"
+        },
+        "extra_data": {
+          "description": "Additional data",
+          "title": "Extra Data",
+          "type": "object"
+        }
+      },
+      "required": [
+        "model",
+        "scale",
+        "confidence",
+        "extra_data"
+      ],
+      "title": "ConfidenceEstimation",
+      "type": "object"
+    },
+    "ConfidenceScale": {
+      "description": "Confidence measure for a map extraction",
+      "properties": {
+        "name": {
+          "description": "Name of the confidence scale",
+          "title": "Name",
+          "type": "string"
+        },
+        "description": {
+          "description": "Description of the confidence scale",
+          "title": "Description",
+          "type": "string"
+        },
+        "min_value": {
+          "description": "Minimum value",
+          "title": "Min Value",
+          "type": "number"
+        },
+        "max_value": {
+          "description": "Maximum value",
+          "title": "Max Value",
+          "type": "number"
+        }
+      },
+      "required": [
+        "name",
+        "description",
+        "min_value",
+        "max_value"
+      ],
+      "title": "ConfidenceScale",
+      "type": "object"
+    },
+    "ExtractionIdentifier": {
+      "description": "Link to extracted model",
+      "properties": {
+        "model": {
+          "description": "Model name",
+          "example": [
+            "MapPolygon",
+            "MapLine",
+            "MapPoint",
+            "MapUnit",
+            "LineType",
+            "PointType",
+            "Map"
+          ],
+          "title": "Model",
+          "type": "string"
+        },
+        "id": {
+          "description": "ID of the extracted feature",
+          "title": "Id",
+          "type": "integer"
+        },
+        "field": {
+          "description": "Field name of the model",
+          "title": "Field",
+          "type": "string"
+        }
+      },
+      "required": [
+        "model",
+        "id",
+        "field"
+      ],
+      "title": "ExtractionIdentifier",
+      "type": "object"
+    },
+    "GeologicAgeInformation": {
+      "properties": {
+        "legend_age": {
+          "description": "Text representation of age extracted from legend",
+          "title": "Legend Age",
+          "type": "string"
+        },
+        "t_interval": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Youngest interval",
+          "title": "T Interval"
+        },
+        "b_interval": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Oldest interval",
+          "title": "B Interval"
+        },
+        "t_age": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Youngest age",
+          "title": "T Age"
+        },
+        "b_age": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Oldest age",
+          "title": "B Age"
+        }
+      },
+      "required": [
+        "legend_age",
+        "t_interval",
+        "b_interval",
+        "t_age",
+        "b_age"
+      ],
+      "title": "GeologicAgeInformation",
+      "type": "object"
+    },
+    "GroundControlPoint": {
+      "description": "Ground control point",
+      "properties": {
+        "id": {
+          "description": "Internal ID",
+          "title": "Id",
+          "type": "integer"
+        },
+        "map_geom": {
+          "description": "Point geometry",
+          "title": "Map Geom"
+        },
+        "px_geom": {
+          "description": "Point geometry",
+          "title": "Px Geom"
+        }
+      },
+      "required": [
+        "id",
+        "map_geom",
+        "px_geom"
+      ],
+      "title": "GroundControlPoint",
+      "type": "object"
+    },
+    "LineType": {
+      "description": "Line type information.",
+      "properties": {
+        "id": {
+          "description": "Internal ID",
+          "title": "Id",
+          "type": "integer"
+        },
+        "type": {
+          "description": "Name of this line type",
+          "examples": [
+            "contact",
+            "normal fault",
+            "thrust fault"
+          ],
+          "title": "Type",
+          "type": "string"
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Description",
+          "title": "Description"
+        },
+        "dash_pattern": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Dash pattern description",
+          "title": "Dash Pattern"
+        },
+        "symbol": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Symbol description",
+          "title": "Symbol"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "description",
+        "dash_pattern",
+        "symbol"
+      ],
+      "title": "LineType",
+      "type": "object"
+    },
+    "MapLine": {
+      "description": "Line containing map unit information.",
+      "properties": {
+        "id": {
+          "description": "Internal ID",
+          "title": "Id",
+          "type": "integer"
+        },
+        "geometry": {
+          "description": "Line geometry",
+          "title": "Geometry"
+        },
+        "name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Name of this map feature",
+          "examples": [
+            "San Andreas Fault"
+          ],
+          "title": "Name"
+        },
+        "type": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/LineType"
+            }
+          ],
+          "description": "Line type"
+        },
+        "direction": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Line direction",
+          "examples": [
+            1,
+            -1
+          ],
+          "title": "Direction"
+        }
+      },
+      "required": [
+        "id",
+        "geometry",
+        "name",
+        "type",
+        "direction"
+      ],
+      "title": "MapLine",
+      "type": "object"
+    },
+    "MapPoint": {
+      "description": "Point for map measurement",
+      "properties": {
+        "id": {
+          "description": "Internal ID",
+          "title": "Id",
+          "type": "integer"
+        },
+        "type": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/PointType"
+            }
+          ],
+          "description": "Point type"
+        },
+        "geometry": {
+          "description": "Point geometry",
+          "title": "Geometry"
+        },
+        "dip_direction": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Dip direction",
+          "title": "Dip Direction"
+        },
+        "dip": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Dip",
+          "title": "Dip"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "geometry",
+        "dip_direction",
+        "dip"
+      ],
+      "title": "MapPoint",
+      "type": "object"
+    },
+    "MapPolygon": {
+      "description": "Polygon containing map unit information.",
+      "properties": {
+        "id": {
+          "description": "Internal ID",
+          "title": "Id",
+          "type": "integer"
+        },
+        "geometry": {
+          "description": "Polygon geometry",
+          "title": "Geometry"
+        },
+        "map_unit": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/MapUnit"
+            }
+          ],
+          "description": "Map unit information"
+        }
+      },
+      "required": [
+        "id",
+        "geometry",
+        "map_unit"
+      ],
+      "title": "MapPolygon",
+      "type": "object"
+    },
+    "MapUnit": {
+      "properties": {
+        "id": {
+          "description": "Internal ID",
+          "title": "Id",
+          "type": "integer"
+        },
+        "name": {
+          "description": "Map unit name extracted from legend",
+          "title": "Name",
+          "type": "string"
+        },
+        "color": {
+          "description": "Color extracted from map/legend",
+          "title": "Color",
+          "type": "string"
+        },
+        "pattern": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Pattern extracted from map/legend",
+          "title": "Pattern"
+        },
+        "abbreviation": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Abbreviation extracted from map/legend",
+          "title": "Abbreviation"
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Description text extracted from legend",
+          "title": "Description"
+        },
+        "lithology": {
+          "description": "Lithology extracted from legend",
+          "items": {
+            "type": "string"
+          },
+          "title": "Lithology",
+          "type": "array"
+        },
+        "comments": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Comments extracted from legend",
+          "title": "Comments"
+        },
+        "age": {
+          "$ref": "#/$defs/GeologicAgeInformation"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "color",
+        "pattern",
+        "abbreviation",
+        "description",
+        "lithology",
+        "comments",
+        "age"
+      ],
+      "title": "MapUnit",
+      "type": "object"
+    },
+    "ModelRunInformation": {
+      "properties": {
+        "pipeline_name": {
+          "description": "Model name",
+          "title": "Pipeline Name",
+          "type": "string"
+        },
+        "version": {
+          "description": "Model version",
+          "title": "Version",
+          "type": "string"
+        },
+        "timestamp": {
+          "description": "Time of model run",
+          "title": "Timestamp",
+          "type": "string"
+        },
+        "batch_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Batch ID",
+          "title": "Batch Id"
+        },
+        "image_size": {
+          "description": "Pixel size of the map image",
+          "items": {
+            "type": "integer"
+          },
+          "title": "Image Size",
+          "type": "array"
+        },
+        "confidence": {
+          "items": {
+            "$ref": "#/$defs/ConfidenceEstimation"
+          },
+          "title": "Confidence",
+          "type": "array"
+        },
+        "boxes": {
+          "items": {
+            "$ref": "#/$defs/PageExtraction"
+          },
+          "title": "Boxes",
+          "type": "array"
+        }
+      },
+      "required": [
+        "pipeline_name",
+        "version",
+        "timestamp",
+        "batch_id",
+        "image_size",
+        "confidence",
+        "boxes"
+      ],
+      "title": "ModelRunInformation",
+      "type": "object"
+    },
+    "PageExtraction": {
+      "description": "Extractions from a page used to estimate features",
+      "properties": {
+        "name": {
+          "description": "Name of the page extraction object",
+          "example": [
+            "Legend"
+          ],
+          "title": "Name",
+          "type": "string"
+        },
+        "ocr_text": {
+          "description": "OCR text of the page extraction",
+          "title": "Ocr Text",
+          "type": "string"
+        },
+        "color_estimation": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Color Estimation"
+        },
+        "bounds": {
+          "description": "Bounds of the page extraction, in pixel coordinates",
+          "title": "Bounds"
+        },
+        "model": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ExtractionIdentifier"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "name",
+        "ocr_text",
+        "color_estimation",
+        "bounds",
+        "model"
+      ],
+      "title": "PageExtraction",
+      "type": "object"
+    },
+    "PointType": {
+      "description": "Point type information.",
+      "properties": {
+        "id": {
+          "description": "Internal ID",
+          "title": "Id",
+          "type": "integer"
+        },
+        "type": {
+          "description": "Name of this point type",
+          "examples": [
+            "outcrop",
+            "borehole",
+            "geochron",
+            "strike/dip"
+          ],
+          "title": "Type",
+          "type": "string"
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Description",
+          "title": "Description"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "description"
+      ],
+      "title": "PointType",
+      "type": "object"
+    },
+    "ProjectionInformation": {
+      "properties": {
+        "gcps": {
+          "description": "Ground control points",
+          "items": {
+            "$ref": "#/$defs/GroundControlPoint"
+          },
+          "title": "Gcps",
+          "type": "array"
+        },
+        "projection": {
+          "description": "Map projection information",
+          "title": "Projection",
+          "type": "string"
+        }
+      },
+      "required": [
+        "gcps",
+        "projection"
+      ],
+      "title": "ProjectionInformation",
+      "type": "object"
+    }
+  },
+  "description": "Basic information about the extracted map.",
+  "properties": {
+    "name": {
+      "description": "Map name",
+      "title": "Name",
+      "type": "string"
+    },
+    "source_url": {
+      "description": "URL of the map source",
+      "title": "Source Url",
+      "type": "string"
+    },
+    "authors": {
+      "description": "Map authors",
+      "title": "Authors",
+      "type": "string"
+    },
+    "publisher": {
+      "description": "Map publisher",
+      "title": "Publisher",
+      "type": "string"
+    },
+    "year": {
+      "description": "Map publication year",
+      "title": "Year",
+      "type": "integer"
+    },
+    "organization": {
+      "description": "Map organization",
+      "title": "Organization",
+      "type": "string"
+    },
+    "scale": {
+      "description": "Map scale",
+      "title": "Scale",
+      "type": "string"
+    },
+    "bounds": {
+      "description": "Map geographic bounds",
+      "title": "Bounds"
+    },
+    "polygons": {
+      "items": {
+        "$ref": "#/$defs/MapPolygon"
+      },
+      "title": "Polygons",
+      "type": "array"
+    },
+    "lines": {
+      "items": {
+        "$ref": "#/$defs/MapLine"
+      },
+      "title": "Lines",
+      "type": "array"
+    },
+    "points": {
+      "items": {
+        "$ref": "#/$defs/MapPoint"
+      },
+      "title": "Points",
+      "type": "array"
+    },
+    "pipelines": {
+      "items": {
+        "$ref": "#/$defs/ModelRunInformation"
+      },
+      "title": "Pipelines",
+      "type": "array"
+    },
+    "projection_info": {
+      "$ref": "#/$defs/ProjectionInformation"
+    }
+  },
+  "required": [
+    "name",
+    "source_url",
+    "authors",
+    "publisher",
+    "year",
+    "organization",
+    "scale",
+    "bounds",
+    "polygons",
+    "lines",
+    "points",
+    "pipelines",
+    "projection_info"
+  ],
+  "title": "Map",
+  "type": "object"
+}

@@ -10,7 +10,12 @@ packages = [{include = "criticalmaas_schemas"}]
 python = "^3.10"
 pydantic = "^2.3.0"
 erdantic = "^0.6.0"
+geojson-pydantic = "^1.0.0"
+jsonschema2md = "^1.0.0"
 
+
+[tool.poetry.group.dev.dependencies]
+ipython = "^8.14.0"
 
 [build-system]
 requires = ["poetry-core"]

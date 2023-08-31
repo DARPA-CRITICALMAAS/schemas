@@ -1,0 +1,38 @@
+anticline
+antiform
+bed
+crater
+dike
+escarpment
+fault
+fault zone
+flow
+fold
+fold axis
+foliation
+fracture
+growth fault
+landslide scarp
+lava tube
+lineament
+marker bed
+monocline
+moraine
+mylonite
+joint
+normal fault
+reverse fault
+strike-slip fault
+scarp
+shear zone
+shoreline
+sill
+slide
+slump
+suture
+syncline
+synform
+thrust
+thrust fault
+unconformity
+vein
