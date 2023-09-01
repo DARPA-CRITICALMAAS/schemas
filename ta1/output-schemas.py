@@ -8,22 +8,31 @@ import erdantic as erd
 Polygon = TypeVar("Polygon")
 Line = TypeVar("Line")
 Point = TypeVar("Point")
+Image = TypeVar("Image")
 WKT = TypeVar("WKT", bound=str)
 
 
 class GeologicAgeInformation(BaseModel):
-    legend_age: str = Field(
+    """
+    Information about the geologic age of a map unit.
+    """
+
+    age_text: str = Field(
         ..., description="Text representation of age extracted from legend"
     )
-    t_interval: Optional[str | int] = Field(..., description="Youngest interval")
-    b_interval: Optional[str | int] = Field(..., description="Oldest interval")
-    t_age: Optional[int] = Field(..., description="Youngest age")
-    b_age: Optional[int] = Field(..., description="Oldest age")
+    t_interval: Optional[str | int] = Field(
+        ..., description="Youngest interval", examples=["Holocene", "Cretaceous"]
+    )
+    b_interval: Optional[str | int] = Field(
+        ..., description="Oldest interval", examples=["Mesozoic", "Neoproterozoic"]
+    )
+    t_age: Optional[int] = Field(..., description="Minimum age (in Ma)")
+    b_age: Optional[int] = Field(..., description="Maximum age (in Ma)")
 
 
 class MapUnit(BaseModel):
     id: int = Field(..., description="Internal ID")
-    name: str = Field(..., description="Map unit name extracted from legend")
+    name: str = Field(..., description="Geologic unit name extracted from legend")
 
     color: str = Field(..., description="Color extracted from map/legend")
     pattern: Optional[str] = Field(..., description="Pattern extracted from map/legend")
@@ -33,12 +42,15 @@ class MapUnit(BaseModel):
     description: Optional[str] = Field(
         ..., description="Description text extracted from legend"
     )
-    lithology: list[str] = Field(..., description="Lithology extracted from legend")
+    lithology: list[str] = Field(
+        ..., description="Lithology information extracted from legend"
+    )
     comments: Optional[str] = Field(..., description="Comments extracted from legend")
+    category: Optional[str] = Field(..., description="Name of containing legend block")
     age: GeologicAgeInformation
 
 
-class MapPolygon(BaseModel):
+class PolygonFeature(BaseModel):
     """Polygon containing map unit information."""
 
     id: int = Field(..., description="Internal ID")
@@ -62,7 +74,7 @@ class LineType(BaseModel):
     symbol: Optional[str] = Field(..., description="Symbol description")
 
 
-class MapLine(BaseModel):
+class LineFeature(BaseModel):
     """Line containing map unit information."""
 
     id: int = Field(..., description="Internal ID")
@@ -90,7 +102,7 @@ class PointType(BaseModel):
     description: Optional[str] = Field(..., description="Description")
 
 
-class MapPoint(BaseModel):
+class PointFeature(BaseModel):
     """Point for map measurement"""
 
     id: int = Field(..., description="Internal ID")
@@ -100,6 +112,14 @@ class MapPoint(BaseModel):
     dip: Optional[float] = Field(..., description="Dip")
 
 
+class MapFeatureExtractions(BaseModel):
+    """Extractions from a map used to estimate features"""
+
+    polygons: list[PolygonFeature] = Field(..., description="Map polygons")
+    lines: list[LineFeature] = Field(..., description="Map lines")
+    points: list[PointFeature] = Field(..., description="Map points")
+
+
 class ExtractionIdentifier(BaseModel):
     """Link to extracted model"""
 
@@ -107,13 +127,12 @@ class ExtractionIdentifier(BaseModel):
         ...,
         description="Model name",
         example=[
-            "MapPolygon",
-            "MapLine",
-            "MapPoint",
+            "PolygonFeature",
+            "LineFeature",
+            "PointFeature",
             "MapUnit",
             "LineType",
             "PointType",
-            "Map",
         ],
     )
     id: int = Field(..., description="ID of the extracted feature")
@@ -175,6 +194,16 @@ class ModelRunInformation(BaseModel):
     boxes: list[PageExtraction]
 
 
+class CrossSectionInformation(BaseModel):
+    """Information about a geological cross section (lines of section + images).
+    This would be nice to have but isn't required."""
+
+    id: int = Field(..., description="Internal ID")
+    label: str = Field(..., description="Cross section label")
+    line_of_section: Line = Field(..., description="Geographic line of section")
+    image: Image = Field(..., description="Image of the cross section")
+
+
 class Map(BaseModel):
     """Basic information about the extracted map."""
 
@@ -187,9 +216,8 @@ class Map(BaseModel):
     scale: str = Field(..., description="Map scale")
     bounds: Polygon = Field(..., description="Map geographic bounds")
 
-    polygons: list[MapPolygon]
-    lines: list[MapLine]
-    points: list[MapPoint]
+    features: MapFeatureExtractions
+    cross_section: Optional[CrossSectionInformation]
 
     pipelines: list[ModelRunInformation]
     projection_info: ProjectionInformation
@@ -211,8 +239,12 @@ parser = Parser(
 )
 
 md_lines = []
-for d in graph.models:
-    schema = d.model.model_json_schema()
+
+sub_models = [d.model for d in graph.models if d.model is not Map]
+models = [Map] + sub_models
+
+for d in models:
+    schema = d.model_json_schema()
     lines = parser.parse_schema(schema)
     md_lines.extend(lines)
     md_lines.append("\n")

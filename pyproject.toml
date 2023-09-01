@@ -2,9 +2,9 @@
 name = "criticalmaas-schemas"
 version = "0.1.0"
 description = "Schemas for the DARPA CriticalMAAS project"
-authors = ["Daven Quinn <dev@davenquinn.com>"]
+authors = []
 readme = "README.md"
-packages = [{include = "criticalmaas_schemas"}]
+packages = []
 
 [tool.poetry.dependencies]
 python = "^3.10"

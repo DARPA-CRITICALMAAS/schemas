@@ -62,19 +62,49 @@
       "title": "ConfidenceScale",
       "type": "object"
     },
+    "CrossSectionInformation": {
+      "description": "Information about a geological cross section (lines of section + images).\nThis would be nice to have but isn't required.",
+      "properties": {
+        "id": {
+          "description": "Internal ID",
+          "title": "Id",
+          "type": "integer"
+        },
+        "label": {
+          "description": "Cross section label",
+          "title": "Label",
+          "type": "string"
+        },
+        "line_of_section": {
+          "description": "Geographic line of section",
+          "title": "Line Of Section"
+        },
+        "image": {
+          "description": "Image of the cross section",
+          "title": "Image"
+        }
+      },
+      "required": [
+        "id",
+        "label",
+        "line_of_section",
+        "image"
+      ],
+      "title": "CrossSectionInformation",
+      "type": "object"
+    },
     "ExtractionIdentifier": {
       "description": "Link to extracted model",
       "properties": {
         "model": {
           "description": "Model name",
           "example": [
-            "MapPolygon",
-            "MapLine",
-            "MapPoint",
+            "PolygonFeature",
+            "LineFeature",
+            "PointFeature",
             "MapUnit",
             "LineType",
-            "PointType",
-            "Map"
+            "PointType"
           ],
           "title": "Model",
           "type": "string"
@@ -99,10 +129,11 @@
       "type": "object"
     },
     "GeologicAgeInformation": {
+      "description": "Information about the geologic age of a map unit.",
       "properties": {
-        "legend_age": {
+        "age_text": {
           "description": "Text representation of age extracted from legend",
-          "title": "Legend Age",
+          "title": "Age Text",
           "type": "string"
         },
         "t_interval": {
@@ -118,6 +149,10 @@
             }
           ],
           "description": "Youngest interval",
+          "examples": [
+            "Holocene",
+            "Cretaceous"
+          ],
           "title": "T Interval"
         },
         "b_interval": {
@@ -133,6 +168,10 @@
             }
           ],
           "description": "Oldest interval",
+          "examples": [
+            "Mesozoic",
+            "Neoproterozoic"
+          ],
           "title": "B Interval"
         },
         "t_age": {
@@ -144,7 +183,7 @@
               "type": "null"
             }
           ],
-          "description": "Youngest age",
+          "description": "Minimum age (in Ma)",
           "title": "T Age"
         },
         "b_age": {
@@ -156,12 +195,12 @@
               "type": "null"
             }
           ],
-          "description": "Oldest age",
+          "description": "Maximum age (in Ma)",
           "title": "B Age"
         }
       },
       "required": [
-        "legend_age",
+        "age_text",
         "t_interval",
         "b_interval",
         "t_age",
@@ -193,6 +232,68 @@
         "px_geom"
       ],
       "title": "GroundControlPoint",
+      "type": "object"
+    },
+    "LineFeature": {
+      "description": "Line containing map unit information.",
+      "properties": {
+        "id": {
+          "description": "Internal ID",
+          "title": "Id",
+          "type": "integer"
+        },
+        "geometry": {
+          "description": "Line geometry",
+          "title": "Geometry"
+        },
+        "name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Name of this map feature",
+          "examples": [
+            "San Andreas Fault"
+          ],
+          "title": "Name"
+        },
+        "type": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/LineType"
+            }
+          ],
+          "description": "Line type"
+        },
+        "direction": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Line direction",
+          "examples": [
+            1,
+            -1
+          ],
+          "title": "Direction"
+        }
+      },
+      "required": [
+        "id",
+        "geometry",
+        "name",
+        "type",
+        "direction"
+      ],
+      "title": "LineFeature",
       "type": "object"
     },
     "LineType": {
@@ -260,150 +361,40 @@
       "title": "LineType",
       "type": "object"
     },
-    "MapLine": {
-      "description": "Line containing map unit information.",
+    "MapFeatureExtractions": {
+      "description": "Extractions from a map used to estimate features",
       "properties": {
-        "id": {
-          "description": "Internal ID",
-          "title": "Id",
-          "type": "integer"
+        "polygons": {
+          "description": "Map polygons",
+          "items": {
+            "$ref": "#/$defs/PolygonFeature"
+          },
+          "title": "Polygons",
+          "type": "array"
         },
-        "geometry": {
-          "description": "Line geometry",
-          "title": "Geometry"
+        "lines": {
+          "description": "Map lines",
+          "items": {
+            "$ref": "#/$defs/LineFeature"
+          },
+          "title": "Lines",
+          "type": "array"
         },
-        "name": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "description": "Name of this map feature",
-          "examples": [
-            "San Andreas Fault"
-          ],
-          "title": "Name"
-        },
-        "type": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/LineType"
-            }
-          ],
-          "description": "Line type"
-        },
-        "direction": {
-          "anyOf": [
-            {
-              "type": "integer"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "description": "Line direction",
-          "examples": [
-            1,
-            -1
-          ],
-          "title": "Direction"
+        "points": {
+          "description": "Map points",
+          "items": {
+            "$ref": "#/$defs/PointFeature"
+          },
+          "title": "Points",
+          "type": "array"
         }
       },
       "required": [
-        "id",
-        "geometry",
-        "name",
-        "type",
-        "direction"
+        "polygons",
+        "lines",
+        "points"
       ],
-      "title": "MapLine",
-      "type": "object"
-    },
-    "MapPoint": {
-      "description": "Point for map measurement",
-      "properties": {
-        "id": {
-          "description": "Internal ID",
-          "title": "Id",
-          "type": "integer"
-        },
-        "type": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/PointType"
-            }
-          ],
-          "description": "Point type"
-        },
-        "geometry": {
-          "description": "Point geometry",
-          "title": "Geometry"
-        },
-        "dip_direction": {
-          "anyOf": [
-            {
-              "type": "number"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "description": "Dip direction",
-          "title": "Dip Direction"
-        },
-        "dip": {
-          "anyOf": [
-            {
-              "type": "number"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "description": "Dip",
-          "title": "Dip"
-        }
-      },
-      "required": [
-        "id",
-        "type",
-        "geometry",
-        "dip_direction",
-        "dip"
-      ],
-      "title": "MapPoint",
-      "type": "object"
-    },
-    "MapPolygon": {
-      "description": "Polygon containing map unit information.",
-      "properties": {
-        "id": {
-          "description": "Internal ID",
-          "title": "Id",
-          "type": "integer"
-        },
-        "geometry": {
-          "description": "Polygon geometry",
-          "title": "Geometry"
-        },
-        "map_unit": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/MapUnit"
-            }
-          ],
-          "description": "Map unit information"
-        }
-      },
-      "required": [
-        "id",
-        "geometry",
-        "map_unit"
-      ],
-      "title": "MapPolygon",
+      "title": "MapFeatureExtractions",
       "type": "object"
     },
     "MapUnit": {
@@ -414,7 +405,7 @@
           "type": "integer"
         },
         "name": {
-          "description": "Map unit name extracted from legend",
+          "description": "Geologic unit name extracted from legend",
           "title": "Name",
           "type": "string"
         },
@@ -460,7 +451,7 @@
           "title": "Description"
         },
         "lithology": {
-          "description": "Lithology extracted from legend",
+          "description": "Lithology information extracted from legend",
           "items": {
             "type": "string"
           },
@@ -479,6 +470,18 @@
           "description": "Comments extracted from legend",
           "title": "Comments"
         },
+        "category": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Name of containing legend block",
+          "title": "Category"
+        },
         "age": {
           "$ref": "#/$defs/GeologicAgeInformation"
         }
@@ -492,6 +495,7 @@
         "description",
         "lithology",
         "comments",
+        "category",
         "age"
       ],
       "title": "MapUnit",
@@ -613,6 +617,61 @@
       "title": "PageExtraction",
       "type": "object"
     },
+    "PointFeature": {
+      "description": "Point for map measurement",
+      "properties": {
+        "id": {
+          "description": "Internal ID",
+          "title": "Id",
+          "type": "integer"
+        },
+        "type": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/PointType"
+            }
+          ],
+          "description": "Point type"
+        },
+        "geometry": {
+          "description": "Point geometry",
+          "title": "Geometry"
+        },
+        "dip_direction": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Dip direction",
+          "title": "Dip Direction"
+        },
+        "dip": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Dip",
+          "title": "Dip"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "geometry",
+        "dip_direction",
+        "dip"
+      ],
+      "title": "PointFeature",
+      "type": "object"
+    },
     "PointType": {
       "description": "Point type information.",
       "properties": {
@@ -651,6 +710,35 @@
         "description"
       ],
       "title": "PointType",
+      "type": "object"
+    },
+    "PolygonFeature": {
+      "description": "Polygon containing map unit information.",
+      "properties": {
+        "id": {
+          "description": "Internal ID",
+          "title": "Id",
+          "type": "integer"
+        },
+        "geometry": {
+          "description": "Polygon geometry",
+          "title": "Geometry"
+        },
+        "map_unit": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/MapUnit"
+            }
+          ],
+          "description": "Map unit information"
+        }
+      },
+      "required": [
+        "id",
+        "geometry",
+        "map_unit"
+      ],
+      "title": "PolygonFeature",
       "type": "object"
     },
     "ProjectionInformation": {
@@ -718,26 +806,18 @@
       "description": "Map geographic bounds",
       "title": "Bounds"
     },
-    "polygons": {
-      "items": {
-        "$ref": "#/$defs/MapPolygon"
-      },
-      "title": "Polygons",
-      "type": "array"
+    "features": {
+      "$ref": "#/$defs/MapFeatureExtractions"
     },
-    "lines": {
-      "items": {
-        "$ref": "#/$defs/MapLine"
-      },
-      "title": "Lines",
-      "type": "array"
-    },
-    "points": {
-      "items": {
-        "$ref": "#/$defs/MapPoint"
-      },
-      "title": "Points",
-      "type": "array"
+    "cross_section": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/CrossSectionInformation"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "pipelines": {
       "items": {
@@ -759,9 +839,8 @@
     "organization",
     "scale",
     "bounds",
-    "polygons",
-    "lines",
-    "points",
+    "features",
+    "cross_section",
     "pipelines",
     "projection_info"
   ],

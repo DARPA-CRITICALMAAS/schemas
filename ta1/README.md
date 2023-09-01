@@ -9,7 +9,7 @@ This proposed structure for TA1 output schemas contains feature extraction model
 
 TA1 output schemas are defined in the [TA1 output JSONSchema](output-schemas.json) file.
 
-For expediency, the JSON schema was compiled using [`pydantic`](https://docs.pydantic.dev/latest/) model builder in Python, which provides a terse API. This also allows an entity-relationship diagram to be generated.
+The JSON schemas were compiled using [`pydantic`](https://docs.pydantic.dev/latest/) model builder in Python, which provides a terse API. This also allows an entity-relationship diagram to be generated.
 
 ![TA1 output schema summary](output-schemas.png)
 
