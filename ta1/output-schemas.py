@@ -30,7 +30,7 @@ class GeologicAgeInformation(BaseModel):
     b_age: Optional[int] = Field(..., description="Maximum age (in Ma)")
 
 
-class MapUnit(BaseModel):
+class MapUnit(GeologicAgeInformation):
     id: int = Field(..., description="Internal ID")
     name: str = Field(..., description="Geologic unit name extracted from legend")
 
@@ -47,7 +47,6 @@ class MapUnit(BaseModel):
     )
     comments: Optional[str] = Field(..., description="Comments extracted from legend")
     category: Optional[str] = Field(..., description="Name of containing legend block")
-    age: GeologicAgeInformation
 
 
 class PolygonFeature(BaseModel):

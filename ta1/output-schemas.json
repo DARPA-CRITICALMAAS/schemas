@@ -128,87 +128,6 @@
       "title": "ExtractionIdentifier",
       "type": "object"
     },
-    "GeologicAgeInformation": {
-      "description": "Information about the geologic age of a map unit.",
-      "properties": {
-        "age_text": {
-          "description": "Text representation of age extracted from legend",
-          "title": "Age Text",
-          "type": "string"
-        },
-        "t_interval": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "integer"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "description": "Youngest interval",
-          "examples": [
-            "Holocene",
-            "Cretaceous"
-          ],
-          "title": "T Interval"
-        },
-        "b_interval": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "integer"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "description": "Oldest interval",
-          "examples": [
-            "Mesozoic",
-            "Neoproterozoic"
-          ],
-          "title": "B Interval"
-        },
-        "t_age": {
-          "anyOf": [
-            {
-              "type": "integer"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "description": "Minimum age (in Ma)",
-          "title": "T Age"
-        },
-        "b_age": {
-          "anyOf": [
-            {
-              "type": "integer"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "description": "Maximum age (in Ma)",
-          "title": "B Age"
-        }
-      },
-      "required": [
-        "age_text",
-        "t_interval",
-        "b_interval",
-        "t_age",
-        "b_age"
-      ],
-      "title": "GeologicAgeInformation",
-      "type": "object"
-    },
     "GroundControlPoint": {
       "description": "Ground control point",
       "properties": {
@@ -399,6 +318,73 @@
     },
     "MapUnit": {
       "properties": {
+        "age_text": {
+          "description": "Text representation of age extracted from legend",
+          "title": "Age Text",
+          "type": "string"
+        },
+        "t_interval": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Youngest interval",
+          "examples": [
+            "Holocene",
+            "Cretaceous"
+          ],
+          "title": "T Interval"
+        },
+        "b_interval": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Oldest interval",
+          "examples": [
+            "Mesozoic",
+            "Neoproterozoic"
+          ],
+          "title": "B Interval"
+        },
+        "t_age": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Minimum age (in Ma)",
+          "title": "T Age"
+        },
+        "b_age": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Maximum age (in Ma)",
+          "title": "B Age"
+        },
         "id": {
           "description": "Internal ID",
           "title": "Id",
@@ -481,12 +467,14 @@
           ],
           "description": "Name of containing legend block",
           "title": "Category"
-        },
-        "age": {
-          "$ref": "#/$defs/GeologicAgeInformation"
         }
       },
       "required": [
+        "age_text",
+        "t_interval",
+        "b_interval",
+        "t_age",
+        "b_age",
         "id",
         "name",
         "color",
@@ -495,8 +483,7 @@
         "description",
         "lithology",
         "comments",
-        "category",
-        "age"
+        "category"
       ],
       "title": "MapUnit",
       "type": "object"

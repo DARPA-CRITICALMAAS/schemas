@@ -34,7 +34,7 @@
 
 ## ConfidenceScale
 
-*Measurement scale for map extraction confidence*
+*Confidence measure for a map extraction*
 
 ### Properties
 
@@ -64,52 +64,6 @@ This would be nice to have but isn't required.*
 - **`model`** *(string)*: Model name.
 - **`id`** *(integer)*: ID of the extracted feature.
 - **`field`** *(string)*: Field name of the model.
-
-## GeologicAgeInformation
-
-*Information about the geologic age of a map unit.*
-
-### Properties
-
-- **`age_text`** *(string)*: Text representation of age extracted from legend.
-- **`t_interval`**: Youngest interval.
-  - **Any of**
-    - *string*
-    - *integer*
-    - *null*
-
-  Examples:
-  ```json
-  "Holocene"
-  ```
-
-  ```json
-  "Cretaceous"
-  ```
-
-- **`b_interval`**: Oldest interval.
-  - **Any of**
-    - *string*
-    - *integer*
-    - *null*
-
-  Examples:
-  ```json
-  "Mesozoic"
-  ```
-
-  ```json
-  "Neoproterozoic"
-  ```
-
-- **`t_age`**: Minimum age (in Ma).
-  - **Any of**
-    - *integer*
-    - *null*
-- **`b_age`**: Maximum age (in Ma).
-  - **Any of**
-    - *integer*
-    - *null*
 
 ## GroundControlPoint
 
@@ -209,6 +163,45 @@ This would be nice to have but isn't required.*
 
 ### Properties
 
+- **`age_text`** *(string)*: Text representation of age extracted from legend.
+- **`t_interval`**: Youngest interval.
+  - **Any of**
+    - *string*
+    - *integer*
+    - *null*
+
+  Examples:
+  ```json
+  "Holocene"
+  ```
+
+  ```json
+  "Cretaceous"
+  ```
+
+- **`b_interval`**: Oldest interval.
+  - **Any of**
+    - *string*
+    - *integer*
+    - *null*
+
+  Examples:
+  ```json
+  "Mesozoic"
+  ```
+
+  ```json
+  "Neoproterozoic"
+  ```
+
+- **`t_age`**: Minimum age (in Ma).
+  - **Any of**
+    - *integer*
+    - *null*
+- **`b_age`**: Maximum age (in Ma).
+  - **Any of**
+    - *integer*
+    - *null*
 - **`id`** *(integer)*: Internal ID.
 - **`name`** *(string)*: Geologic unit name extracted from legend.
 - **`color`** *(string)*: Color extracted from map/legend.
@@ -234,7 +227,6 @@ This would be nice to have but isn't required.*
   - **Any of**
     - *string*
     - *null*
-- **`age`**: Refer to *[GeologicAgeInformation](#GeologicAgeInformation)*.
 
 ## ModelRunInformation
 
