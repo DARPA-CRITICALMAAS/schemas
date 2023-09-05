@@ -4,9 +4,16 @@
       "description": "Bounding age of a map unit",
       "properties": {
         "age": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "description": "Age in Ma, if known",
-          "title": "Age",
-          "type": "integer"
+          "title": "Age"
         },
         "interval": {
           "description": "Age interval name",

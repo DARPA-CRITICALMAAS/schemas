@@ -17,7 +17,10 @@
 
 ### Properties
 
-- **`age`** *(integer)*: Age in Ma, if known.
+- **`age`**: Age in Ma, if known.
+  - **Any of**
+    - *number*
+    - *null*
 - **`interval`** *(string)*: Age interval name.
 
   Examples:

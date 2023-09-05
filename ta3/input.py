@@ -13,7 +13,7 @@ WKT = TypeVar("WKT", bound=str)
 class BoundaryAge(BaseModel):
     """Bounding age of a map unit"""
 
-    age: int = Field(..., description="Age in Ma, if known")
+    age: Optional[float] = Field(..., description="Age in Ma, if known")
     interval: str = Field(
         ..., description="Age interval name", examples=["Holocene", "Cretaceous"]
     )
