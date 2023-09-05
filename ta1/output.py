@@ -1,9 +1,5 @@
 from pydantic import BaseModel, Field
 from typing import Optional, TypeVar
-from json import dumps
-from jsonschema2md import Parser
-
-import erdantic as erd
 
 Polygon = TypeVar("Polygon")
 Line = TypeVar("Line")
@@ -234,37 +230,3 @@ class Map(BaseModel):
 
     pipelines: list[ModelRun]
     projection_info: ProjectionMeta
-
-
-graph = erd.create(Map)
-
-name = "output-schemas"
-# Easy one-liner
-graph.draw(out=name + ".png")
-
-schema = Map.model_json_schema()
-
-with open(name + ".json", "w") as f:
-    f.write(dumps(schema, indent=2))
-
-parser = Parser(
-    examples_as_yaml=False,
-)
-
-md_lines = []
-
-sub_models = [d.model for d in graph.models if d.model is not Map]
-models = [Map] + sub_models
-
-for d in models:
-    schema = d.model_json_schema()
-    lines = parser.parse_schema(schema)
-    md_lines.extend(lines)
-    md_lines.append("\n")
-
-text = "".join(md_lines).replace("#/$defs/", "").replace("#$defs/", "#")
-# Move headers down a level
-text = text.replace("\n#", "\n##")
-
-with open(name + ".md", "w") as f:
-    f.write(text)

@@ -75,6 +75,7 @@ class MapLine(BaseModel):
         ..., description="Name of the line", examples=["San Andreas Fault"]
     )
     direction: int = Field(..., description="Direction of the line", examples=[1, -1])
+    source: Map = Field(..., description="Source map of the line")
 
 
 class MapPoint(BaseModel):
@@ -87,7 +88,18 @@ class MapPoint(BaseModel):
     dip: Optional[float] = Field(..., description="Dip of the point")
     dip_direction: Optional[float] = Field(..., description="Strike of the point")
     description: str = Field(..., description="Description of the point")
-    source: Map = Field(..., description="Source map of the line")
+    source: Map = Field(..., description="Source map of the point")
+
+
+class MapTile(BaseModel):
+    """A tile representing geologic map information covering a small area."""
+
+    x: int = Field(..., description="X coordinate of the tile")
+    y: int = Field(..., description="Y coordinate of the tile")
+    z: int = Field(..., description="Z coordinate of the tile")
+    units: list[MapPolygon] = Field(..., description="Map units in the tile")
+    lines: list[MapLine] = Field(..., description="Lines in the tile")
+    points: list[MapPoint] = Field(..., description="Points in the tile")
 
 
 class Tileset(BaseModel):
@@ -97,18 +109,7 @@ class Tileset(BaseModel):
     crs: WKT = Field(
         ...,
         description="Coordinate reference system of the tile scheme",
-        default="EPSG:3857 (Web Mercator)",
+        # default="EPSG:3857 (Web Mercator)",
     )
     tile_size: int = Field(..., description="Size of the tiles in the scheme")
-
-
-class MapTile(BaseModel):
-    """A tile representing geologic map information covering a small area."""
-
-    tileset: Tileset = Field(..., description="Tiling scheme information")
-    x: int = Field(..., description="X coordinate of the tile")
-    y: int = Field(..., description="Y coordinate of the tile")
-    z: int = Field(..., description="Z coordinate of the tile")
-    units: list[MapPolygon] = Field(..., description="Map units in the tile")
-    lines: list[MapLine] = Field(..., description="Lines in the tile")
-    points: list[MapPoint] = Field(..., description="Points in the tile")
+    tiles: list[MapTile] = Field(..., description="List of tiles in the scheme")
