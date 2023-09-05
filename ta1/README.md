@@ -6,7 +6,9 @@
 
 TA1 output schemas are defined in the [TA1 output JSONSchema](output-schemas.json) file.
 
-The JSON schemas were compiled using [`pydantic`](https://docs.pydantic.dev/latest/) model builder in Python, which provides a terse API for JSON schema construction. This also allows an entity-relationship diagram to be generated.
+The JSON schemas were compiled using [`pydantic`](https://docs.pydantic.dev/latest/)
+model builder in Python, which provides a terse API for JSON schema construction.
+This also allows an entity-relationship diagram to be generated.
 
 ![TA1 output schema summary](output-schemas.png)
 
@@ -16,7 +18,8 @@ Documentation of each schema: [**TA1 output schema documentation**](output-schem
 
 #### MapFeatureExtractions
 
-This set of models describes geographic features extracted from the map and their legend descriptions.
+This set of models describes geographic features extracted from the map and their legend descriptions. The structure of this
+schema unit is set up to closely mimic the structure of a typical attribute table for a vector geologic map.
 
 *Notes:* The line types, age intervals, lithologies, and unit names should ideally
 be checked against a controlled vocabulary (which can be provided by Macrostrat's API or pre-defined). See [example line types](example-data/example-line-types.txt)

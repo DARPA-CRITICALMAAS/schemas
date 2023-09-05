@@ -5,7 +5,8 @@
 ### Properties
 
 - **`name`** *(string)*: Map name.
-- **`source_url`** *(string)*: URL of the map source.
+- **`source_url`** *(string)*: URL of the map source (e.g., NGMDB information page).
+- **`image_url`** *(string)*: URL of the map image, as a web-accessible, cloud-optimized GeoTIFF.
 - **`authors`** *(string)*: Map authors.
 - **`publisher`** *(string)*: Map publisher.
 - **`year`** *(integer)*: Map publication year.
@@ -13,13 +14,11 @@
 - **`scale`** *(string)*: Map scale.
 - **`bounds`**: Map geographic bounds.
 - **`features`**: Refer to *[MapFeatureExtractions](#MapFeatureExtractions)*.
-- **`cross_section`**
-  - **Any of**
-    - : Refer to *[CrossSectionInformation](#CrossSectionInformation)*.
-    - *null*
+- **`cross_sections`** *(array)*
+  - **Items**: Refer to *[CrossSection](#CrossSection)*.
 - **`pipelines`** *(array)*
-  - **Items**: Refer to *[ModelRunInformation](#ModelRunInformation)*.
-- **`projection_info`**: Refer to *[ProjectionInformation](#ProjectionInformation)*.
+  - **Items**: Refer to *[ModelRun](#ModelRun)*.
+- **`projection_info`**: Refer to *[ProjectionMeta](#ProjectionMeta)*.
 
 ## ConfidenceEstimation
 
@@ -43,10 +42,11 @@
 - **`min_value`** *(number)*: Minimum value.
 - **`max_value`** *(number)*: Maximum value.
 
-## CrossSectionInformation
+## CrossSection
 
 *Information about a geological cross section (lines of section + images).
-This would be nice to have but isn't required.*
+
+NOTE: This would be nice to have but isn't required (especially for the initial target).*
 
 ### Properties
 
@@ -228,7 +228,9 @@ This would be nice to have but isn't required.*
     - *string*
     - *null*
 
-## ModelRunInformation
+## ModelRun
+
+*Information about a model run.*
 
 ### Properties
 
@@ -327,7 +329,10 @@ This would be nice to have but isn't required.*
   - **All of**
     - : Refer to *[MapUnit](#MapUnit)*.
 
-## ProjectionInformation
+## ProjectionMeta
+
+*Information about the map projection. Projection information should also be applied
+to the map image and output vector data (if using GeoPackage output format).*
 
 ### Properties
 

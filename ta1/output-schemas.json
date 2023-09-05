@@ -62,8 +62,8 @@
       "title": "ConfidenceScale",
       "type": "object"
     },
-    "CrossSectionInformation": {
-      "description": "Information about a geological cross section (lines of section + images).\nThis would be nice to have but isn't required.",
+    "CrossSection": {
+      "description": "Information about a geological cross section (lines of section + images).\n\nNOTE: This would be nice to have but isn't required (especially for the initial target).",
       "properties": {
         "id": {
           "description": "Internal ID",
@@ -90,7 +90,7 @@
         "line_of_section",
         "image"
       ],
-      "title": "CrossSectionInformation",
+      "title": "CrossSection",
       "type": "object"
     },
     "ExtractionIdentifier": {
@@ -437,7 +437,7 @@
           "title": "Description"
         },
         "lithology": {
-          "description": "Lithology information extracted from legend",
+          "description": "Lithology information extracted from legend.",
           "items": {
             "type": "string"
           },
@@ -488,7 +488,8 @@
       "title": "MapUnit",
       "type": "object"
     },
-    "ModelRunInformation": {
+    "ModelRun": {
+      "description": "Information about a model run.",
       "properties": {
         "pipeline_name": {
           "description": "Model name",
@@ -549,7 +550,7 @@
         "confidence",
         "boxes"
       ],
-      "title": "ModelRunInformation",
+      "title": "ModelRun",
       "type": "object"
     },
     "PageExtraction": {
@@ -728,7 +729,8 @@
       "title": "PolygonFeature",
       "type": "object"
     },
-    "ProjectionInformation": {
+    "ProjectionMeta": {
+      "description": "Information about the map projection. Projection information should also be applied\nto the map image and output vector data (if using GeoPackage output format).",
       "properties": {
         "gcps": {
           "description": "Ground control points",
@@ -748,7 +750,7 @@
         "gcps",
         "projection"
       ],
-      "title": "ProjectionInformation",
+      "title": "ProjectionMeta",
       "type": "object"
     }
   },
@@ -760,8 +762,13 @@
       "type": "string"
     },
     "source_url": {
-      "description": "URL of the map source",
+      "description": "URL of the map source (e.g., NGMDB information page)",
       "title": "Source Url",
+      "type": "string"
+    },
+    "image_url": {
+      "description": "URL of the map image, as a web-accessible, cloud-optimized GeoTIFF",
+      "title": "Image Url",
       "type": "string"
     },
     "authors": {
@@ -796,30 +803,28 @@
     "features": {
       "$ref": "#/$defs/MapFeatureExtractions"
     },
-    "cross_section": {
-      "anyOf": [
-        {
-          "$ref": "#/$defs/CrossSectionInformation"
-        },
-        {
-          "type": "null"
-        }
-      ]
+    "cross_sections": {
+      "items": {
+        "$ref": "#/$defs/CrossSection"
+      },
+      "title": "Cross Sections",
+      "type": "array"
     },
     "pipelines": {
       "items": {
-        "$ref": "#/$defs/ModelRunInformation"
+        "$ref": "#/$defs/ModelRun"
       },
       "title": "Pipelines",
       "type": "array"
     },
     "projection_info": {
-      "$ref": "#/$defs/ProjectionInformation"
+      "$ref": "#/$defs/ProjectionMeta"
     }
   },
   "required": [
     "name",
     "source_url",
+    "image_url",
     "authors",
     "publisher",
     "year",
@@ -827,7 +832,7 @@
     "scale",
     "bounds",
     "features",
-    "cross_section",
+    "cross_sections",
     "pipelines",
     "projection_info"
   ],

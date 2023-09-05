@@ -12,7 +12,7 @@ Image = TypeVar("Image")
 WKT = TypeVar("WKT", bound=str)
 
 
-class GeologicAgeInformation(BaseModel):
+class GeologicAgeData(BaseModel):
     """
     Information about the geologic age of a map unit.
     """
@@ -30,7 +30,7 @@ class GeologicAgeInformation(BaseModel):
     b_age: Optional[int] = Field(..., description="Maximum age (in Ma)")
 
 
-class MapUnit(GeologicAgeInformation):
+class MapUnit(GeologicAgeData):
     id: int = Field(..., description="Internal ID")
     name: str = Field(..., description="Geologic unit name extracted from legend")
 
@@ -43,7 +43,7 @@ class MapUnit(GeologicAgeInformation):
         ..., description="Description text extracted from legend"
     )
     lithology: list[str] = Field(
-        ..., description="Lithology information extracted from legend"
+        ..., description="Lithology information extracted from legend."
     )
     comments: Optional[str] = Field(..., description="Comments extracted from legend")
     category: Optional[str] = Field(..., description="Name of containing legend block")
@@ -178,12 +178,17 @@ class GroundControlPoint(BaseModel):
     px_geom: Point = Field(..., description="Point geometry")
 
 
-class ProjectionInformation(BaseModel):
+class ProjectionMeta(BaseModel):
+    """Information about the map projection. Projection information should also be applied
+    to the map image and output vector data (if using GeoPackage output format)."""
+
     gcps: list[GroundControlPoint] = Field(..., description="Ground control points")
     projection: WKT = Field(..., description="Map projection information")
 
 
-class ModelRunInformation(BaseModel):
+class ModelRun(BaseModel):
+    """Information about a model run."""
+
     pipeline_name: str = Field(..., description="Model name")
     version: str = Field(..., description="Model version")
     timestamp: str = Field(..., description="Time of model run")
@@ -193,9 +198,11 @@ class ModelRunInformation(BaseModel):
     boxes: list[PageExtraction]
 
 
-class CrossSectionInformation(BaseModel):
+class CrossSection(BaseModel):
     """Information about a geological cross section (lines of section + images).
-    This would be nice to have but isn't required."""
+
+    NOTE: This would be nice to have but isn't required (especially for the initial target).
+    """
 
     id: int = Field(..., description="Internal ID")
     label: str = Field(..., description="Cross section label")
@@ -207,7 +214,14 @@ class Map(BaseModel):
     """Basic information about the extracted map."""
 
     name: str = Field(..., description="Map name")
-    source_url: str = Field(..., description="URL of the map source")
+    source_url: str = Field(
+        ..., description="URL of the map source (e.g., NGMDB information page)"
+    )
+    # A centralized map image store would simplify the work of debugging and re-running models.
+    image_url: str = Field(
+        ...,
+        description="URL of the map image, as a web-accessible, cloud-optimized GeoTIFF",
+    )
     authors: str = Field(..., description="Map authors")
     publisher: str = Field(..., description="Map publisher")
     year: int = Field(..., description="Map publication year")
@@ -216,10 +230,10 @@ class Map(BaseModel):
     bounds: Polygon = Field(..., description="Map geographic bounds")
 
     features: MapFeatureExtractions
-    cross_section: Optional[CrossSectionInformation]
+    cross_sections: list[CrossSection]
 
-    pipelines: list[ModelRunInformation]
-    projection_info: ProjectionInformation
+    pipelines: list[ModelRun]
+    projection_info: ProjectionMeta
 
 
 graph = erd.create(Map)
