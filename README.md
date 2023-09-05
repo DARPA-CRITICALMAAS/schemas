@@ -30,9 +30,9 @@ This also allows an entity-relationship diagram to be generated.
 
 ## Todo
 
-- The script only builds one 'root model' per file, but this can be changed
-- Add remaining schemas (especially for TA2 and TA3)
-- Add basic schemas for feedback data (validation and correction modalities)
-- Better, more comprehensive documentation
-- Information about file formats and other data-handling infrastructure
-- Work with TA1-3 to solidify and adjust schemas
+- [ ] Add remaining core schemas (especially for TA2 and TA3)
+- [ ] Add basic schemas for feedback data (validation and correction modalities)
+- [ ] More comprehensive documentation
+- [ ] Information about file formats and other data-handling infrastructure
+- [ ] Work with TA1-3 to solidify and adjust schemas
+- [ ] Create a changelog

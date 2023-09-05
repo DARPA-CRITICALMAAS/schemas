@@ -1,202 +1,391 @@
-{
-  "$defs": {
-    "Commodities": {
-      "properties": {
-        "primary": {
-          "items": {
-            "type": "string"
+[
+  {
+    "$defs": {
+      "Commodities": {
+        "properties": {
+          "primary": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Primary",
+            "type": "array"
           },
-          "title": "Primary",
-          "type": "array"
-        },
-        "secondary": {
-          "items": {
-            "type": "string"
+          "secondary": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Secondary",
+            "type": "array"
           },
-          "title": "Secondary",
-          "type": "array"
-        },
-        "accessory": {
-          "items": {
-            "type": "string"
+          "accessory": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Accessory",
+            "type": "array"
           },
-          "title": "Accessory",
-          "type": "array"
+          "metallic": {
+            "title": "Metallic",
+            "type": "boolean"
+          },
+          "nonmetallic": {
+            "title": "Nonmetallic",
+            "type": "boolean"
+          }
         },
-        "metallic": {
-          "title": "Metallic",
-          "type": "boolean"
-        },
-        "nonmetallic": {
-          "title": "Nonmetallic",
-          "type": "boolean"
-        }
+        "required": [
+          "primary",
+          "secondary",
+          "accessory",
+          "metallic",
+          "nonmetallic"
+        ],
+        "title": "Commodities",
+        "type": "object"
       },
-      "required": [
-        "primary",
-        "secondary",
-        "accessory",
-        "metallic",
-        "nonmetallic"
-      ],
-      "title": "Commodities",
-      "type": "object"
-    },
-    "History": {
-      "properties": {
-        "discovery_year": {
-          "anyOf": [
-            {
-              "type": "integer"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "title": "Discovery Year"
-        },
-        "production_years": {
-          "anyOf": [
-            {
+      "Document": {
+        "properties": {
+          "doi": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Doi"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "authors": {
+            "items": {
               "type": "string"
             },
-            {
-              "type": "null"
-            }
-          ],
-          "title": "Production Years"
+            "title": "Authors",
+            "type": "array"
+          },
+          "journal": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Journal"
+          },
+          "year": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Year"
+          },
+          "volume": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Volume"
+          },
+          "issue": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Issue"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          }
         },
-        "development_status": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "title": "Development Status"
-        },
-        "operation_type": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "title": "Operation Type"
-        }
+        "required": [
+          "doi",
+          "title",
+          "authors",
+          "journal",
+          "year",
+          "volume",
+          "issue",
+          "description"
+        ],
+        "title": "Document",
+        "type": "object"
       },
-      "required": [
-        "discovery_year",
-        "production_years",
-        "development_status",
-        "operation_type"
-      ],
-      "title": "History",
-      "type": "object"
-    },
-    "Score": {
-      "enum": [
-        "A",
-        "B",
-        "C",
-        "D",
-        "E"
-      ],
-      "title": "Score",
-      "type": "string"
-    }
-  },
-  "description": "A mineral resource site from MRDS.",
-  "properties": {
-    "deposit_id": {
-      "title": "Deposit Id",
-      "type": "integer"
-    },
-    "mrds_id": {
-      "anyOf": [
-        {
-          "type": "string"
+      "GeologicUnit": {
+        "properties": {
+          "age": {
+            "title": "Age",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "lithology": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Lithology",
+            "type": "array"
+          },
+          "environments": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Environments",
+            "type": "array"
+          },
+          "comments": {
+            "title": "Comments",
+            "type": "string"
+          }
         },
-        {
-          "type": "null"
-        }
-      ],
-      "title": "Mrds Id"
-    },
-    "url": {
-      "title": "Url",
-      "type": "string"
-    },
-    "area_name": {
-      "anyOf": [
-        {
-          "type": "string"
+        "required": [
+          "age",
+          "name",
+          "description",
+          "lithology",
+          "environments",
+          "comments"
+        ],
+        "title": "GeologicUnit",
+        "type": "object"
+      },
+      "History": {
+        "properties": {
+          "discovery_year": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Discovery Year"
+          },
+          "production_years": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Production Years"
+          },
+          "development_status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Development Status"
+          },
+          "operation_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Operation Type"
+          }
         },
-        {
-          "type": "null"
-        }
-      ],
-      "title": "Area Name"
-    },
-    "minerals": {
-      "items": {
+        "required": [
+          "discovery_year",
+          "production_years",
+          "development_status",
+          "operation_type"
+        ],
+        "title": "History",
+        "type": "object"
+      },
+      "OccurranceType": {
+        "enum": [
+          "Prospect",
+          "Occurrence",
+          "Deposit"
+        ],
+        "title": "OccurranceType",
         "type": "string"
       },
-      "title": "Minerals",
-      "type": "array"
+      "Score": {
+        "enum": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E"
+        ],
+        "title": "Score",
+        "type": "string"
+      }
     },
-    "location": {
-      "title": "Location"
-    },
-    "commodities": {
-      "$ref": "#/$defs/Commodities"
-    },
-    "history": {
-      "$ref": "#/$defs/History"
-    },
-    "reporter": {
-      "anyOf": [
-        {
+    "description": "A mineral resource site, based on MRDS.",
+    "properties": {
+      "id": {
+        "title": "Id",
+        "type": "integer"
+      },
+      "mrds_id": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Mrds Id"
+      },
+      "mrds_url": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Mrds Url"
+      },
+      "type": {
+        "$ref": "#/$defs/OccurranceType"
+      },
+      "area_name": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Area Name"
+      },
+      "minerals": {
+        "items": {
           "type": "string"
         },
-        {
-          "type": "null"
-        }
-      ],
-      "title": "Reporter"
-    },
-    "ref": {
-      "anyOf": [
-        {
-          "type": "string"
+        "title": "Minerals",
+        "type": "array"
+      },
+      "location": {
+        "anyOf": [
+          {},
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Location"
+      },
+      "commodities": {
+        "$ref": "#/$defs/Commodities"
+      },
+      "history": {
+        "anyOf": [
+          {
+            "$ref": "#/$defs/History"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "reporter": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Reporter"
+      },
+      "score": {
+        "$ref": "#/$defs/Score"
+      },
+      "sources": {
+        "items": {
+          "$ref": "#/$defs/Document"
         },
-        {
-          "type": "null"
-        }
-      ],
-      "title": "Ref"
+        "title": "Sources",
+        "type": "array"
+      },
+      "geologic_unit": {
+        "$ref": "#/$defs/GeologicUnit"
+      }
     },
-    "score": {
-      "$ref": "#/$defs/Score"
-    }
+    "required": [
+      "id",
+      "mrds_id",
+      "mrds_url",
+      "type",
+      "area_name",
+      "minerals",
+      "location",
+      "commodities",
+      "history",
+      "reporter",
+      "score",
+      "sources",
+      "geologic_unit"
+    ],
+    "title": "MineralOccurrence",
+    "type": "object"
   },
-  "required": [
-    "deposit_id",
-    "mrds_id",
-    "url",
-    "area_name",
-    "minerals",
-    "location",
-    "commodities",
-    "history",
-    "reporter",
-    "ref",
-    "score"
-  ],
-  "title": "MineralResourceSite",
-  "type": "object"
-}
+  {
+    "properties": {},
+    "title": "MineralDepositModel",
+    "type": "object"
+  },
+  {
+    "properties": {},
+    "title": "GradeTonnageModel",
+    "type": "object"
+  }
+]

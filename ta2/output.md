@@ -1,15 +1,19 @@
-# MineralResourceSite
+# MineralOccurrence
 
-*A mineral resource site from MRDS.*
+*A mineral resource site, based on MRDS.*
 
 ### Properties
 
-- **`deposit_id`** *(integer)*
+- **`id`** *(integer)*
 - **`mrds_id`**
   - **Any of**
     - *string*
     - *null*
-- **`url`** *(string)*
+- **`mrds_url`**
+  - **Any of**
+    - *string*
+    - *null*
+- **`type`**: Refer to *[OccurranceType](#OccurranceType)*.
 - **`area_name`**
   - **Any of**
     - *string*
@@ -17,17 +21,32 @@
 - **`minerals`** *(array)*
   - **Items** *(string)*
 - **`location`**
+  - **Any of**
+    - 
+    - *null*
 - **`commodities`**: Refer to *[Commodities](#Commodities)*.
-- **`history`**: Refer to *[History](#History)*.
+- **`history`**
+  - **Any of**
+    - : Refer to *[History](#History)*.
+    - *null*
 - **`reporter`**
   - **Any of**
     - *string*
     - *null*
-- **`ref`**
-  - **Any of**
-    - *string*
-    - *null*
 - **`score`**: Refer to *[Score](#Score)*.
+- **`sources`** *(array)*
+  - **Items**: Refer to *[Document](#Document)*.
+- **`geologic_unit`**: Refer to *[GeologicUnit](#GeologicUnit)*.
+
+## MineralDepositModel
+
+### Properties
+
+
+## GradeTonnageModel
+
+### Properties
+
 
 ## Commodities
 
@@ -41,6 +60,54 @@
   - **Items** *(string)*
 - **`metallic`** *(boolean)*
 - **`nonmetallic`** *(boolean)*
+
+## Document
+
+### Properties
+
+- **`doi`**
+  - **Any of**
+    - *string*
+    - *null*
+- **`title`**
+  - **Any of**
+    - *string*
+    - *null*
+- **`authors`** *(array)*
+  - **Items** *(string)*
+- **`journal`**
+  - **Any of**
+    - *string*
+    - *null*
+- **`year`**
+  - **Any of**
+    - *integer*
+    - *null*
+- **`volume`**
+  - **Any of**
+    - *integer*
+    - *null*
+- **`issue`**
+  - **Any of**
+    - *integer*
+    - *null*
+- **`description`**
+  - **Any of**
+    - *string*
+    - *null*
+
+## GeologicUnit
+
+### Properties
+
+- **`age`** *(string)*
+- **`name`** *(string)*
+- **`description`** *(string)*
+- **`lithology`** *(array)*
+  - **Items** *(string)*
+- **`environments`** *(array)*
+  - **Items** *(string)*
+- **`comments`** *(string)*
 
 ## History
 

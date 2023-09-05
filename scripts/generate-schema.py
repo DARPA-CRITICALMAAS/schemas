@@ -14,7 +14,7 @@ import sys
 # Define PYTHONPATH
 
 schema_file = sys.argv[1]
-root_model = sys.argv[2]
+root_models = sys.argv[2:]
 
 # Get the output directory
 fn = Path(schema_file)
@@ -31,21 +31,25 @@ sys.path.append(str(output_dir))
 # print(mod_name)
 mod = import_module(name=fn.stem)
 
-# Find the root model
-RootModel = getattr(mod, root_model)
-assert issubclass(RootModel, BaseModel)
+models = []
+for root_model in root_models:
+    # Find the root model
+    RootModel = getattr(mod, root_model)
+    assert issubclass(RootModel, BaseModel)
+    models.append(RootModel)
 
-graph = erd.create(RootModel)
+graph = erd.create(*models)
 
 # Draw the entity-relation diagram
 erd_file = output_dir / (name + ".png")
 graph.draw(out=erd_file)
 
-schema = RootModel.model_json_schema()
+
+schemas = [RootModel.model_json_schema() for RootModel in models]
 
 json_file = output_dir / (name + ".json")
 with json_file.open("w") as f:
-    f.write(dumps(schema, indent=2))
+    f.write(dumps(schemas, indent=2))
 
 parser = Parser(
     examples_as_yaml=False,
@@ -53,10 +57,10 @@ parser = Parser(
 
 md_lines = []
 
-sub_models = [d.model for d in graph.models if d.model is not RootModel]
-models = [RootModel] + sub_models
+sub_models = [d.model for d in graph.models if d.model not in models]
+doc_models = models + sub_models
 
-for d in models:
+for d in doc_models:
     schema = d.model_json_schema()
     lines = parser.parse_schema(schema)
     md_lines.extend(lines)

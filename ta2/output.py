@@ -7,10 +7,11 @@ https://dev.macrostrat.org/map/weaver
 https://github.com/digitalcrust/weaver/blob/main/example-pipelines/mrds/02-get-data.py
 """
 from enum import Enum
-from typing import TypeVar
-from pydantic import BaseModel, Field
+from typing import TypeVar, Optional
+from pydantic import BaseModel
 
 Point = TypeVar("Point")
+Polygon = TypeVar("Polygon")
 
 
 class Score(Enum):
@@ -19,6 +20,12 @@ class Score(Enum):
     C = "C"
     D = "D"
     E = "E"
+
+
+class OccurranceType(Enum):
+    Prospect = "Prospect"
+    Occurrence = "Occurrence"
+    Deposit = "Deposit"
 
 
 class Commodities(BaseModel):
@@ -36,20 +43,42 @@ class History(BaseModel):
     operation_type: str | None
 
 
-class MineralResourceSite(BaseModel):
-    """A mineral resource site from MRDS."""
+class Document(BaseModel):
+    doi: str | None
+    title: str | None
+    authors: list[str]
+    journal: str | None
+    year: int | None
+    volume: int | None
+    issue: int | None
+    description: str | None
 
-    deposit_id: int
+
+class GeologicUnit(BaseModel):
+    age: str
+    name: str
+    description: str
+    lithology: list[str]
+    environments: list[str]
+    comments: str
+
+
+class MineralOccurrence(BaseModel):
+    """A mineral resource site, based on MRDS."""
+
+    id: int
     mrds_id: str | None
-    url: str
+    mrds_url: str | None
+    type: OccurranceType
     area_name: str | None
     minerals: list[str]
-    location: Point
+    location: Optional[Point | Polygon]
     commodities: Commodities
-    history: History
+    history: History | None
     reporter: str | None
-    ref: str | None
     score: Score
+    sources: list[Document]
+    geologic_unit: GeologicUnit
 
 
 # Schemas can conform to other ones by inheriting from them or by declaring conformance
@@ -61,5 +90,5 @@ class MineralDepositModel(BaseModel):
     ...  # TODO
 
 
-class GradeAndTonnageModel(BaseModel):
+class GradeTonnageModel(BaseModel):
     ...  # TODO
