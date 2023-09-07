@@ -1,0 +1,454 @@
+[
+  {
+    "$defs": {
+      "BoundaryAge": {
+        "description": "Bounding age of a map unit",
+        "properties": {
+          "age": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Age in Ma, if known",
+            "title": "Age"
+          },
+          "interval": {
+            "description": "Age interval name",
+            "examples": [
+              "Holocene",
+              "Cretaceous"
+            ],
+            "title": "Interval",
+            "type": "string"
+          },
+          "interval_id": {
+            "description": "Age interval ID, from Macrostrat",
+            "examples": [
+              1,
+              2
+            ],
+            "title": "Interval Id",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "age",
+          "interval",
+          "interval_id"
+        ],
+        "title": "BoundaryAge",
+        "type": "object"
+      },
+      "Map": {
+        "description": "Schema for map information.",
+        "properties": {
+          "ref_url": {
+            "description": "Source URL of the map",
+            "title": "Ref Url",
+            "type": "string"
+          },
+          "ref_name": {
+            "description": "Short name of the map",
+            "title": "Ref Name",
+            "type": "string"
+          },
+          "ref_title": {
+            "description": "Title of the map",
+            "title": "Ref Title",
+            "type": "string"
+          },
+          "ref_authors": {
+            "description": "Authors",
+            "items": {
+              "type": "string"
+            },
+            "title": "Ref Authors",
+            "type": "array"
+          },
+          "ref_source": {
+            "description": "Publication/data release containing the map",
+            "examples": [
+              "U.S. Geological Survey Data Series 424"
+            ],
+            "title": "Ref Source",
+            "type": "string"
+          },
+          "ref_year": {
+            "description": "Publication year",
+            "examples": [
+              "2009"
+            ],
+            "title": "Ref Year",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "ref_url",
+          "ref_name",
+          "ref_title",
+          "ref_authors",
+          "ref_source",
+          "ref_year"
+        ],
+        "title": "Map",
+        "type": "object"
+      },
+      "MapLine": {
+        "properties": {
+          "id": {
+            "description": "Internal ID of the line",
+            "title": "Id",
+            "type": "integer"
+          },
+          "geometry": {
+            "description": "Geometry of this feature",
+            "title": "Geometry"
+          },
+          "description": {
+            "description": "Description of the line",
+            "title": "Description",
+            "type": "string"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Name of the line",
+            "examples": [
+              "San Andreas Fault"
+            ],
+            "title": "Name"
+          },
+          "type": {
+            "description": "Type of the line",
+            "title": "Type",
+            "type": "string"
+          },
+          "direction": {
+            "description": "Direction of the line",
+            "examples": [
+              1,
+              -1
+            ],
+            "title": "Direction",
+            "type": "integer"
+          },
+          "source": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/Map"
+              }
+            ],
+            "description": "Source map of the line"
+          }
+        },
+        "required": [
+          "id",
+          "geometry",
+          "description",
+          "name",
+          "type",
+          "direction",
+          "source"
+        ],
+        "title": "MapLine",
+        "type": "object"
+      },
+      "MapPoint": {
+        "properties": {
+          "id": {
+            "description": "Internal ID of the point",
+            "title": "Id",
+            "type": "integer"
+          },
+          "geometry": {
+            "description": "Geometry of this feature",
+            "title": "Geometry"
+          },
+          "type": {
+            "description": "Type of the point",
+            "examples": [
+              "borehole",
+              "bedding"
+            ],
+            "title": "Type",
+            "type": "string"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Name of the point",
+            "title": "Name"
+          },
+          "dip": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Dip of the point",
+            "title": "Dip"
+          },
+          "dip_direction": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Strike of the point",
+            "title": "Dip Direction"
+          },
+          "description": {
+            "description": "Description of the point",
+            "title": "Description",
+            "type": "string"
+          },
+          "source": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/Map"
+              }
+            ],
+            "description": "Source map of the point"
+          }
+        },
+        "required": [
+          "id",
+          "geometry",
+          "type",
+          "name",
+          "dip",
+          "dip_direction",
+          "description",
+          "source"
+        ],
+        "title": "MapPoint",
+        "type": "object"
+      },
+      "MapPolygon": {
+        "description": "Macrostrat proposal for geologic mapping output schema.\nThis is fairly similar to the existing output of Macrostrat's tile-based\ngeological map services, with several changes:\n\n- Allowance for more specific/harmonized lithological information\n- Normalization for clarity",
+        "properties": {
+          "id": {
+            "description": "Internal ID of the map unit",
+            "title": "Id",
+            "type": "integer"
+          },
+          "geometry": {
+            "description": "Geometry of this feature",
+            "title": "Geometry"
+          },
+          "age": {
+            "description": "Geologic age of the map unit, from source map",
+            "title": "Age",
+            "type": "string"
+          },
+          "t_age": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/BoundaryAge"
+              }
+            ],
+            "description": "Upper age of the map unit"
+          },
+          "b_age": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/BoundaryAge"
+              }
+            ],
+            "description": "Lower age of the map unit"
+          },
+          "legend_id": {
+            "description": "ID of the map legend block",
+            "title": "Legend Id",
+            "type": "integer"
+          },
+          "lithology": {
+            "description": "Lithology descriptions",
+            "items": {
+              "type": "string"
+            },
+            "title": "Lithology",
+            "type": "array"
+          },
+          "description": {
+            "description": "Description of the map unit",
+            "title": "Description",
+            "type": "string"
+          },
+          "comments": {
+            "description": "Comments",
+            "title": "Comments",
+            "type": "string"
+          },
+          "name": {
+            "description": "Name of the map unit",
+            "title": "Name",
+            "type": "string"
+          },
+          "color": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Color of the map unit, on the original map",
+            "title": "Color"
+          },
+          "pattern": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "FGDC pattern of the map unit, if any",
+            "title": "Pattern"
+          },
+          "source": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/Map"
+              }
+            ],
+            "description": "Source map of the map unit"
+          }
+        },
+        "required": [
+          "id",
+          "geometry",
+          "age",
+          "t_age",
+          "b_age",
+          "legend_id",
+          "lithology",
+          "description",
+          "comments",
+          "name",
+          "color",
+          "pattern",
+          "source"
+        ],
+        "title": "MapPolygon",
+        "type": "object"
+      },
+      "MapTile": {
+        "description": "A tile representing geologic map information covering a small area.",
+        "properties": {
+          "x": {
+            "description": "X coordinate of the tile",
+            "title": "X",
+            "type": "integer"
+          },
+          "y": {
+            "description": "Y coordinate of the tile",
+            "title": "Y",
+            "type": "integer"
+          },
+          "z": {
+            "description": "Z coordinate of the tile",
+            "title": "Z",
+            "type": "integer"
+          },
+          "units": {
+            "description": "Map units in the tile",
+            "items": {
+              "$ref": "#/$defs/MapPolygon"
+            },
+            "title": "Units",
+            "type": "array"
+          },
+          "lines": {
+            "description": "Lines in the tile",
+            "items": {
+              "$ref": "#/$defs/MapLine"
+            },
+            "title": "Lines",
+            "type": "array"
+          },
+          "points": {
+            "description": "Points in the tile",
+            "items": {
+              "$ref": "#/$defs/MapPoint"
+            },
+            "title": "Points",
+            "type": "array"
+          }
+        },
+        "required": [
+          "x",
+          "y",
+          "z",
+          "units",
+          "lines",
+          "points"
+        ],
+        "title": "MapTile",
+        "type": "object"
+      }
+    },
+    "description": "Tiling scheme information.",
+    "properties": {
+      "bounds": {
+        "description": "Bounding box of the tile scheme",
+        "items": {
+          "type": "number"
+        },
+        "title": "Bounds",
+        "type": "array"
+      },
+      "crs": {
+        "description": "Coordinate reference system of the tile scheme",
+        "title": "Crs",
+        "type": "string"
+      },
+      "tile_size": {
+        "description": "Size of the tiles in the scheme",
+        "title": "Tile Size",
+        "type": "integer"
+      },
+      "tiles": {
+        "description": "List of tiles in the scheme",
+        "items": {
+          "$ref": "#/$defs/MapTile"
+        },
+        "title": "Tiles",
+        "type": "array"
+      }
+    },
+    "required": [
+      "bounds",
+      "crs",
+      "tile_size",
+      "tiles"
+    ],
+    "title": "Tileset",
+    "type": "object"
+  }
+]

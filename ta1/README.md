@@ -4,15 +4,15 @@
 
 *Data provided by TA1 performers to TA4 for feedback/synthesis*
 
-TA1 output schemas are defined in the [TA1 output JSONSchema](output-schemas.json) file.
+TA1 output schemas are defined in the [TA1 output JSONSchema](output.json) file.
 
 The JSON schemas were compiled using [`pydantic`](https://docs.pydantic.dev/latest/)
 model builder in Python, which provides a terse API for JSON schema construction.
 This also allows an entity-relationship diagram to be generated.
 
-![TA1 output schema summary](output-schemas.png)
+![TA1 output schema summary](output.png)
 
-Documentation of each schema: [**TA1 output schema documentation**](output-schemas.md)
+Documentation of each schema: [**TA1 output schema documentation**](output.md)
 
 ### Elements
 
@@ -25,18 +25,18 @@ schema unit is set up to closely mimic the structure of a typical attribute tabl
 be checked against a controlled vocabulary (which can be provided by Macrostrat's API or pre-defined). See [example line types](example-data/example-line-types.txt)
 for an example of typical line types.
 
-#### CrossSectionInformation
+#### CrossSection
 
 Information about the map's cross-sections.
 
 *Notes*: Nice to have, but not required.
 
-#### ProjectionInformation
+#### ProjectionMeta
 
 Information about the map's projection and ground control points.
 
 
-#### ModelRunInformation
+#### ModelRun
 
 Information about ML model runs, including confidence estimations, page extraction bounding boxes/OCR text, and versioning/provenance metadata.
 
