@@ -13,7 +13,7 @@
   - **Any of**
     - *string*
     - *null*
-- **`type`**: Refer to *[OccurranceType](#OccurranceType)*.
+- **`type`**: Refer to *[OccurrenceType](#OccurrenceType)*.
 - **`area_name`**
   - **Any of**
     - *string*
@@ -47,6 +47,12 @@
 
 ### Properties
 
+- **`ore_quantity`** *(number)*: Ore quantity in metric tons.
+- **`grades`** *(array)*
+  - **Items**: Refer to *[GradeInformation](#GradeInformation)*.
+- **`type`**: Type of resource.
+  - **All of**
+    - : Refer to *[MineralResourceClassification](#MineralResourceClassification)*.
 
 ## Commodities
 
@@ -108,6 +114,16 @@
 - **`environments`** *(array)*
   - **Items** *(string)*
 - **`comments`** *(string)*
+
+## GradeInformation
+
+### Properties
+
+- **`species`** *(string)*: Species of interest (mineral or element).
+- **`concentration`** *(number)*: Concentration of species in ppm.
+- **`unit`**: Unit of concentration.
+  - **All of**
+    - : Refer to *[ConcentrationUnit](#ConcentrationUnit)*.
 
 ## History
 
