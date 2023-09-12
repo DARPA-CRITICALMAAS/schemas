@@ -243,16 +243,17 @@
         "title": "History",
         "type": "object"
       },
-      "OccurranceType": {
+      "OccurrenceType": {
         "enum": [
           "Prospect",
           "Occurrence",
           "Deposit"
         ],
-        "title": "OccurranceType",
+        "title": "OccurrenceType",
         "type": "string"
       },
       "Score": {
+        "description": "A score for the quality/completeness of a data source.",
         "enum": [
           "A",
           "B",
@@ -293,7 +294,7 @@
         "title": "Mrds Url"
       },
       "type": {
-        "$ref": "#/$defs/OccurranceType"
+        "$ref": "#/$defs/OccurrenceType"
       },
       "area_name": {
         "anyOf": [
@@ -306,11 +307,18 @@
         ],
         "title": "Area Name"
       },
-      "minerals": {
+      "ore_minerals": {
         "items": {
           "type": "string"
         },
-        "title": "Minerals",
+        "title": "Ore Minerals",
+        "type": "array"
+      },
+      "gangue_minerals": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Gangue Minerals",
         "type": "array"
       },
       "location": {
@@ -366,7 +374,8 @@
       "mrds_url",
       "type",
       "area_name",
-      "minerals",
+      "ore_minerals",
+      "gangue_minerals",
       "location",
       "commodities",
       "history",
@@ -384,7 +393,85 @@
     "type": "object"
   },
   {
-    "properties": {},
+    "$defs": {
+      "ConcentrationUnit": {
+        "enum": [
+          "ppm",
+          "%wt",
+          "%mol",
+          "%"
+        ],
+        "title": "ConcentrationUnit",
+        "type": "string"
+      },
+      "GradeInformation": {
+        "properties": {
+          "species": {
+            "description": "Species of interest (mineral or element)",
+            "title": "Species",
+            "type": "string"
+          },
+          "concentration": {
+            "description": "Concentration of species in ppm",
+            "title": "Concentration",
+            "type": "number"
+          },
+          "unit": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/ConcentrationUnit"
+              }
+            ],
+            "description": "Unit of concentration"
+          }
+        },
+        "required": [
+          "species",
+          "concentration",
+          "unit"
+        ],
+        "title": "GradeInformation",
+        "type": "object"
+      },
+      "MineralResourceClassification": {
+        "enum": [
+          "Inferred resources",
+          "Measured resources",
+          "Proven reserves",
+          "Proven and developed resources",
+          "Cumulative production"
+        ],
+        "title": "MineralResourceClassification",
+        "type": "string"
+      }
+    },
+    "properties": {
+      "ore_quantity": {
+        "description": "Ore quantity in metric tons",
+        "title": "Ore Quantity",
+        "type": "number"
+      },
+      "grades": {
+        "items": {
+          "$ref": "#/$defs/GradeInformation"
+        },
+        "title": "Grades",
+        "type": "array"
+      },
+      "type": {
+        "allOf": [
+          {
+            "$ref": "#/$defs/MineralResourceClassification"
+          }
+        ],
+        "description": "Type of resource"
+      }
+    },
+    "required": [
+      "ore_quantity",
+      "grades",
+      "type"
+    ],
     "title": "GradeTonnageModel",
     "type": "object"
   }

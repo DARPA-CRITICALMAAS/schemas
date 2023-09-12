@@ -8,13 +8,15 @@ https://github.com/digitalcrust/weaver/blob/main/example-pipelines/mrds/02-get-d
 """
 from enum import Enum
 from typing import TypeVar, Optional
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 Point = TypeVar("Point")
 Polygon = TypeVar("Polygon")
 
 
 class Score(Enum):
+    """A score for the quality/completeness of a data source."""
+
     A = "A"
     B = "B"
     C = "C"
@@ -22,7 +24,7 @@ class Score(Enum):
     E = "E"
 
 
-class OccurranceType(Enum):
+class OccurrenceType(Enum):
     Prospect = "Prospect"
     Occurrence = "Occurrence"
     Deposit = "Deposit"
@@ -69,9 +71,10 @@ class MineralOccurrence(BaseModel):
     id: int
     mrds_id: str | None
     mrds_url: str | None
-    type: OccurranceType
+    type: OccurrenceType
     area_name: str | None
-    minerals: list[str]
+    ore_minerals: list[str]
+    gangue_minerals: list[str]
     location: Optional[Point | Polygon]
     commodities: Commodities
     history: History | None
@@ -90,5 +93,28 @@ class MineralDepositModel(BaseModel):
     ...  # TODO
 
 
+class MineralResourceClassification(Enum):
+    Inferred = "Inferred resources"
+    Measured = "Measured resources"
+    Proven = "Proven reserves"
+    ProvenAndDeveloped = "Proven and developed resources"
+    Production = "Cumulative production"
+
+
+class ConcentrationUnit(Enum):
+    ppm = "ppm"
+    percentwt = "%wt"
+    percentmol = "%mol"
+    percent = "%"
+
+
+class GradeInformation(BaseModel):
+    species: str = Field(description="Species of interest (mineral or element)")
+    concentration: float = Field(description="Concentration of species in ppm")
+    unit: ConcentrationUnit = Field(description="Unit of concentration")
+
+
 class GradeTonnageModel(BaseModel):
-    ...  # TODO
+    ore_quantity: float = Field(description="Ore quantity in metric tons")
+    grades: list[GradeInformation]
+    type: MineralResourceClassification = Field(description="Type of resource")
