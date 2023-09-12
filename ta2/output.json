@@ -307,11 +307,18 @@
         ],
         "title": "Area Name"
       },
-      "minerals": {
+      "ore_minerals": {
         "items": {
           "type": "string"
         },
-        "title": "Minerals",
+        "title": "Ore Minerals",
+        "type": "array"
+      },
+      "gangue_minerals": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Gangue Minerals",
         "type": "array"
       },
       "location": {
@@ -367,7 +374,8 @@
       "mrds_url",
       "type",
       "area_name",
-      "minerals",
+      "ore_minerals",
+      "gangue_minerals",
       "location",
       "commodities",
       "history",

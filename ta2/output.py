@@ -73,7 +73,8 @@ class MineralOccurrence(BaseModel):
     mrds_url: str | None
     type: OccurrenceType
     area_name: str | None
-    minerals: list[str]
+    ore_minerals: list[str]
+    gangue_minerals: list[str]
     location: Optional[Point | Polygon]
     commodities: Commodities
     history: History | None

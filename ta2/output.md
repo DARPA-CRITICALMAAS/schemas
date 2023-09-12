@@ -18,7 +18,9 @@
   - **Any of**
     - *string*
     - *null*
-- **`minerals`** *(array)*
+- **`ore_minerals`** *(array)*
+  - **Items** *(string)*
+- **`gangue_minerals`** *(array)*
   - **Items** *(string)*
 - **`location`**
   - **Any of**
