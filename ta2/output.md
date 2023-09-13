@@ -41,6 +41,57 @@
 
 ### Properties
 
+- **`deposit_type`** *(string)*
+- **`GeoEnv_age_range`**
+  - **Any of**
+    - *array*
+      - **Items** *(string)*
+    - *null*
+- **`GeoEnv_rock_types`**
+  - **Any of**
+    - *array*
+      - **Items** *(string)*
+    - *null*
+- **`GeoEnv_textures`**
+  - **Any of**
+    - *array*
+      - **Items** *(string)*
+    - *null*
+- **`GeoEnv_dep_env`**
+  - **Any of**
+    - *array*
+      - **Items** *(string)*
+    - *null*
+- **`GeoEnv_tectonic_settings`**
+  - **Any of**
+    - *array*
+      - **Items** *(string)*
+    - *null*
+- **`DepDesc_ore_controls`**
+  - **Any of**
+    - *array*
+      - **Items** *(string)*
+    - *null*
+- **`DepDesc_alteration`**
+  - **Any of**
+    - *array*
+      - **Items** *(string)*
+    - *null*
+- **`DepDesc_mineralogy`**
+  - **Any of**
+    - *array*
+      - **Items** *(string)*
+    - *null*
+- **`DepDesc_geo_signature`**
+  - **Any of**
+    - *array*
+      - **Items** *(string)*
+    - *null*
+- **`DepDesc_texture_structure`**
+  - **Any of**
+    - *array*
+      - **Items** *(string)*
+    - *null*
 
 ## GradeTonnageModel
 
@@ -52,6 +103,30 @@
 - **`level`**: Type of resource.
   - **All of**
     - : Refer to *[ResourceDevelopmentLevel](#ResourceDevelopmentLevel)*.
+
+## MineralSystem
+
+### Properties
+
+- **`deposit_type`** *(string)*
+- **`trigger`** *(array)*
+  - **Items**: Refer to *[Criteria](#Criteria)*.
+- **`source`** *(array)*
+  - **Items**: Refer to *[Criteria](#Criteria)*.
+- **`conduit`** *(array)*
+  - **Items**: Refer to *[Criteria](#Criteria)*.
+- **`driver`** *(array)*
+  - **Items**: Refer to *[Criteria](#Criteria)*.
+- **`throttle`** *(array)*
+  - **Items**: Refer to *[Criteria](#Criteria)*.
+- **`trap`** *(array)*
+  - **Items**: Refer to *[Criteria](#Criteria)*.
+- **`dispersion`** *(array)*
+  - **Items**: Refer to *[Criteria](#Criteria)*.
+- **`exhumation`** *(array)*
+  - **Items**: Refer to *[Criteria](#Criteria)*.
+- **`direct_detection`** *(array)*
+  - **Items**: Refer to *[Criteria](#Criteria)*.
 
 ## Commodity
 
@@ -109,6 +184,14 @@
 - **`unit`**: Unit of concentration.
   - **All of**
     - : Refer to *[ConcentrationUnit](#ConcentrationUnit)*.
+
+## Criteria
+
+### Properties
+
+- **`theoretical`** *(string)*
+- **`mappable`** *(array)*
+  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
 
 ## Document
 
@@ -179,6 +262,18 @@
     - *string*
     - *null*
 
+## MappableCriteria
+
+### Properties
+
+- **`info`** *(string)*
+- **`potential_dataset`**
+  - **Any of**
+    - *string*
+    - *null*
+- **`supporting_references`** *(array)*
+  - **Items**: Refer to *[Reference](#Reference)*.
+
 ## MineralSpecies
 
 *A mineral or elemental species of interest*
@@ -195,4 +290,17 @@
     - *string*
     - *null*
 - **`metallic`** *(boolean)*: Is this a metallic mineral/element?
+
+## Reference
+
+### Properties
+
+- **`doc`**: Refer to *[Document](#Document)*.
+- **`text`** *(array)*
+  - **Items** *(string)*
+- **`coords`**
+  - **Any of**
+    - *array*
+      - **Items** *(integer)*
+    - *null*
 

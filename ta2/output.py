@@ -88,7 +88,17 @@ class GeologicUnit(BaseModel):
 
 
 class MineralDepositModel(BaseModel):
-    ...  # TODO
+    deposit_type: str
+    GeoEnv_age_range: list[str] | None
+    GeoEnv_rock_types: list[str] | None
+    GeoEnv_textures: list[str] | None
+    GeoEnv_dep_env: list[str] | None
+    GeoEnv_tectonic_settings: list[str] | None
+    DepDesc_ore_controls: list[str] | None
+    DepDesc_alteration: list[str] | None
+    DepDesc_mineralogy: list[str] | None
+    DepDesc_geo_signature: list[str] | None
+    DepDesc_texture_structure: list[str] | None
 
 
 class ResourceDevelopmentLevel(Enum):
@@ -140,3 +150,29 @@ class MineralOccurrence(BaseModel):
 # Schemas can conform to other ones by inheriting from them or by declaring conformance
 # with the `conforms_to` attribute. This is useful for schemas that are not directly loaded
 # into the database, but are used to validate other schemas.
+
+class Reference(BaseModel):
+    doc: Document
+    text: list[str]
+    coords: list[int] | None
+
+class MappableCriteria(BaseModel):
+    info: str
+    potential_dataset: str | None
+    supporting_references: list[Reference]
+
+class Criteria(BaseModel):
+    theoretical: str
+    mappable: list[MappableCriteria]
+
+class MineralSystem(BaseModel):
+    deposit_type: str
+    trigger: list[Criteria]
+    source: list[Criteria]
+    conduit: list[Criteria]
+    driver: list[Criteria]
+    throttle: list[Criteria]
+    trap: list[Criteria]
+    dispersion: list[Criteria]
+    exhumation: list[Criteria]
+    direct_detection: list[Criteria]

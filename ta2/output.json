@@ -433,7 +433,165 @@
     "type": "object"
   },
   {
-    "properties": {},
+    "properties": {
+      "deposit_type": {
+        "title": "Deposit Type",
+        "type": "string"
+      },
+      "GeoEnv_age_range": {
+        "anyOf": [
+          {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Geoenv Age Range"
+      },
+      "GeoEnv_rock_types": {
+        "anyOf": [
+          {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Geoenv Rock Types"
+      },
+      "GeoEnv_textures": {
+        "anyOf": [
+          {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Geoenv Textures"
+      },
+      "GeoEnv_dep_env": {
+        "anyOf": [
+          {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Geoenv Dep Env"
+      },
+      "GeoEnv_tectonic_settings": {
+        "anyOf": [
+          {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Geoenv Tectonic Settings"
+      },
+      "DepDesc_ore_controls": {
+        "anyOf": [
+          {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Depdesc Ore Controls"
+      },
+      "DepDesc_alteration": {
+        "anyOf": [
+          {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Depdesc Alteration"
+      },
+      "DepDesc_mineralogy": {
+        "anyOf": [
+          {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Depdesc Mineralogy"
+      },
+      "DepDesc_geo_signature": {
+        "anyOf": [
+          {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Depdesc Geo Signature"
+      },
+      "DepDesc_texture_structure": {
+        "anyOf": [
+          {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Depdesc Texture Structure"
+      }
+    },
+    "required": [
+      "deposit_type",
+      "GeoEnv_age_range",
+      "GeoEnv_rock_types",
+      "GeoEnv_textures",
+      "GeoEnv_dep_env",
+      "GeoEnv_tectonic_settings",
+      "DepDesc_ore_controls",
+      "DepDesc_alteration",
+      "DepDesc_mineralogy",
+      "DepDesc_geo_signature",
+      "DepDesc_texture_structure"
+    ],
     "title": "MineralDepositModel",
     "type": "object"
   },
@@ -620,6 +778,282 @@
       "level"
     ],
     "title": "GradeTonnageModel",
+    "type": "object"
+  },
+  {
+    "$defs": {
+      "Criteria": {
+        "properties": {
+          "theoretical": {
+            "title": "Theoretical",
+            "type": "string"
+          },
+          "mappable": {
+            "items": {
+              "$ref": "#/$defs/MappableCriteria"
+            },
+            "title": "Mappable",
+            "type": "array"
+          }
+        },
+        "required": [
+          "theoretical",
+          "mappable"
+        ],
+        "title": "Criteria",
+        "type": "object"
+      },
+      "Document": {
+        "properties": {
+          "doi": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Doi"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "authors": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Authors",
+            "type": "array"
+          },
+          "journal": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Journal"
+          },
+          "year": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Year"
+          },
+          "volume": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Volume"
+          },
+          "issue": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Issue"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          }
+        },
+        "required": [
+          "doi",
+          "title",
+          "authors",
+          "journal",
+          "year",
+          "volume",
+          "issue",
+          "description"
+        ],
+        "title": "Document",
+        "type": "object"
+      },
+      "MappableCriteria": {
+        "properties": {
+          "info": {
+            "title": "Info",
+            "type": "string"
+          },
+          "potential_dataset": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Potential Dataset"
+          },
+          "supporting_references": {
+            "items": {
+              "$ref": "#/$defs/Reference"
+            },
+            "title": "Supporting References",
+            "type": "array"
+          }
+        },
+        "required": [
+          "info",
+          "potential_dataset",
+          "supporting_references"
+        ],
+        "title": "MappableCriteria",
+        "type": "object"
+      },
+      "Reference": {
+        "properties": {
+          "doc": {
+            "$ref": "#/$defs/Document"
+          },
+          "text": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Text",
+            "type": "array"
+          },
+          "coords": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Coords"
+          }
+        },
+        "required": [
+          "doc",
+          "text",
+          "coords"
+        ],
+        "title": "Reference",
+        "type": "object"
+      }
+    },
+    "properties": {
+      "deposit_type": {
+        "title": "Deposit Type",
+        "type": "string"
+      },
+      "trigger": {
+        "items": {
+          "$ref": "#/$defs/Criteria"
+        },
+        "title": "Trigger",
+        "type": "array"
+      },
+      "source": {
+        "items": {
+          "$ref": "#/$defs/Criteria"
+        },
+        "title": "Source",
+        "type": "array"
+      },
+      "conduit": {
+        "items": {
+          "$ref": "#/$defs/Criteria"
+        },
+        "title": "Conduit",
+        "type": "array"
+      },
+      "driver": {
+        "items": {
+          "$ref": "#/$defs/Criteria"
+        },
+        "title": "Driver",
+        "type": "array"
+      },
+      "throttle": {
+        "items": {
+          "$ref": "#/$defs/Criteria"
+        },
+        "title": "Throttle",
+        "type": "array"
+      },
+      "trap": {
+        "items": {
+          "$ref": "#/$defs/Criteria"
+        },
+        "title": "Trap",
+        "type": "array"
+      },
+      "dispersion": {
+        "items": {
+          "$ref": "#/$defs/Criteria"
+        },
+        "title": "Dispersion",
+        "type": "array"
+      },
+      "exhumation": {
+        "items": {
+          "$ref": "#/$defs/Criteria"
+        },
+        "title": "Exhumation",
+        "type": "array"
+      },
+      "direct_detection": {
+        "items": {
+          "$ref": "#/$defs/Criteria"
+        },
+        "title": "Direct Detection",
+        "type": "array"
+      }
+    },
+    "required": [
+      "deposit_type",
+      "trigger",
+      "source",
+      "conduit",
+      "driver",
+      "throttle",
+      "trap",
+      "dispersion",
+      "exhumation",
+      "direct_detection"
+    ],
+    "title": "MineralSystem",
     "type": "object"
   }
 ]
