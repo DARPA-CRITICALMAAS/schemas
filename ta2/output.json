@@ -1,46 +1,50 @@
 [
   {
     "$defs": {
-      "Commodities": {
+      "Commodity": {
+        "description": "A mineral or elemental commodity, with information about its importance in a deposit.",
         "properties": {
-          "primary": {
-            "items": {
-              "type": "string"
-            },
-            "title": "Primary",
-            "type": "array"
+          "species": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/MineralSpecies"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "description": "Species of interest (mineral, element, or other commodity)",
+            "examples": [
+              "quartz",
+              "gold",
+              "silver",
+              "copper",
+              "lead",
+              "zinc",
+              "aggregate"
+            ],
+            "title": "Species"
           },
-          "secondary": {
-            "items": {
-              "type": "string"
-            },
-            "title": "Secondary",
-            "type": "array"
-          },
-          "accessory": {
-            "items": {
-              "type": "string"
-            },
-            "title": "Accessory",
-            "type": "array"
-          },
-          "metallic": {
-            "title": "Metallic",
+          "is_ore": {
+            "description": "Is this an ore or gangue mineral in this deposit?",
+            "title": "Is Ore",
             "type": "boolean"
           },
-          "nonmetallic": {
-            "title": "Nonmetallic",
-            "type": "boolean"
+          "importance": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/Importance"
+              }
+            ],
+            "description": "Importance of this mineral in this deposit"
           }
         },
         "required": [
-          "primary",
-          "secondary",
-          "accessory",
-          "metallic",
-          "nonmetallic"
+          "species",
+          "is_ore",
+          "importance"
         ],
-        "title": "Commodities",
+        "title": "Commodity",
         "type": "object"
       },
       "Document": {
@@ -243,6 +247,59 @@
         "title": "History",
         "type": "object"
       },
+      "Importance": {
+        "enum": [
+          "Primary",
+          "Secondary",
+          "Accessory"
+        ],
+        "title": "Importance",
+        "type": "string"
+      },
+      "MineralSpecies": {
+        "description": "A mineral or elemental species of interest",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "mindat_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mindat Id"
+          },
+          "formula": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Formula"
+          },
+          "metallic": {
+            "description": "Is this a metallic mineral/element?",
+            "title": "Metallic",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "name",
+          "mindat_id",
+          "formula",
+          "metallic"
+        ],
+        "title": "MineralSpecies",
+        "type": "object"
+      },
       "OccurrenceType": {
         "enum": [
           "Prospect",
@@ -307,18 +364,11 @@
         ],
         "title": "Area Name"
       },
-      "ore_minerals": {
+      "commodities": {
         "items": {
-          "type": "string"
+          "$ref": "#/$defs/Commodity"
         },
-        "title": "Ore Minerals",
-        "type": "array"
-      },
-      "gangue_minerals": {
-        "items": {
-          "type": "string"
-        },
-        "title": "Gangue Minerals",
+        "title": "Commodities",
         "type": "array"
       },
       "location": {
@@ -329,9 +379,6 @@
           }
         ],
         "title": "Location"
-      },
-      "commodities": {
-        "$ref": "#/$defs/Commodities"
       },
       "history": {
         "anyOf": [
@@ -374,10 +421,8 @@
       "mrds_url",
       "type",
       "area_name",
-      "ore_minerals",
-      "gangue_minerals",
-      "location",
       "commodities",
+      "location",
       "history",
       "reporter",
       "score",
@@ -394,22 +439,61 @@
   },
   {
     "$defs": {
-      "ConcentrationUnit": {
-        "enum": [
-          "ppm",
-          "%wt",
-          "%mol",
-          "%"
-        ],
-        "title": "ConcentrationUnit",
-        "type": "string"
-      },
-      "GradeInformation": {
+      "Commodity": {
+        "description": "A mineral or elemental commodity, with information about its importance in a deposit.",
         "properties": {
           "species": {
-            "description": "Species of interest (mineral or element)",
-            "title": "Species",
-            "type": "string"
+            "anyOf": [
+              {
+                "$ref": "#/$defs/MineralSpecies"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "description": "Species of interest (mineral, element, or other commodity)",
+            "examples": [
+              "quartz",
+              "gold",
+              "silver",
+              "copper",
+              "lead",
+              "zinc",
+              "aggregate"
+            ],
+            "title": "Species"
+          },
+          "is_ore": {
+            "description": "Is this an ore or gangue mineral in this deposit?",
+            "title": "Is Ore",
+            "type": "boolean"
+          },
+          "importance": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/Importance"
+              }
+            ],
+            "description": "Importance of this mineral in this deposit"
+          }
+        },
+        "required": [
+          "species",
+          "is_ore",
+          "importance"
+        ],
+        "title": "Commodity",
+        "type": "object"
+      },
+      "CommodityWithConcentration": {
+        "properties": {
+          "material": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/Commodity"
+              }
+            ],
+            "description": "Species of interest (mineral or element)"
           },
           "concentration": {
             "description": "Concentration of species in ppm",
@@ -426,14 +510,77 @@
           }
         },
         "required": [
-          "species",
+          "material",
           "concentration",
           "unit"
         ],
-        "title": "GradeInformation",
+        "title": "CommodityWithConcentration",
         "type": "object"
       },
-      "MineralResourceClassification": {
+      "ConcentrationUnit": {
+        "enum": [
+          "ppm",
+          "%wt",
+          "%mol",
+          "%"
+        ],
+        "title": "ConcentrationUnit",
+        "type": "string"
+      },
+      "Importance": {
+        "enum": [
+          "Primary",
+          "Secondary",
+          "Accessory"
+        ],
+        "title": "Importance",
+        "type": "string"
+      },
+      "MineralSpecies": {
+        "description": "A mineral or elemental species of interest",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "mindat_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mindat Id"
+          },
+          "formula": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Formula"
+          },
+          "metallic": {
+            "description": "Is this a metallic mineral/element?",
+            "title": "Metallic",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "name",
+          "mindat_id",
+          "formula",
+          "metallic"
+        ],
+        "title": "MineralSpecies",
+        "type": "object"
+      },
+      "ResourceDevelopmentLevel": {
         "enum": [
           "Inferred resources",
           "Measured resources",
@@ -441,7 +588,7 @@
           "Proven and developed resources",
           "Cumulative production"
         ],
-        "title": "MineralResourceClassification",
+        "title": "ResourceDevelopmentLevel",
         "type": "string"
       }
     },
@@ -451,17 +598,17 @@
         "title": "Ore Quantity",
         "type": "number"
       },
-      "grades": {
+      "materials": {
         "items": {
-          "$ref": "#/$defs/GradeInformation"
+          "$ref": "#/$defs/CommodityWithConcentration"
         },
-        "title": "Grades",
+        "title": "Materials",
         "type": "array"
       },
-      "type": {
+      "level": {
         "allOf": [
           {
-            "$ref": "#/$defs/MineralResourceClassification"
+            "$ref": "#/$defs/ResourceDevelopmentLevel"
           }
         ],
         "description": "Type of resource"
@@ -469,8 +616,8 @@
     },
     "required": [
       "ore_quantity",
-      "grades",
-      "type"
+      "materials",
+      "level"
     ],
     "title": "GradeTonnageModel",
     "type": "object"
