@@ -10,57 +10,57 @@ Point = TypeVar("Point")
 WKT = TypeVar("WKT", bound=str)
 
 
-class ExtractionIdentifier(BaseModel):
-    """Link to extracted model"""
-
-    model: str = Field(
-        ...,
-        description="Model name",
-        example=[
-            "PolygonFeature",
-            "LineFeature",
-            "PointFeature",
-            "MapUnit",
-            "LineType",
-            "PointType",
-        ],
-    )
-    id: int = Field(..., description="ID of the extracted feature")
-    field: str = Field(..., description="Field name of the model")
+class Person(BaseModel):
+    name: str = Field(..., description="Name of the person")
+    email: str = Field(..., description="Email address of the person")
+    org: str = Field(..., description="Organization of the person")
 
 
-class ConfidenceScale(BaseModel):
-    """Confidence measure for a map extraction"""
+class DateTime(BaseModel):
+    """Date and time in UTM"""
 
-    name: str = Field(..., description="Name of the confidence scale")
-    description: str = Field(..., description="Description of the confidence scale")
-    min_value: float = Field(..., description="Minimum value")
-    max_value: float = Field(..., description="Maximum value")
+    year: int = Field(..., description="Year")
+    month: int = Field(..., description="Month")
+    day: int = Field(..., description="Day")
+    hour: int = Field(..., description="Hour")
+    minute: int = Field(..., description="Minute")
+    second: int = Field(..., description="Second")
 
 
-class ConfidenceEstimation(BaseModel):
-    """Confidence information for a map extraction"""
+class DataDescription(BaseModel):
+    """Description of the values this data represents"""
 
-    model: ExtractionIdentifier
-    scale: ConfidenceScale
-    confidence: float = Field(..., description="Certainty")
-    extra_data: dict = Field(..., description="Additional data")
+    datatype: str = Field(..., description="Datatype of this value")
+    min: float = Field(..., description="Minimum value of this data")
+    max: float = Field(..., description="Maximum value of this data")
+    description: str = Field(..., description="Description of the meaning of this data")
+
 
 class ModelRun(BaseModel):
     """Information about a model run."""
 
-    pipeline_name: str = Field(..., description="Model name")
+    name: str = Field(..., description="Model name")
     version: str = Field(..., description="Model version")
-    timestamp: str = Field(..., description="Time of model run")
-    batch_id: Optional[str] = Field(..., description="Batch ID")
-    image_size: list[int] = Field(..., description="Pixel size of the map image")
-    confidence: list[ConfidenceEstimation]
+    description: str = Field(..., description="Description of the algorithm")
+    uri: str = Field(..., description="URI of the model")
+    references: list[str] = Field(..., description="References for the model")
+    parameters: dict[str, str] = Field(..., description="Parameters used to run the model")
 
-class ProspectivityScore(BaseModel):
-    uri: str = Field(..., description="URI of the output prospectivity score raster")
 
-class ProspectivityUncertainty(BaseModel):
-    uri: str = Field(..., description="URI of the output prospectivity uncertainty raster")
+class RasterData(BaseModel):
+    uri: str = Field(..., description="URI of the raster")
+    raster_format: str = Field(..., description="Raster format")
+    band: int = Field(..., description="Band number in raster")
+    value_description: DataDescription = Field(..., description="Description of the raster value")
+
+
+class InputData(BaseModel):
+    layer_names: list[str] = Field(..., description="Names of the input layers")
+    layer_uris: list[str] = Field(..., description="URIs of the input layers")
+    layer_bands: list[int] = Field(..., description="Band numbers of the input layer in the URI source")
+    layer_descriptions: list[DataDescription] = Field(..., description="Description of the input layer values")
+    layer_importances: list[float] = Field(..., description="Importance of the input layer")
+
 
 class ProspectivityModel(BaseModel):
     bounds: list[float] = Field(..., description="Bounding box of the tile scheme")
@@ -71,7 +71,11 @@ class ProspectivityModel(BaseModel):
     )
     resolution: float = Field(..., description="Resolution of the output prospectivity raster")
 
-    pipelines: list[ModelRun]
-    prospectivity_score: ProspectivityScore = Field(..., description="Prospectivity score raster")
-    prospectivity_uncertainty: ProspectivityUncertainty = Field(..., description="Prospectivity uncertainty raster")
-    feature_importance: list[dict] = Field(..., description="Feature importance")
+    pipelines: ModelRun = Field(..., description="Information about the model run")
+    prospectivity_score: RasterData = Field(..., description="Prospectivity score raster")
+    prospectivity_uncertainty: RasterData = Field(..., description="Prospectivity uncertainty raster")
+    prospectivity_confidence: RasterData = Field(..., description="Confidence in the prospectivity score")
+    authors: list[Person] = Field(..., description="Authors of the model run")
+    contact: Person = Field(..., description="Contact person for the model run")
+    datetime_generated: DateTime = Field(..., description="Date and time the model was generated")
+    input_data: InputData = Field(..., description="Input data used to generate the model")

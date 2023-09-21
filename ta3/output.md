@@ -6,46 +6,68 @@
   - **Items** *(number)*
 - **`crs`** *(string)*: Coordinate reference system of the tile scheme.
 - **`resolution`** *(number)*: Resolution of the output prospectivity raster.
-- **`pipelines`** *(array)*
-  - **Items**: Refer to *[ModelRun](#ModelRun)*.
+- **`pipelines`**: Information about the model run.
+  - **All of**
+    - : Refer to *[ModelRun](#ModelRun)*.
 - **`prospectivity_score`**: Prospectivity score raster.
   - **All of**
-    - : Refer to *[ProspectivityScore](#ProspectivityScore)*.
+    - : Refer to *[RasterData](#RasterData)*.
 - **`prospectivity_uncertainty`**: Prospectivity uncertainty raster.
   - **All of**
-    - : Refer to *[ProspectivityUncertainty](#ProspectivityUncertainty)*.
+    - : Refer to *[RasterData](#RasterData)*.
+- **`prospectivity_confidence`**: Confidence in the prospectivity score.
+  - **All of**
+    - : Refer to *[RasterData](#RasterData)*.
+- **`authors`** *(array)*: Authors of the model run.
+  - **Items**: Refer to *[Person](#Person)*.
+- **`contact`**: Contact person for the model run.
+  - **All of**
+    - : Refer to *[Person](#Person)*.
+- **`datetime_generated`**: Date and time the model was generated.
+  - **All of**
+    - : Refer to *[DateTime](#DateTime)*.
+- **`input_data`**: Input data used to generate the model.
+  - **All of**
+    - : Refer to *[InputData](#InputData)*.
 
-## ConfidenceEstimation
+## DataDescription
 
-*Confidence information for a map extraction*
-
-### Properties
-
-- **`model`**: Refer to *[ExtractionIdentifier](#ExtractionIdentifier)*.
-- **`scale`**: Refer to *[ConfidenceScale](#ConfidenceScale)*.
-- **`confidence`** *(number)*: Certainty.
-- **`extra_data`** *(object)*: Additional data.
-
-## ConfidenceScale
-
-*Confidence measure for a map extraction*
-
-### Properties
-
-- **`name`** *(string)*: Name of the confidence scale.
-- **`description`** *(string)*: Description of the confidence scale.
-- **`min_value`** *(number)*: Minimum value.
-- **`max_value`** *(number)*: Maximum value.
-
-## ExtractionIdentifier
-
-*Link to extracted model*
+*Description of the values this data represents*
 
 ### Properties
 
-- **`model`** *(string)*: Model name.
-- **`id`** *(integer)*: ID of the extracted feature.
-- **`field`** *(string)*: Field name of the model.
+- **`datatype`** *(string)*: Datatype of this value.
+- **`min`** *(number)*: Minimum value of this data.
+- **`max`** *(number)*: Maximum value of this data.
+- **`description`** *(string)*: Description of the meaning of this data.
+
+## DateTime
+
+*Date and time in UTM*
+
+### Properties
+
+- **`year`** *(integer)*: Year.
+- **`month`** *(integer)*: Month.
+- **`day`** *(integer)*: Day.
+- **`hour`** *(integer)*: Hour.
+- **`minute`** *(integer)*: Minute.
+- **`second`** *(integer)*: Second.
+
+## InputData
+
+### Properties
+
+- **`layer_names`** *(array)*: Names of the input layers.
+  - **Items** *(string)*
+- **`layer_uris`** *(array)*: URIs of the input layers.
+  - **Items** *(string)*
+- **`layer_bands`** *(array)*: Band numbers of the input layer in the URI source.
+  - **Items** *(integer)*
+- **`layer_descriptions`** *(array)*: Description of the input layer values.
+  - **Items**: Refer to *[DataDescription](#DataDescription)*.
+- **`layer_importances`** *(array)*: Importance of the input layer.
+  - **Items** *(number)*
 
 ## ModelRun
 
@@ -53,27 +75,31 @@
 
 ### Properties
 
-- **`pipeline_name`** *(string)*: Model name.
+- **`name`** *(string)*: Model name.
 - **`version`** *(string)*: Model version.
-- **`timestamp`** *(string)*: Time of model run.
-- **`batch_id`**: Batch ID.
-  - **Any of**
-    - *string*
-    - *null*
-- **`image_size`** *(array)*: Pixel size of the map image.
-  - **Items** *(integer)*
-- **`confidence`** *(array)*
-  - **Items**: Refer to *[ConfidenceEstimation](#ConfidenceEstimation)*.
+- **`description`** *(string)*: Description of the algorithm.
+- **`uri`** *(string)*: URI of the model.
+- **`references`** *(array)*: References for the model.
+  - **Items** *(string)*
+- **`parameters`** *(object)*: Parameters used to run the model. Can contain additional properties.
+  - **Additional Properties** *(string)*
 
-## ProspectivityScore
+## Person
 
 ### Properties
 
-- **`uri`** *(string)*: URI of the output prospectivity score raster.
+- **`name`** *(string)*: Name of the person.
+- **`email`** *(string)*: Email address of the person.
+- **`org`** *(string)*: Organization of the person.
 
-## ProspectivityUncertainty
+## RasterData
 
 ### Properties
 
-- **`uri`** *(string)*: URI of the output prospectivity uncertainty raster.
+- **`uri`** *(string)*: URI of the raster.
+- **`raster_format`** *(string)*: Raster format.
+- **`band`** *(integer)*: Band number in raster.
+- **`value_description`**: Description of the raster value.
+  - **All of**
+    - : Refer to *[DataDescription](#DataDescription)*.
 

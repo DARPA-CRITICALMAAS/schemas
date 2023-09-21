@@ -1,109 +1,143 @@
 [
   {
     "$defs": {
-      "ConfidenceEstimation": {
-        "description": "Confidence information for a map extraction",
+      "DataDescription": {
+        "description": "Description of the values this data represents",
         "properties": {
-          "model": {
-            "$ref": "#/$defs/ExtractionIdentifier"
+          "datatype": {
+            "description": "Datatype of this value",
+            "title": "Datatype",
+            "type": "string"
           },
-          "scale": {
-            "$ref": "#/$defs/ConfidenceScale"
-          },
-          "confidence": {
-            "description": "Certainty",
-            "title": "Confidence",
+          "min": {
+            "description": "Minimum value of this data",
+            "title": "Min",
             "type": "number"
           },
-          "extra_data": {
-            "description": "Additional data",
-            "title": "Extra Data",
-            "type": "object"
-          }
-        },
-        "required": [
-          "model",
-          "scale",
-          "confidence",
-          "extra_data"
-        ],
-        "title": "ConfidenceEstimation",
-        "type": "object"
-      },
-      "ConfidenceScale": {
-        "description": "Confidence measure for a map extraction",
-        "properties": {
-          "name": {
-            "description": "Name of the confidence scale",
-            "title": "Name",
-            "type": "string"
+          "max": {
+            "description": "Maximum value of this data",
+            "title": "Max",
+            "type": "number"
           },
           "description": {
-            "description": "Description of the confidence scale",
+            "description": "Description of the meaning of this data",
             "title": "Description",
             "type": "string"
-          },
-          "min_value": {
-            "description": "Minimum value",
-            "title": "Min Value",
-            "type": "number"
-          },
-          "max_value": {
-            "description": "Maximum value",
-            "title": "Max Value",
-            "type": "number"
           }
         },
         "required": [
-          "name",
-          "description",
-          "min_value",
-          "max_value"
+          "datatype",
+          "min",
+          "max",
+          "description"
         ],
-        "title": "ConfidenceScale",
+        "title": "DataDescription",
         "type": "object"
       },
-      "ExtractionIdentifier": {
-        "description": "Link to extracted model",
+      "DateTime": {
+        "description": "Date and time in UTM",
         "properties": {
-          "model": {
-            "description": "Model name",
-            "example": [
-              "PolygonFeature",
-              "LineFeature",
-              "PointFeature",
-              "MapUnit",
-              "LineType",
-              "PointType"
-            ],
-            "title": "Model",
-            "type": "string"
-          },
-          "id": {
-            "description": "ID of the extracted feature",
-            "title": "Id",
+          "year": {
+            "description": "Year",
+            "title": "Year",
             "type": "integer"
           },
-          "field": {
-            "description": "Field name of the model",
-            "title": "Field",
-            "type": "string"
+          "month": {
+            "description": "Month",
+            "title": "Month",
+            "type": "integer"
+          },
+          "day": {
+            "description": "Day",
+            "title": "Day",
+            "type": "integer"
+          },
+          "hour": {
+            "description": "Hour",
+            "title": "Hour",
+            "type": "integer"
+          },
+          "minute": {
+            "description": "Minute",
+            "title": "Minute",
+            "type": "integer"
+          },
+          "second": {
+            "description": "Second",
+            "title": "Second",
+            "type": "integer"
           }
         },
         "required": [
-          "model",
-          "id",
-          "field"
+          "year",
+          "month",
+          "day",
+          "hour",
+          "minute",
+          "second"
         ],
-        "title": "ExtractionIdentifier",
+        "title": "DateTime",
+        "type": "object"
+      },
+      "InputData": {
+        "properties": {
+          "layer_names": {
+            "description": "Names of the input layers",
+            "items": {
+              "type": "string"
+            },
+            "title": "Layer Names",
+            "type": "array"
+          },
+          "layer_uris": {
+            "description": "URIs of the input layers",
+            "items": {
+              "type": "string"
+            },
+            "title": "Layer Uris",
+            "type": "array"
+          },
+          "layer_bands": {
+            "description": "Band numbers of the input layer in the URI source",
+            "items": {
+              "type": "integer"
+            },
+            "title": "Layer Bands",
+            "type": "array"
+          },
+          "layer_descriptions": {
+            "description": "Description of the input layer values",
+            "items": {
+              "$ref": "#/$defs/DataDescription"
+            },
+            "title": "Layer Descriptions",
+            "type": "array"
+          },
+          "layer_importances": {
+            "description": "Importance of the input layer",
+            "items": {
+              "type": "number"
+            },
+            "title": "Layer Importances",
+            "type": "array"
+          }
+        },
+        "required": [
+          "layer_names",
+          "layer_uris",
+          "layer_bands",
+          "layer_descriptions",
+          "layer_importances"
+        ],
+        "title": "InputData",
         "type": "object"
       },
       "ModelRun": {
         "description": "Information about a model run.",
         "properties": {
-          "pipeline_name": {
+          "name": {
             "description": "Model name",
-            "title": "Pipeline Name",
+            "title": "Name",
             "type": "string"
           },
           "version": {
@@ -111,76 +145,103 @@
             "title": "Version",
             "type": "string"
           },
-          "timestamp": {
-            "description": "Time of model run",
-            "title": "Timestamp",
+          "description": {
+            "description": "Description of the algorithm",
+            "title": "Description",
             "type": "string"
           },
-          "batch_id": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Batch ID",
-            "title": "Batch Id"
+          "uri": {
+            "description": "URI of the model",
+            "title": "Uri",
+            "type": "string"
           },
-          "image_size": {
-            "description": "Pixel size of the map image",
+          "references": {
+            "description": "References for the model",
             "items": {
-              "type": "integer"
+              "type": "string"
             },
-            "title": "Image Size",
+            "title": "References",
             "type": "array"
           },
-          "confidence": {
-            "items": {
-              "$ref": "#/$defs/ConfidenceEstimation"
+          "parameters": {
+            "additionalProperties": {
+              "type": "string"
             },
-            "title": "Confidence",
-            "type": "array"
+            "description": "Parameters used to run the model",
+            "title": "Parameters",
+            "type": "object"
           }
         },
         "required": [
-          "pipeline_name",
+          "name",
           "version",
-          "timestamp",
-          "batch_id",
-          "image_size",
-          "confidence"
+          "description",
+          "uri",
+          "references",
+          "parameters"
         ],
         "title": "ModelRun",
         "type": "object"
       },
-      "ProspectivityScore": {
+      "Person": {
         "properties": {
-          "uri": {
-            "description": "URI of the output prospectivity score raster",
-            "title": "Uri",
+          "name": {
+            "description": "Name of the person",
+            "title": "Name",
+            "type": "string"
+          },
+          "email": {
+            "description": "Email address of the person",
+            "title": "Email",
+            "type": "string"
+          },
+          "org": {
+            "description": "Organization of the person",
+            "title": "Org",
             "type": "string"
           }
         },
         "required": [
-          "uri"
+          "name",
+          "email",
+          "org"
         ],
-        "title": "ProspectivityScore",
+        "title": "Person",
         "type": "object"
       },
-      "ProspectivityUncertainty": {
+      "RasterData": {
         "properties": {
           "uri": {
-            "description": "URI of the output prospectivity uncertainty raster",
+            "description": "URI of the raster",
             "title": "Uri",
             "type": "string"
+          },
+          "raster_format": {
+            "description": "Raster format",
+            "title": "Raster Format",
+            "type": "string"
+          },
+          "band": {
+            "description": "Band number in raster",
+            "title": "Band",
+            "type": "integer"
+          },
+          "value_description": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/DataDescription"
+              }
+            ],
+            "description": "Description of the raster value"
           }
         },
         "required": [
-          "uri"
+          "uri",
+          "raster_format",
+          "band",
+          "value_description"
         ],
-        "title": "ProspectivityUncertainty",
+        "title": "RasterData",
         "type": "object"
       }
     },
@@ -204,16 +265,17 @@
         "type": "number"
       },
       "pipelines": {
-        "items": {
-          "$ref": "#/$defs/ModelRun"
-        },
-        "title": "Pipelines",
-        "type": "array"
+        "allOf": [
+          {
+            "$ref": "#/$defs/ModelRun"
+          }
+        ],
+        "description": "Information about the model run"
       },
       "prospectivity_score": {
         "allOf": [
           {
-            "$ref": "#/$defs/ProspectivityScore"
+            "$ref": "#/$defs/RasterData"
           }
         ],
         "description": "Prospectivity score raster"
@@ -221,10 +283,50 @@
       "prospectivity_uncertainty": {
         "allOf": [
           {
-            "$ref": "#/$defs/ProspectivityUncertainty"
+            "$ref": "#/$defs/RasterData"
           }
         ],
         "description": "Prospectivity uncertainty raster"
+      },
+      "prospectivity_confidence": {
+        "allOf": [
+          {
+            "$ref": "#/$defs/RasterData"
+          }
+        ],
+        "description": "Confidence in the prospectivity score"
+      },
+      "authors": {
+        "description": "Authors of the model run",
+        "items": {
+          "$ref": "#/$defs/Person"
+        },
+        "title": "Authors",
+        "type": "array"
+      },
+      "contact": {
+        "allOf": [
+          {
+            "$ref": "#/$defs/Person"
+          }
+        ],
+        "description": "Contact person for the model run"
+      },
+      "datetime_generated": {
+        "allOf": [
+          {
+            "$ref": "#/$defs/DateTime"
+          }
+        ],
+        "description": "Date and time the model was generated"
+      },
+      "input_data": {
+        "allOf": [
+          {
+            "$ref": "#/$defs/InputData"
+          }
+        ],
+        "description": "Input data used to generate the model"
       }
     },
     "required": [
@@ -233,7 +335,12 @@
       "resolution",
       "pipelines",
       "prospectivity_score",
-      "prospectivity_uncertainty"
+      "prospectivity_uncertainty",
+      "prospectivity_confidence",
+      "authors",
+      "contact",
+      "datetime_generated",
+      "input_data"
     ],
     "title": "ProspectivityModel",
     "type": "object"
