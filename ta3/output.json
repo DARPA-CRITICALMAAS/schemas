@@ -218,6 +218,15 @@
           },
           "raster_format": {
             "description": "Raster format",
+            "examples": [
+              "GeoTIFF",
+              "PNG",
+              "JPEG",
+              "JPEG2000",
+              "HDF5",
+              "NetCDF",
+              "GeoPackage"
+            ],
             "title": "Raster Format",
             "type": "string"
           },
