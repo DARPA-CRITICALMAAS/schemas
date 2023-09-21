@@ -1,5 +1,189 @@
 [
   {
+    "$defs": {
+      "ConfidenceEstimation": {
+        "description": "Confidence information for a map extraction",
+        "properties": {
+          "model": {
+            "$ref": "#/$defs/ExtractionIdentifier"
+          },
+          "scale": {
+            "$ref": "#/$defs/ConfidenceScale"
+          },
+          "confidence": {
+            "description": "Certainty",
+            "title": "Confidence",
+            "type": "number"
+          },
+          "extra_data": {
+            "description": "Additional data",
+            "title": "Extra Data",
+            "type": "object"
+          }
+        },
+        "required": [
+          "model",
+          "scale",
+          "confidence",
+          "extra_data"
+        ],
+        "title": "ConfidenceEstimation",
+        "type": "object"
+      },
+      "ConfidenceScale": {
+        "description": "Confidence measure for a map extraction",
+        "properties": {
+          "name": {
+            "description": "Name of the confidence scale",
+            "title": "Name",
+            "type": "string"
+          },
+          "description": {
+            "description": "Description of the confidence scale",
+            "title": "Description",
+            "type": "string"
+          },
+          "min_value": {
+            "description": "Minimum value",
+            "title": "Min Value",
+            "type": "number"
+          },
+          "max_value": {
+            "description": "Maximum value",
+            "title": "Max Value",
+            "type": "number"
+          }
+        },
+        "required": [
+          "name",
+          "description",
+          "min_value",
+          "max_value"
+        ],
+        "title": "ConfidenceScale",
+        "type": "object"
+      },
+      "ExtractionIdentifier": {
+        "description": "Link to extracted model",
+        "properties": {
+          "model": {
+            "description": "Model name",
+            "example": [
+              "PolygonFeature",
+              "LineFeature",
+              "PointFeature",
+              "MapUnit",
+              "LineType",
+              "PointType"
+            ],
+            "title": "Model",
+            "type": "string"
+          },
+          "id": {
+            "description": "ID of the extracted feature",
+            "title": "Id",
+            "type": "integer"
+          },
+          "field": {
+            "description": "Field name of the model",
+            "title": "Field",
+            "type": "string"
+          }
+        },
+        "required": [
+          "model",
+          "id",
+          "field"
+        ],
+        "title": "ExtractionIdentifier",
+        "type": "object"
+      },
+      "ModelRun": {
+        "description": "Information about a model run.",
+        "properties": {
+          "pipeline_name": {
+            "description": "Model name",
+            "title": "Pipeline Name",
+            "type": "string"
+          },
+          "version": {
+            "description": "Model version",
+            "title": "Version",
+            "type": "string"
+          },
+          "timestamp": {
+            "description": "Time of model run",
+            "title": "Timestamp",
+            "type": "string"
+          },
+          "batch_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Batch ID",
+            "title": "Batch Id"
+          },
+          "image_size": {
+            "description": "Pixel size of the map image",
+            "items": {
+              "type": "integer"
+            },
+            "title": "Image Size",
+            "type": "array"
+          },
+          "confidence": {
+            "items": {
+              "$ref": "#/$defs/ConfidenceEstimation"
+            },
+            "title": "Confidence",
+            "type": "array"
+          }
+        },
+        "required": [
+          "pipeline_name",
+          "version",
+          "timestamp",
+          "batch_id",
+          "image_size",
+          "confidence"
+        ],
+        "title": "ModelRun",
+        "type": "object"
+      },
+      "ProspectivityScore": {
+        "properties": {
+          "uri": {
+            "description": "URI of the output prospectivity score raster",
+            "title": "Uri",
+            "type": "string"
+          }
+        },
+        "required": [
+          "uri"
+        ],
+        "title": "ProspectivityScore",
+        "type": "object"
+      },
+      "ProspectivityUncertainty": {
+        "properties": {
+          "uri": {
+            "description": "URI of the output prospectivity uncertainty raster",
+            "title": "Uri",
+            "type": "string"
+          }
+        },
+        "required": [
+          "uri"
+        ],
+        "title": "ProspectivityUncertainty",
+        "type": "object"
+      }
+    },
     "properties": {
       "bounds": {
         "description": "Bounding box of the tile scheme",
@@ -18,12 +202,38 @@
         "description": "Resolution of the output prospectivity raster",
         "title": "Resolution",
         "type": "number"
+      },
+      "pipelines": {
+        "items": {
+          "$ref": "#/$defs/ModelRun"
+        },
+        "title": "Pipelines",
+        "type": "array"
+      },
+      "prospectivity_score": {
+        "allOf": [
+          {
+            "$ref": "#/$defs/ProspectivityScore"
+          }
+        ],
+        "description": "Prospectivity score raster"
+      },
+      "prospectivity_uncertainty": {
+        "allOf": [
+          {
+            "$ref": "#/$defs/ProspectivityUncertainty"
+          }
+        ],
+        "description": "Prospectivity uncertainty raster"
       }
     },
     "required": [
       "bounds",
       "crs",
-      "resolution"
+      "resolution",
+      "pipelines",
+      "prospectivity_score",
+      "prospectivity_uncertainty"
     ],
     "title": "ProspectivityModel",
     "type": "object"
