@@ -49,7 +49,11 @@ class ModelRun(BaseModel):
 
 class RasterData(BaseModel):
     uri: str = Field(..., description="URI of the raster")
-    raster_format: str = Field(..., description="Raster format")
+    raster_format: str = Field(
+        ...,
+        description="Raster format",
+        example=["GeoTIFF", "PNG", "JPEG", "JPEG2000", "HDF5", "NetCDF", "GeoPackage"]
+    )
     band: int = Field(..., description="Band number in raster")
     value_description: DataDescription = Field(..., description="Description of the raster value")
 
