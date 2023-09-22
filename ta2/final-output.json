@@ -1,0 +1,249 @@
+[
+  {
+    "$defs": {
+      "MineralSite" : {
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "location": {
+            "description": "Type: Polygon or Point, value indicates the geolocation of the site",
+            "title": "Location"
+          },
+          "country": {
+            "description": "Country that the mine site resides in",
+            "title": "Country",
+            "type": "string"
+          },
+          "location_source": {
+            "description": "Source dataset that the location info is retrieved from. e.g., MRDS",
+            "title": "Location Source",
+            "type": "string"
+          },
+          "state_or_province": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "State or province that the mine site resides in",
+            "title": "State Or Province"
+          },
+          "same_as": {
+            "anyOf": [
+              {
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Dictionary that stores the url point to other databases",
+            "examples": {
+              "MRDS": "https://mrdata.usgs.gov/mrds/show-mrds.php?dep_id=10164485",
+              "USMIN": "url_to_usmin_database"
+            },
+            "title": "Same As"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "location",
+          "country",
+          "location_source",
+          "state_or_province",
+          "same_as"
+        ],
+        "title": "Mineral Site",
+        "type": "object"
+      },
+      "ResourceReserveCategory": {
+        "enum": [
+          "inferred",
+          "indicated",
+          "measured",
+          "probable",
+          "proven",
+          "original resource",
+          "extracted",
+          "cumulative extracted"
+        ],
+        "title": "Resource and Reserve Category",
+        "type": "string"
+      },
+      "Commodity": {
+        "properties": {
+          "id": {
+            "title": "id",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ],
+        "title": "Commodity",
+        "type": "object"
+      },
+      "Reference": {
+        "properties": {
+          "id": {
+            "title": "id",
+            "type": "string"
+          },
+          "page": {
+            "title": "Page",
+            "type": "int"
+          },
+          "line": {
+            "title": "Line",
+            "type": "int"
+          },
+          "date": {
+            "title": "date",
+            "type": "datetime"
+          },
+          "document": {
+            "properties": {
+              "id": {
+                "title": "id",
+                "type": "string"
+              },
+              "name": {
+                "title": "Name",
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ],
+            "title": "Document",
+            "type": "object"
+          }
+        },
+        "required": [
+          "id",
+          "document",
+          "page",
+          "line",
+          "date"
+        ],
+        "title": "Reference",
+        "type": "object"
+      },
+      "DepositType": {
+        "properties": {
+          "id": {
+            "title": "id",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ],
+        "title": "Deposit Type",
+        "type": "object"
+      },
+      "Ore": {
+        "properties": {
+          "oreUnit": {
+            "title": "Ore Unit",
+            "type": "string"
+          },
+          "oreValue": {
+            "title": "Ore Value",
+            "type": "float"
+          }
+        },
+        "required": [
+          "oreUnit",
+          "oreValue"
+        ],
+        "title": "Ore",
+        "type": "object"
+      },
+      "Grade": {
+        "properties": {
+          "gradeUnit": {
+            "title": "Grade Unit",
+            "type": "string"
+          },
+          "gradeValue": {
+            "title": "Grade Value",
+            "type": "float"
+          }
+        },
+        "required": [
+          "gradeUnit",
+          "gradeValue"
+        ],
+        "title": "Grade",
+        "type": "object"
+      }
+    },
+    "description": "Mineral inventory data.",
+    "properties": {
+      "id": {
+        "title": "Id",
+        "type": "integer"
+      },
+      "reference": {
+        "$ref": "#/$defs/Reference"
+      },
+      "depositType": {
+        "$ref": "#/$defs/DepositType"
+      },
+      "commodity": {
+        "$ref": "#/$defs/Commodity"
+      },
+      "mineralSite": {
+        "$ref": "#/$defs/MineralSite"
+      },
+      "category": {
+        "$ref": "#/$defs/ResourceReserveCategory"
+      },
+      "ore": {
+        "$ref": "#/$defs/Ore"
+      },
+      "grade": {
+        "$ref": "#/$defs/Grade"
+      },
+      "containedMetal": {
+        "title": "Contained Metal",
+        "type": "float"
+      }
+    },
+    "required": [
+      "id",
+      "mineralSite",
+      "depositType",
+      "commodity",
+      "ore",
+      "grade",
+      "category",
+      "containedMetal",
+      "reference"
+    ],
+    "title": "MineralInventory",
+    "type": "object"
+  }
+]
