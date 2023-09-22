@@ -18,15 +18,12 @@
   - **Any of**
     - *string*
     - *null*
-- **`ore_minerals`** *(array)*
-  - **Items** *(string)*
-- **`gangue_minerals`** *(array)*
-  - **Items** *(string)*
+- **`commodities`** *(array)*
+  - **Items**: Refer to *[Commodity](#Commodity)*.
 - **`location`**
   - **Any of**
     - 
     - *null*
-- **`commodities`**: Refer to *[Commodities](#Commodities)*.
 - **`history`**
   - **Any of**
     - : Refer to *[History](#History)*.
@@ -50,24 +47,68 @@
 ### Properties
 
 - **`ore_quantity`** *(number)*: Ore quantity in metric tons.
-- **`grades`** *(array)*
-  - **Items**: Refer to *[GradeInformation](#GradeInformation)*.
-- **`type`**: Type of resource.
+- **`materials`** *(array)*
+  - **Items**: Refer to *[CommodityWithConcentration](#CommodityWithConcentration)*.
+- **`level`**: Type of resource.
   - **All of**
-    - : Refer to *[MineralResourceClassification](#MineralResourceClassification)*.
+    - : Refer to *[ResourceDevelopmentLevel](#ResourceDevelopmentLevel)*.
 
-## Commodities
+## Commodity
+
+*A mineral or elemental commodity, with information about its importance in a deposit.*
 
 ### Properties
 
-- **`primary`** *(array)*
-  - **Items** *(string)*
-- **`secondary`** *(array)*
-  - **Items** *(string)*
-- **`accessory`** *(array)*
-  - **Items** *(string)*
-- **`metallic`** *(boolean)*
-- **`nonmetallic`** *(boolean)*
+- **`species`**: Species of interest (mineral, element, or other commodity).
+  - **Any of**
+    - : Refer to *[MineralSpecies](#MineralSpecies)*.
+    - *string*
+
+  Examples:
+  ```json
+  "quartz"
+  ```
+
+  ```json
+  "gold"
+  ```
+
+  ```json
+  "silver"
+  ```
+
+  ```json
+  "copper"
+  ```
+
+  ```json
+  "lead"
+  ```
+
+  ```json
+  "zinc"
+  ```
+
+  ```json
+  "aggregate"
+  ```
+
+- **`is_ore`** *(boolean)*: Is this an ore or gangue mineral in this deposit?
+- **`importance`**: Importance of this mineral in this deposit.
+  - **All of**
+    - : Refer to *[Importance](#Importance)*.
+
+## CommodityWithConcentration
+
+### Properties
+
+- **`material`**: Species of interest (mineral or element).
+  - **All of**
+    - : Refer to *[Commodity](#Commodity)*.
+- **`concentration`** *(number)*: Concentration of species in ppm.
+- **`unit`**: Unit of concentration.
+  - **All of**
+    - : Refer to *[ConcentrationUnit](#ConcentrationUnit)*.
 
 ## Document
 
@@ -117,16 +158,6 @@
   - **Items** *(string)*
 - **`comments`** *(string)*
 
-## GradeInformation
-
-### Properties
-
-- **`species`** *(string)*: Species of interest (mineral or element).
-- **`concentration`** *(number)*: Concentration of species in ppm.
-- **`unit`**: Unit of concentration.
-  - **All of**
-    - : Refer to *[ConcentrationUnit](#ConcentrationUnit)*.
-
 ## History
 
 ### Properties
@@ -147,4 +178,21 @@
   - **Any of**
     - *string*
     - *null*
+
+## MineralSpecies
+
+*A mineral or elemental species of interest*
+
+### Properties
+
+- **`name`** *(string)*
+- **`mindat_id`**
+  - **Any of**
+    - *string*
+    - *null*
+- **`formula`**
+  - **Any of**
+    - *string*
+    - *null*
+- **`metallic`** *(boolean)*: Is this a metallic mineral/element?
 
