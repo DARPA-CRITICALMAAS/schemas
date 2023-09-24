@@ -1,11 +1,36 @@
-# Mineral Inventory
+# MineralSite
+
+### Properties
+
+- **`id`** *(string)*
+- **`name`** *(string)*
+- **`mineral_inventory`**: Refer to *[MineralInventory](#MineralInventory)*.
+- **`location_info`**: Refer to *[LocationInfo](#LocationInfo)*.
+- **`same_as`**
+    - **Any of**
+        - *dict*
+        - *null*
+
+## LocationInfo
+
+### Properties
+
+- **`location`** *(Geometry)*
+- **`crs`** *(string)*
+- **`country`** *(string)*
+- **`location_source`** *(string)*
+- **`state_or_province`**
+    - **Any of**
+        - *string*
+        - *null*
+
+## MineralInventory
 
 *Mineral inventory data*
 
 ### Properties
 
 - **`id`** *(integer)*
-- **`mine`**: Refer to *[MineralSite](#MineralSite)*.
 - **`depositType`**: Refer to *[DepositType](#DepositType)*.
 - **`commodity`**: Refer to *[Commodity](#Commodity)*.
 - **`category`**: Refer to *[ResourceReserveCategory](#ResourceReserveCategory)*.
@@ -25,25 +50,6 @@
 - **`original resource`**
 - **`extracted`**
 - **`cumulative extracted`**
-
-## MineralSite
-
-### Properties
-
-- **`id`** *(string)*
-- **`name`** *(string)*
-- **`location`** *(Geometry)*
-- **`crs`** *(string)*
-- **`country`** *(string)*
-- **`location_source`** *(string)*
-- **`state_or_province`**
-    - **Any of**
-        - *string*
-        - *null*
-- **`same_as`**
-    - **Any of**
-        - *dict*
-        - *null*
 
 
 ## Commodity
