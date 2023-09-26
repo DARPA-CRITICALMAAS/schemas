@@ -4,26 +4,16 @@
 
 *Data provided by TA2 performers to TA4 for feedback/synthesis*
 
-TA1 output schemas are defined in the [TA2 output JSONSchema](output.json) file.
+_Date Updated: 09/26/2023_
 
-![TA2 output schema summary](output.png)
+TA1 output schemas are defined in the [TA2 output JSONSchema](final-output.json) file.
 
-Documentation of each schema: [**TA2 output schema documentation**](output.md)
+![TA2 output schema summary](final-output.png)
+
+Documentation of each schema: [**TA2 output schema documentation**](final-output.md)
 
 
-### MineralOccurrence
-
-A work in progress, borrowed from UW–Macrostrat's work to 
-import [MRDS](https://mrdata.usgs.gov/mrds/) data into Macrostrat (see [our development website](https://dev.macrostrat.org/map/weaver) and [code](
-https://github.com/digitalcrust/weaver/blob/main/example-pipelines/mrds/02-get-data.py))
-
-### MineralDepositModel
-
-TBD
-
-### GradeTonnageModel
-
-TBD
+##
 
 
 ## Feedback schemas
