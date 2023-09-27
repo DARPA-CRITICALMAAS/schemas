@@ -70,6 +70,60 @@ NOTE: This would be nice to have but isn't required (especially for the initial 
 - **`id`** *(integer)*: ID of the extracted feature.
 - **`field`** *(string)*: Field name of the model.
 
+## GeologicUnit
+
+*Information about a geologic unit synthesized from map legend extractions.*
+
+### Properties
+
+- **`name`** *(string)*: Geologic unit name extracted from legend.
+- **`description`** *(string)*: Map unit description.
+- **`comments`**: Map unit comments.
+  - **Any of**
+    - *string*
+    - *null*
+- **`age_text`** *(string)*: Text representation of age extracted from legend.
+- **`t_interval`**: Youngest interval.
+  - **Any of**
+    - *string*
+    - *integer*
+    - *null*
+
+  Examples:
+  ```json
+  "Holocene"
+  ```
+
+  ```json
+  "Cretaceous"
+  ```
+
+- **`b_interval`**: Oldest interval.
+  - **Any of**
+    - *string*
+    - *integer*
+    - *null*
+
+  Examples:
+  ```json
+  "Mesozoic"
+  ```
+
+  ```json
+  "Neoproterozoic"
+  ```
+
+- **`t_age`**: Minimum age (in Ma).
+  - **Any of**
+    - *integer*
+    - *null*
+- **`b_age`**: Maximum age (in Ma).
+  - **Any of**
+    - *integer*
+    - *null*
+- **`lithology`** *(array)*: Structured lithology information extracted from legend.
+  - **Items** *(string)*
+
 ## GroundControlPoint
 
 *Ground control point*
@@ -163,75 +217,6 @@ NOTE: This would be nice to have but isn't required (especially for the initial 
   - **Items**: Refer to *[LineFeature](#LineFeature)*.
 - **`points`** *(array)*: Map points.
   - **Items**: Refer to *[PointFeature](#PointFeature)*.
-
-## MapUnit
-
-### Properties
-
-- **`age_text`** *(string)*: Text representation of age extracted from legend.
-- **`t_interval`**: Youngest interval.
-  - **Any of**
-    - *string*
-    - *integer*
-    - *null*
-
-  Examples:
-  ```json
-  "Holocene"
-  ```
-
-  ```json
-  "Cretaceous"
-  ```
-
-- **`b_interval`**: Oldest interval.
-  - **Any of**
-    - *string*
-    - *integer*
-    - *null*
-
-  Examples:
-  ```json
-  "Mesozoic"
-  ```
-
-  ```json
-  "Neoproterozoic"
-  ```
-
-- **`t_age`**: Minimum age (in Ma).
-  - **Any of**
-    - *integer*
-    - *null*
-- **`b_age`**: Maximum age (in Ma).
-  - **Any of**
-    - *integer*
-    - *null*
-- **`id`** *(integer)*: Internal ID.
-- **`name`** *(string)*: Geologic unit name extracted from legend.
-- **`color`** *(string)*: Color extracted from map/legend.
-- **`pattern`**: Pattern extracted from map/legend.
-  - **Any of**
-    - *string*
-    - *null*
-- **`abbreviation`**: Abbreviation extracted from map/legend.
-  - **Any of**
-    - *string*
-    - *null*
-- **`description`**: Description text extracted from legend.
-  - **Any of**
-    - *string*
-    - *null*
-- **`lithology`** *(array)*: Lithology information extracted from legend.
-  - **Items** *(string)*
-- **`comments`**: Comments extracted from legend.
-  - **Any of**
-    - *string*
-    - *null*
-- **`category`**: Name of containing legend block.
-  - **Any of**
-    - *string*
-    - *null*
 
 ## ModelRun
 
@@ -328,9 +313,38 @@ NOTE: This would be nice to have but isn't required (especially for the initial 
 
 - **`id`** *(integer)*: Internal ID.
 - **`geometry`**: Polygon geometry.
-- **`map_unit`**: Map unit information.
+- **`type`**: Polygon type information.
   - **All of**
-    - : Refer to *[MapUnit](#MapUnit)*.
+    - : Refer to *[PolygonType](#PolygonType)*.
+
+## PolygonType
+
+*Information about a polygon extracted from the map legend.*
+
+### Properties
+
+- **`id`** *(integer)*: Internal ID.
+- **`color`** *(string)*: Color extracted from map/legend.
+- **`pattern`**: Pattern extracted from map/legend.
+  - **Any of**
+    - *string*
+    - *null*
+- **`abbreviation`**: Abbreviation extracted from map/legend.
+  - **Any of**
+    - *string*
+    - *null*
+- **`description`**: Description text extracted from legend.
+  - **Any of**
+    - *string*
+    - *null*
+- **`category`**: Name of containing legend block.
+  - **Any of**
+    - *string*
+    - *null*
+- **`map_unit`**: Map unit information.
+  - **Any of**
+    - : Refer to *[GeologicUnit](#GeologicUnit)*.
+    - *null*
 
 ## ProjectionMeta
 

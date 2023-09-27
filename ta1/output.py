@@ -8,10 +8,15 @@ Image = TypeVar("Image")
 WKT = TypeVar("WKT", bound=str)
 
 
-class GeologicAgeData(BaseModel):
+class GeologicUnit(BaseModel):
     """
-    Information about the geologic age of a map unit.
+    Information about a geologic unit synthesized from map legend extractions.
     """
+    name: str = Field(..., description="Geologic unit name extracted from legend")
+    description: str = Field(
+        ..., description="Map unit description"
+    )
+    comments: Optional[str] = Field(..., description="Map unit comments")
 
     age_text: str = Field(
         ..., description="Text representation of age extracted from legend"
@@ -24,11 +29,15 @@ class GeologicAgeData(BaseModel):
     )
     t_age: Optional[int] = Field(..., description="Minimum age (in Ma)")
     b_age: Optional[int] = Field(..., description="Maximum age (in Ma)")
+    lithology: list[str] = Field(
+        ..., description="Structured lithology information extracted from legend."
+    )
 
 
-class MapUnit(GeologicAgeData):
+class PolygonType(BaseModel):
+    """Information about a polygon extracted from the map legend."""
+
     id: int = Field(..., description="Internal ID")
-    name: str = Field(..., description="Geologic unit name extracted from legend")
 
     color: str = Field(..., description="Color extracted from map/legend")
     pattern: Optional[str] = Field(..., description="Pattern extracted from map/legend")
@@ -38,11 +47,9 @@ class MapUnit(GeologicAgeData):
     description: Optional[str] = Field(
         ..., description="Description text extracted from legend"
     )
-    lithology: list[str] = Field(
-        ..., description="Lithology information extracted from legend."
-    )
-    comments: Optional[str] = Field(..., description="Comments extracted from legend")
     category: Optional[str] = Field(..., description="Name of containing legend block")
+    map_unit: Optional[GeologicUnit] = Field(..., description="Map unit information")
+
 
 
 class PolygonFeature(BaseModel):
@@ -51,7 +58,7 @@ class PolygonFeature(BaseModel):
     id: int = Field(..., description="Internal ID")
 
     geometry: Polygon = Field(..., description="Polygon geometry")
-    map_unit: MapUnit = Field(..., description="Map unit information")
+    type: PolygonType = Field(..., description="Polygon type information")
 
 
 class LineType(BaseModel):
