@@ -805,11 +805,18 @@
         "$ref": "#/$defs/MapFeatureExtractions"
       },
       "cross_sections": {
-        "items": {
-          "$ref": "#/$defs/CrossSection"
-        },
-        "title": "Cross Sections",
-        "type": "array"
+        "anyOf": [
+          {
+            "items": {
+              "$ref": "#/$defs/CrossSection"
+            },
+            "type": "array"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Cross Sections"
       },
       "pipelines": {
         "items": {

@@ -226,7 +226,7 @@ class Map(BaseModel):
     bounds: Polygon = Field(..., description="Map geographic bounds")
 
     features: MapFeatureExtractions
-    cross_sections: list[CrossSection]
+    cross_sections: Optional[list[CrossSection]]
 
     pipelines: list[ModelRun]
     projection_info: ProjectionMeta

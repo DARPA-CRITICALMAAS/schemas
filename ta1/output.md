@@ -14,8 +14,11 @@
 - **`scale`** *(string)*: Map scale.
 - **`bounds`**: Map geographic bounds.
 - **`features`**: Refer to *[MapFeatureExtractions](#MapFeatureExtractions)*.
-- **`cross_sections`** *(array)*
-  - **Items**: Refer to *[CrossSection](#CrossSection)*.
+- **`cross_sections`**
+  - **Any of**
+    - *array*
+      - **Items**: Refer to *[CrossSection](#CrossSection)*.
+    - *null*
 - **`pipelines`** *(array)*
   - **Items**: Refer to *[ModelRun](#ModelRun)*.
 - **`projection_info`**: Refer to *[ProjectionMeta](#ProjectionMeta)*.
