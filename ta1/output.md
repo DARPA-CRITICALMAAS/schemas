@@ -7,6 +7,8 @@
 - **`name`** *(string)*: Map name.
 - **`source_url`** *(string)*: URL of the map source (e.g., NGMDB information page).
 - **`image_url`** *(string)*: URL of the map image, as a web-accessible, cloud-optimized GeoTIFF.
+- **`image_size`** *(array)*: Pixel size of the map image.
+  - **Items** *(integer)*
 - **`authors`** *(string)*: Map authors.
 - **`publisher`** *(string)*: Map publisher.
 - **`year`** *(integer)*: Map publication year.
@@ -244,8 +246,6 @@ NOTE: This would be nice to have but isn't required (especially for the initial 
   - **Any of**
     - *string*
     - *null*
-- **`image_size`** *(array)*: Pixel size of the map image.
-  - **Items** *(integer)*
 - **`confidence`** *(array)*
   - **Items**: Refer to *[ConfidenceEstimation](#ConfidenceEstimation)*.
 - **`boxes`** *(array)*

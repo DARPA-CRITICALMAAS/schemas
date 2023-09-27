@@ -189,7 +189,6 @@ class ModelRun(BaseModel):
     version: str = Field(..., description="Model version")
     timestamp: str = Field(..., description="Time of model run")
     batch_id: Optional[str] = Field(..., description="Batch ID")
-    image_size: list[int] = Field(..., description="Pixel size of the map image")
     confidence: list[ConfidenceEstimation]
     boxes: list[PageExtraction]
 
@@ -218,6 +217,8 @@ class Map(BaseModel):
         ...,
         description="URL of the map image, as a web-accessible, cloud-optimized GeoTIFF",
     )
+    image_size: list[int] = Field(..., description="Pixel size of the map image")
+
     authors: str = Field(..., description="Map authors")
     publisher: str = Field(..., description="Map publisher")
     year: int = Field(..., description="Map publication year")

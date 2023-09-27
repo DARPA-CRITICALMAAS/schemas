@@ -519,14 +519,6 @@
             "description": "Batch ID",
             "title": "Batch Id"
           },
-          "image_size": {
-            "description": "Pixel size of the map image",
-            "items": {
-              "type": "integer"
-            },
-            "title": "Image Size",
-            "type": "array"
-          },
           "confidence": {
             "items": {
               "$ref": "#/$defs/ConfidenceEstimation"
@@ -547,7 +539,6 @@
           "version",
           "timestamp",
           "batch_id",
-          "image_size",
           "confidence",
           "boxes"
         ],
@@ -772,6 +763,14 @@
         "title": "Image Url",
         "type": "string"
       },
+      "image_size": {
+        "description": "Pixel size of the map image",
+        "items": {
+          "type": "integer"
+        },
+        "title": "Image Size",
+        "type": "array"
+      },
       "authors": {
         "description": "Map authors",
         "title": "Authors",
@@ -833,6 +832,7 @@
       "name",
       "source_url",
       "image_url",
+      "image_size",
       "authors",
       "publisher",
       "year",
