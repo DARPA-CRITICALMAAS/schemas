@@ -120,5 +120,14 @@
 
 - **`id`** *(string)*
 - **`page`** *(integer)*
-- **`coords`** *(list(integer))*
+- **`bounding_box`**: Refer to *[BoundingBox](#BoundingBox)*.
 - **`document`**: Refer to *[Document](#Document)*.
+
+## BoundingBox
+
+### Properties
+
+- **`x_min`** *(float)*
+- **`x_max`** *(float)*
+- **`y_min`** *(float)*
+- **`y_max`** *(float)*.

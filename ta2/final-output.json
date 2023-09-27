@@ -108,6 +108,34 @@
             "title": "Page",
             "type": "int"
           },
+          "BoundingBox": {
+            "properties": {
+              "x_min": {
+                "title": "x_min",
+                "type": "float"
+              },
+              "x_max": {
+                "title": "x_max",
+                "type": "float"
+              },
+              "y_min": {
+                "title": "y_min",
+                "type": "float"
+              },
+              "y_max": {
+                "title": "y_max",
+                "type": "float"
+              }
+            },
+            "required": [
+              "x_min",
+              "x_max",
+              "y_min",
+              "y_max"
+            ],
+            "title": "Document",
+            "type": "object"
+          },
           "Document": {
             "properties": {
               "id": {
@@ -235,8 +263,7 @@
           "id",
           "document",
           "page",
-          "line",
-          "date"
+          "BoundingBox"
         ],
         "title": "Reference",
         "type": "object"

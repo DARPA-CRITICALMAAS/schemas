@@ -32,7 +32,11 @@ class DepositType(BaseModel):
     id: str
     name: str = Field( description="Name of the deposit type")
 
-
+class BoundingBox(BaseModel):
+    x_min: float
+    x_max: float
+    y_min: float
+    y_max: float
 class Document(BaseModel):
     id: str
     title: str = Field( description="Title of the document")
@@ -52,8 +56,7 @@ class Reference(BaseModel):
     id: str
     document: Document
     page: int
-    coords: list[int] = Field(description="coordinates of the document where reference is found")
-
+    bounding_box: BoundingBox = Field(description="coordinates of the document where reference is found")
 
 class Commodity(BaseModel):
     id: str
@@ -73,6 +76,8 @@ class MineralInventory(BaseModel):
     containedMetal: float = Field( description="The quantity of a contained metal in an inventory item")
     reference: Reference = Field( description="The reference of an inventory item")
     date: datetime = Field(description="When in the point of time mineral inventory valid")
+
+
 
 class LocationInfo(BaseModel):
     location: Geometry = Field(
