@@ -58,7 +58,7 @@ NOTE: This would be nice to have but isn't required (especially for the initial 
 - **`id`** *(integer)*: Internal ID.
 - **`label`** *(string)*: Cross section label.
 - **`line_of_section`**: Geographic line of section.
-- **`image`**: Image of the cross section.
+- **`image`**: Bounding pixel coordinates of the cross section.
 
 ## ExtractionIdentifier
 

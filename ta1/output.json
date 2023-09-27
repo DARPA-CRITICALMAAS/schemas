@@ -81,7 +81,7 @@
             "title": "Line Of Section"
           },
           "image": {
-            "description": "Image of the cross section",
+            "description": "Bounding pixel coordinates of the cross section",
             "title": "Image"
           }
         },

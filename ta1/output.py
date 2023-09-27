@@ -4,8 +4,9 @@ from typing import Optional, TypeVar
 Polygon = TypeVar("Polygon")
 Line = TypeVar("Line")
 Point = TypeVar("Point")
-Image = TypeVar("Image")
 WKT = TypeVar("WKT", bound=str)
+
+PixelBoundingPolygon = TypeVar("PixelBoundingPolygon")
 
 
 class GeologicUnit(BaseModel):
@@ -167,7 +168,7 @@ class PageExtraction(BaseModel):
     )
     ocr_text: str = Field(..., description="OCR text of the page extraction")
     color_estimation: Optional[str]
-    bounds: Polygon = Field(
+    bounds: PixelBoundingPolygon = Field(
         ..., description="Bounds of the page extraction, in pixel coordinates"
     )
     model: Optional[ExtractionIdentifier]
@@ -209,7 +210,7 @@ class CrossSection(BaseModel):
     id: int = Field(..., description="Internal ID")
     label: str = Field(..., description="Cross section label")
     line_of_section: Line = Field(..., description="Geographic line of section")
-    image: Image = Field(..., description="Image of the cross section")
+    image: PixelBoundingPolygon = Field(..., description="Bounding pixel coordinates of the cross section")
 
 
 class Map(BaseModel):
