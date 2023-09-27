@@ -81,7 +81,7 @@
             "title": "Line Of Section"
           },
           "image": {
-            "description": "Image of the cross section",
+            "description": "Bounding pixel coordinates of the cross section",
             "title": "Image"
           }
         },
@@ -127,6 +127,121 @@
           "field"
         ],
         "title": "ExtractionIdentifier",
+        "type": "object"
+      },
+      "GeologicUnit": {
+        "description": "Information about a geologic unit synthesized from map legend extractions.",
+        "properties": {
+          "name": {
+            "description": "Geologic unit name extracted from legend",
+            "title": "Name",
+            "type": "string"
+          },
+          "description": {
+            "description": "Map unit description",
+            "title": "Description",
+            "type": "string"
+          },
+          "comments": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Map unit comments",
+            "title": "Comments"
+          },
+          "age_text": {
+            "description": "Text representation of age extracted from legend",
+            "title": "Age Text",
+            "type": "string"
+          },
+          "t_interval": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Youngest interval",
+            "examples": [
+              "Holocene",
+              "Cretaceous"
+            ],
+            "title": "T Interval"
+          },
+          "b_interval": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Oldest interval",
+            "examples": [
+              "Mesozoic",
+              "Neoproterozoic"
+            ],
+            "title": "B Interval"
+          },
+          "t_age": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Minimum age (in Ma)",
+            "title": "T Age"
+          },
+          "b_age": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Maximum age (in Ma)",
+            "title": "B Age"
+          },
+          "lithology": {
+            "description": "Structured lithology information extracted from legend.",
+            "items": {
+              "type": "string"
+            },
+            "title": "Lithology",
+            "type": "array"
+          }
+        },
+        "required": [
+          "name",
+          "description",
+          "comments",
+          "age_text",
+          "t_interval",
+          "b_interval",
+          "t_age",
+          "b_age",
+          "lithology"
+        ],
+        "title": "GeologicUnit",
         "type": "object"
       },
       "GroundControlPoint": {
@@ -204,20 +319,16 @@
             "description": "Line type"
           },
           "direction": {
-            "anyOf": [
+            "allOf": [
               {
-                "type": "integer"
-              },
-              {
-                "type": "null"
+                "$ref": "#/$defs/LinePolarity"
               }
             ],
-            "description": "Line direction",
+            "description": "Line polarity",
             "examples": [
               1,
               -1
-            ],
-            "title": "Direction"
+            ]
           }
         },
         "required": [
@@ -230,6 +341,16 @@
         "title": "LineFeature",
         "type": "object"
       },
+      "LinePolarity": {
+        "description": "Positive: ticks are to right of line/directed towards endpoint\nNegative: ticks are to left of line/directed away from endpoint",
+        "enum": [
+          1,
+          -1,
+          0
+        ],
+        "title": "LinePolarity",
+        "type": "integer"
+      },
       "LineType": {
         "description": "Line type information.",
         "properties": {
@@ -238,15 +359,18 @@
             "title": "Id",
             "type": "integer"
           },
-          "type": {
+          "name": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/LineTypeName"
+              }
+            ],
             "description": "Name of this line type",
             "examples": [
               "contact",
               "normal fault",
               "thrust fault"
-            ],
-            "title": "Type",
-            "type": "string"
+            ]
           },
           "description": {
             "anyOf": [
@@ -287,13 +411,40 @@
         },
         "required": [
           "id",
-          "type",
+          "name",
           "description",
           "dash_pattern",
           "symbol"
         ],
         "title": "LineType",
         "type": "object"
+      },
+      "LineTypeName": {
+        "enum": [
+          "anticline",
+          "antiform",
+          "normal fault",
+          "reverse fault",
+          "thrust fault",
+          "left-lateral strike-slip fault",
+          "right-lateral strike-slip fault",
+          "strike-slip fault",
+          "fault",
+          "lineament",
+          "scarp",
+          "syncline",
+          "synform",
+          "bed",
+          "crater",
+          "caldera",
+          "dike",
+          "escarpment",
+          "fold",
+          "other",
+          "unknown"
+        ],
+        "title": "LineTypeName",
+        "type": "string"
       },
       "MapFeatureExtractions": {
         "description": "Extractions from a map used to estimate features",
@@ -331,178 +482,6 @@
         "title": "MapFeatureExtractions",
         "type": "object"
       },
-      "MapUnit": {
-        "properties": {
-          "age_text": {
-            "description": "Text representation of age extracted from legend",
-            "title": "Age Text",
-            "type": "string"
-          },
-          "t_interval": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Youngest interval",
-            "examples": [
-              "Holocene",
-              "Cretaceous"
-            ],
-            "title": "T Interval"
-          },
-          "b_interval": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Oldest interval",
-            "examples": [
-              "Mesozoic",
-              "Neoproterozoic"
-            ],
-            "title": "B Interval"
-          },
-          "t_age": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Minimum age (in Ma)",
-            "title": "T Age"
-          },
-          "b_age": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Maximum age (in Ma)",
-            "title": "B Age"
-          },
-          "id": {
-            "description": "Internal ID",
-            "title": "Id",
-            "type": "integer"
-          },
-          "name": {
-            "description": "Geologic unit name extracted from legend",
-            "title": "Name",
-            "type": "string"
-          },
-          "color": {
-            "description": "Color extracted from map/legend",
-            "title": "Color",
-            "type": "string"
-          },
-          "pattern": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Pattern extracted from map/legend",
-            "title": "Pattern"
-          },
-          "abbreviation": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Abbreviation extracted from map/legend",
-            "title": "Abbreviation"
-          },
-          "description": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Description text extracted from legend",
-            "title": "Description"
-          },
-          "lithology": {
-            "description": "Lithology information extracted from legend.",
-            "items": {
-              "type": "string"
-            },
-            "title": "Lithology",
-            "type": "array"
-          },
-          "comments": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Comments extracted from legend",
-            "title": "Comments"
-          },
-          "category": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Name of containing legend block",
-            "title": "Category"
-          }
-        },
-        "required": [
-          "age_text",
-          "t_interval",
-          "b_interval",
-          "t_age",
-          "b_age",
-          "id",
-          "name",
-          "color",
-          "pattern",
-          "abbreviation",
-          "description",
-          "lithology",
-          "comments",
-          "category"
-        ],
-        "title": "MapUnit",
-        "type": "object"
-      },
       "ModelRun": {
         "description": "Information about a model run.",
         "properties": {
@@ -533,14 +512,6 @@
             "description": "Batch ID",
             "title": "Batch Id"
           },
-          "image_size": {
-            "description": "Pixel size of the map image",
-            "items": {
-              "type": "integer"
-            },
-            "title": "Image Size",
-            "type": "array"
-          },
           "confidence": {
             "items": {
               "$ref": "#/$defs/ConfidenceEstimation"
@@ -561,7 +532,6 @@
           "version",
           "timestamp",
           "batch_id",
-          "image_size",
           "confidence",
           "boxes"
         ],
@@ -683,16 +653,19 @@
             "title": "Id",
             "type": "integer"
           },
-          "type": {
+          "name": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/PointTypeName"
+              }
+            ],
             "description": "Name of this point type",
             "examples": [
               "outcrop",
               "borehole",
               "geochron",
               "strike/dip"
-            ],
-            "title": "Type",
-            "type": "string"
+            ]
           },
           "description": {
             "anyOf": [
@@ -709,11 +682,31 @@
         },
         "required": [
           "id",
-          "type",
+          "name",
           "description"
         ],
         "title": "PointType",
         "type": "object"
+      },
+      "PointTypeName": {
+        "enum": [
+          "bedding",
+          "foliation",
+          "lineation",
+          "joint",
+          "fault",
+          "fracture",
+          "fold axis",
+          "sample location",
+          "outcrop",
+          "mine site",
+          "contact",
+          "cleavage",
+          "other",
+          "unknown"
+        ],
+        "title": "PointTypeName",
+        "type": "string"
       },
       "PolygonFeature": {
         "description": "Polygon containing map unit information.",
@@ -727,10 +720,99 @@
             "description": "Polygon geometry",
             "title": "Geometry"
           },
-          "map_unit": {
+          "type": {
             "allOf": [
               {
-                "$ref": "#/$defs/MapUnit"
+                "$ref": "#/$defs/PolygonType"
+              }
+            ],
+            "description": "Polygon type information"
+          }
+        },
+        "required": [
+          "id",
+          "geometry",
+          "type"
+        ],
+        "title": "PolygonFeature",
+        "type": "object"
+      },
+      "PolygonType": {
+        "description": "Information about a polygon extracted from the map legend.",
+        "properties": {
+          "id": {
+            "description": "Internal ID",
+            "title": "Id",
+            "type": "integer"
+          },
+          "name": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/PolygonTypeName"
+              }
+            ],
+            "description": "Type of feature"
+          },
+          "color": {
+            "description": "Color extracted from map/legend",
+            "title": "Color",
+            "type": "string"
+          },
+          "pattern": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Pattern extracted from map/legend",
+            "title": "Pattern"
+          },
+          "abbreviation": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Abbreviation extracted from map/legend",
+            "title": "Abbreviation"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Description text extracted from legend",
+            "title": "Description"
+          },
+          "category": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Name of containing legend block",
+            "title": "Category"
+          },
+          "map_unit": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/GeologicUnit"
+              },
+              {
+                "type": "null"
               }
             ],
             "description": "Map unit information"
@@ -738,11 +820,28 @@
         },
         "required": [
           "id",
-          "geometry",
+          "name",
+          "color",
+          "pattern",
+          "abbreviation",
+          "description",
+          "category",
           "map_unit"
         ],
-        "title": "PolygonFeature",
+        "title": "PolygonType",
         "type": "object"
+      },
+      "PolygonTypeName": {
+        "enum": [
+          "geologic unit",
+          "tailings",
+          "outcrop",
+          "body of water",
+          "other",
+          "unknown"
+        ],
+        "title": "PolygonTypeName",
+        "type": "string"
       },
       "ProjectionMeta": {
         "description": "Information about the map projection. Projection information should also be applied\nto the map image and output vector data (if using GeoPackage output format).",
@@ -823,6 +922,14 @@
         "title": "Image Url",
         "type": "string"
       },
+      "image_size": {
+        "description": "Pixel size of the map image",
+        "items": {
+          "type": "integer"
+        },
+        "title": "Image Size",
+        "type": "array"
+      },
       "authors": {
         "description": "Map authors",
         "title": "Authors",
@@ -856,11 +963,18 @@
         "$ref": "#/$defs/MapFeatureExtractions"
       },
       "cross_sections": {
-        "items": {
-          "$ref": "#/$defs/CrossSection"
-        },
-        "title": "Cross Sections",
-        "type": "array"
+        "anyOf": [
+          {
+            "items": {
+              "$ref": "#/$defs/CrossSection"
+            },
+            "type": "array"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Cross Sections"
       },
       "pipelines": {
         "items": {
@@ -881,6 +995,7 @@
       "name",
       "source_url",
       "image_url",
+      "image_size",
       "authors",
       "publisher",
       "year",

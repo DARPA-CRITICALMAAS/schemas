@@ -24,18 +24,40 @@ class Score(Enum):
     E = "E"
 
 
+class Importance(Enum):
+    Primary = "Primary"
+    Secondary = "Secondary"
+    Accessory = "Accessory"
+
+
 class OccurrenceType(Enum):
     Prospect = "Prospect"
     Occurrence = "Occurrence"
     Deposit = "Deposit"
 
 
-class Commodities(BaseModel):
-    primary: list[str]
-    secondary: list[str]
-    accessory: list[str]
-    metallic: bool
-    nonmetallic: bool
+class MineralSpecies(BaseModel):
+    """A mineral or elemental species of interest"""
+
+    name: str
+    mindat_id: str | None
+    formula: str | None
+    metallic: bool = Field(description="Is this a metallic mineral/element?")
+
+
+class Commodity(BaseModel):
+    """A mineral or elemental commodity, with information about its importance in a deposit."""
+
+    species: MineralSpecies | str = Field(
+        description="Species of interest (mineral, element, or other commodity)",
+        examples=["quartz", "gold", "silver", "copper", "lead", "zinc", "aggregate"],
+    )
+    is_ore: bool = Field(
+        description="Is this an ore or gangue mineral in this deposit?"
+    )
+    importance: Importance = Field(
+        description="Importance of this mineral in this deposit"
+    )
 
 
 class History(BaseModel):
@@ -65,35 +87,11 @@ class GeologicUnit(BaseModel):
     comments: str
 
 
-class MineralOccurrence(BaseModel):
-    """A mineral resource site, based on MRDS."""
-
-    id: int
-    mrds_id: str | None
-    mrds_url: str | None
-    type: OccurrenceType
-    area_name: str | None
-    ore_minerals: list[str]
-    gangue_minerals: list[str]
-    location: Optional[Point | Polygon]
-    commodities: Commodities
-    history: History | None
-    reporter: str | None
-    score: Score
-    sources: list[Document]
-    geologic_unit: GeologicUnit
-
-
-# Schemas can conform to other ones by inheriting from them or by declaring conformance
-# with the `conforms_to` attribute. This is useful for schemas that are not directly loaded
-# into the database, but are used to validate other schemas.
-
-
 class MineralDepositModel(BaseModel):
     ...  # TODO
 
 
-class MineralResourceClassification(Enum):
+class ResourceDevelopmentLevel(Enum):
     Inferred = "Inferred resources"
     Measured = "Measured resources"
     Proven = "Proven reserves"
@@ -108,13 +106,37 @@ class ConcentrationUnit(Enum):
     percent = "%"
 
 
-class GradeInformation(BaseModel):
-    species: str = Field(description="Species of interest (mineral or element)")
+class CommodityWithConcentration(BaseModel):
+    material: Commodity = Field(description="Species of interest (mineral or element)")
     concentration: float = Field(description="Concentration of species in ppm")
     unit: ConcentrationUnit = Field(description="Unit of concentration")
 
 
 class GradeTonnageModel(BaseModel):
     ore_quantity: float = Field(description="Ore quantity in metric tons")
-    grades: list[GradeInformation]
-    type: MineralResourceClassification = Field(description="Type of resource")
+    materials: list[CommodityWithConcentration]
+    level: ResourceDevelopmentLevel = Field(description="Type of resource")
+
+
+class MineralOccurrence(BaseModel):
+    """A mineral resource site, based on MRDS."""
+
+    id: int
+    mrds_id: str | None
+    mrds_url: str | None
+    type: OccurrenceType
+    area_name: str | None
+    commodities: list[Commodity]
+    location: Optional[Point | Polygon]
+    history: History | None
+    reporter: str | None
+    score: Score
+    sources: list[Document]
+    geologic_unit: GeologicUnit
+    # Note: we could associate grade/tonnage information with deposits if it is desireable
+    # production_info: list[GradeTonnageModel] | None
+
+
+# Schemas can conform to other ones by inheriting from them or by declaring conformance
+# with the `conforms_to` attribute. This is useful for schemas that are not directly loaded
+# into the database, but are used to validate other schemas.

@@ -1,17 +1,24 @@
 from pydantic import BaseModel, Field
 from typing import Optional, TypeVar
+from enum import Enum
 
 Polygon = TypeVar("Polygon")
 Line = TypeVar("Line")
 Point = TypeVar("Point")
-Image = TypeVar("Image")
 WKT = TypeVar("WKT", bound=str)
 
+PixelBoundingPolygon = TypeVar("PixelBoundingPolygon")
 
-class GeologicAgeData(BaseModel):
+
+class GeologicUnit(BaseModel):
     """
-    Information about the geologic age of a map unit.
+    Information about a geologic unit synthesized from map legend extractions.
     """
+    name: str = Field(..., description="Geologic unit name extracted from legend")
+    description: str = Field(
+        ..., description="Map unit description"
+    )
+    comments: Optional[str] = Field(..., description="Map unit comments")
 
     age_text: str = Field(
         ..., description="Text representation of age extracted from legend"
@@ -24,11 +31,24 @@ class GeologicAgeData(BaseModel):
     )
     t_age: Optional[int] = Field(..., description="Minimum age (in Ma)")
     b_age: Optional[int] = Field(..., description="Maximum age (in Ma)")
+    lithology: list[str] = Field(
+        ..., description="Structured lithology information extracted from legend."
+    )
 
 
-class MapUnit(GeologicAgeData):
+class PolygonTypeName(Enum):
+    geologic_unit = "geologic unit"
+    tailings = "tailings"
+    outcrop = "outcrop"
+    water = "body of water"
+    other = "other"
+    unknown = "unknown"
+
+class PolygonType(BaseModel):
+    """Information about a polygon extracted from the map legend."""
+
     id: int = Field(..., description="Internal ID")
-    name: str = Field(..., description="Geologic unit name extracted from legend")
+    name: PolygonTypeName = Field(..., description="Type of feature")
 
     color: str = Field(..., description="Color extracted from map/legend")
     pattern: Optional[str] = Field(..., description="Pattern extracted from map/legend")
@@ -38,11 +58,9 @@ class MapUnit(GeologicAgeData):
     description: Optional[str] = Field(
         ..., description="Description text extracted from legend"
     )
-    lithology: list[str] = Field(
-        ..., description="Lithology information extracted from legend."
-    )
-    comments: Optional[str] = Field(..., description="Comments extracted from legend")
     category: Optional[str] = Field(..., description="Name of containing legend block")
+    map_unit: Optional[GeologicUnit] = Field(..., description="Map unit information")
+
 
 
 class PolygonFeature(BaseModel):
@@ -51,15 +69,45 @@ class PolygonFeature(BaseModel):
     id: int = Field(..., description="Internal ID")
 
     geometry: Polygon = Field(..., description="Polygon geometry")
-    map_unit: MapUnit = Field(..., description="Map unit information")
+    type: PolygonType = Field(..., description="Polygon type information")
 
+class LineTypeName(Enum):
+    anticline = "anticline"
+    antiform = "antiform"
+    normal_fault = "normal fault"
+    reverse_fault = "reverse fault"
+    thrust_fault = "thrust fault"
+    left_lateral_strike_slip_fault = "left-lateral strike-slip fault"
+    right_lateral_strike_slip_fault = "right-lateral strike-slip fault"
+    strike_slip_fault = "strike-slip fault"
+    fault = "fault"
+    lineament = "lineament"
+    scarp = "scarp"
+    syncline = "syncline"
+    synform = "synform"
+    bed = "bed"
+    crater = "crater"
+    caldera = "caldera"
+    dike = "dike"
+    escarpment = "escarpment"
+    fold = "fold"
+    other = "other"
+    unknown = "unknown"
+
+class LinePolarity(Enum):
+    """
+    Positive: ticks are to right of line/directed towards endpoint
+    Negative: ticks are to left of line/directed away from endpoint"""
+    positive = 1
+    negative = -1
+    undirected = 0
 
 class LineType(BaseModel):
     """Line type information."""
 
     id: int = Field(..., description="Internal ID")
 
-    type: str = Field(
+    name: LineTypeName = Field(
         ...,
         description="Name of this line type",
         examples=["contact", "normal fault", "thrust fault"],
@@ -80,16 +128,32 @@ class LineFeature(BaseModel):
     )
 
     type: LineType = Field(..., description="Line type")
-    direction: Optional[int] = Field(
-        ..., description="Line direction", examples=[1, -1]
+    direction: LinePolarity = Field(
+        ..., description="Line polarity", examples=[1, -1]
     )
 
+
+class PointTypeName(Enum):
+    bedding = "bedding"
+    foliation = "foliation"
+    lineation = "lineation"
+    joint = "joint"
+    fault = "fault"
+    fracture = "fracture"
+    fold_axis = "fold axis"
+    sample_location = "sample location"
+    outcrop = "outcrop"
+    mine_site = "mine site"
+    contact = "contact"
+    cleavage = "cleavage"
+    other = "other"
+    unknown = "unknown"
 
 class PointType(BaseModel):
     """Point type information."""
 
     id: int = Field(..., description="Internal ID")
-    type: str = Field(
+    name: PointTypeName = Field(
         ...,
         description="Name of this point type",
         examples=["outcrop", "borehole", "geochron", "strike/dip"],
@@ -160,7 +224,7 @@ class PageExtraction(BaseModel):
     )
     ocr_text: str = Field(..., description="OCR text of the page extraction")
     color_estimation: Optional[str]
-    bounds: Polygon = Field(
+    bounds: PixelBoundingPolygon = Field(
         ..., description="Bounds of the page extraction, in pixel coordinates"
     )
     model: Optional[ExtractionIdentifier]
@@ -198,7 +262,6 @@ class ModelRun(BaseModel):
     version: str = Field(..., description="Model version")
     timestamp: str = Field(..., description="Time of model run")
     batch_id: Optional[str] = Field(..., description="Batch ID")
-    image_size: list[int] = Field(..., description="Pixel size of the map image")
     confidence: list[ConfidenceEstimation]
     boxes: list[PageExtraction]
 
@@ -212,7 +275,7 @@ class CrossSection(BaseModel):
     id: int = Field(..., description="Internal ID")
     label: str = Field(..., description="Cross section label")
     line_of_section: Line = Field(..., description="Geographic line of section")
-    image: Image = Field(..., description="Image of the cross section")
+    image: PixelBoundingPolygon = Field(..., description="Bounding pixel coordinates of the cross section")
 
 
 class Map(BaseModel):
@@ -227,6 +290,8 @@ class Map(BaseModel):
         ...,
         description="URL of the map image, as a web-accessible, cloud-optimized GeoTIFF",
     )
+    image_size: list[int] = Field(..., description="Pixel size of the map image")
+
     authors: str = Field(..., description="Map authors")
     publisher: str = Field(..., description="Map publisher")
     year: int = Field(..., description="Map publication year")
@@ -235,7 +300,7 @@ class Map(BaseModel):
     bounds: Polygon = Field(..., description="Map geographic bounds")
 
     features: MapFeatureExtractions
-    cross_sections: list[CrossSection]
+    cross_sections: Optional[list[CrossSection]]
 
     pipelines: list[ModelRun]
     projection_info: list[ProjectionMeta]
