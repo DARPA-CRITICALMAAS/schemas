@@ -87,18 +87,18 @@ class GeologicUnit(BaseModel):
     comments: str
 
 
-class MineralDepositModel(BaseModel):
-    deposit_type: str
-    GeoEnv_age_range: list[str] | None
-    GeoEnv_rock_types: list[str] | None
-    GeoEnv_textures: list[str] | None
-    GeoEnv_dep_env: list[str] | None
-    GeoEnv_tectonic_settings: list[str] | None
-    DepDesc_ore_controls: list[str] | None
-    DepDesc_alteration: list[str] | None
-    DepDesc_mineralogy: list[str] | None
-    DepDesc_geo_signature: list[str] | None
-    DepDesc_texture_structure: list[str] | None
+# class MineralDepositModel(BaseModel):
+#     deposit_type: str
+#     GeoEnv_age_range: list[str] | None
+#     GeoEnv_rock_types: list[str] | None
+#     GeoEnv_textures: list[str] | None
+#     GeoEnv_dep_env: list[str] | None
+#     GeoEnv_tectonic_settings: list[str] | None
+#     DepDesc_ore_controls: list[str] | None
+#     DepDesc_alteration: list[str] | None
+#     DepDesc_mineralogy: list[str] | None
+#     DepDesc_geo_signature: list[str] | None
+#     DepDesc_texture_structure: list[str] | None
 
 
 class ResourceDevelopmentLevel(Enum):
@@ -157,22 +157,22 @@ class Reference(BaseModel):
     coords: list[int] | None
 
 class MappableCriteria(BaseModel):
-    info: str
+    criteria: str
+    theoretical: str | None
     potential_dataset: str | None
     supporting_references: list[Reference]
 
-class Criteria(BaseModel):
-    theoretical: str
-    mappable: list[MappableCriteria]
-
 class MineralSystem(BaseModel):
     deposit_type: str
-    trigger: list[Criteria]
-    source: list[Criteria]
-    conduit: list[Criteria]
-    driver: list[Criteria]
-    throttle: list[Criteria]
-    trap: list[Criteria]
-    dispersion: list[Criteria]
-    exhumation: list[Criteria]
-    direct_detection: list[Criteria]
+    trigger: list[MappableCriteria]
+    source_fluid: list[MappableCriteria]
+    source_ligand: list[MappableCriteria]
+    source_metal: list[MappableCriteria]
+    source_other: list[MappableCriteria]
+    conduit: list[MappableCriteria]
+    driver: list[MappableCriteria]
+    throttle: list[MappableCriteria]
+    trap: list[MappableCriteria]
+    dispersion: list[MappableCriteria]
+    exhumation: list[MappableCriteria]
+    direct_detection: list[MappableCriteria]
