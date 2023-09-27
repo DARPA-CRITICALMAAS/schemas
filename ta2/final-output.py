@@ -36,23 +36,28 @@ class DepositType(BaseModel):
 class Document(BaseModel):
     id: str
     title: str = Field( description="Title of the document")
+    doi: Optional[str] = Field(description="doi of the document")
+    uri: Optional[str] = Field(description="URI of the document, if it does not have a doi")
+    authors: list[str] = Field(description="list of the authors of the document")
+    journal: Optional[str] = Field(description="journal document belongs to")
+    year: int = Field(description="Published year of the document")
+    month: int = Field(description="Published month of the document")
+    volume: Optional[int] = Field(description="Volume of the document")
+    issue: Optional[int] = Field(description="Issue number of the document")
+    description: str = Field(description="Description of the document")
 
 
 
 class Reference(BaseModel):
     id: str
     document: Document
-    date: datetime
     page: int
-    line: int
-
+    coords: list[int] = Field(description="coordinates of the document where reference is found")
 
 
 class Commodity(BaseModel):
     id: str
     name: str
-
-
 
 class Grade(BaseModel):
     gradeUnit: str = Field( description="The unit in which grade is measured, eg, percent")
@@ -67,6 +72,7 @@ class MineralInventory(BaseModel):
     grade: Grade = Field( description="The grade of an inventory item")
     containedMetal: float = Field( description="The quantity of a contained metal in an inventory item")
     reference: Reference = Field( description="The reference of an inventory item")
+    date: datetime = Field(description="When in the point of time mineral inventory valid")
 
 class LocationInfo(BaseModel):
     location: Geometry = Field(

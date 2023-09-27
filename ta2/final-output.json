@@ -108,28 +108,128 @@
             "title": "Page",
             "type": "int"
           },
-          "line": {
-            "title": "Line",
-            "type": "int"
-          },
-          "date": {
-            "title": "date",
-            "type": "datetime"
-          },
-          "document": {
+          "Document": {
             "properties": {
               "id": {
                 "title": "id",
                 "type": "string"
               },
-              "name": {
-                "title": "Name",
-                "type": "string"
+              "doi": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Doi"
+              },
+              "uri": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "URI"
+              },
+              "title": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Title"
+              },
+              "authors": {
+                "items": {
+                  "type": "string"
+                },
+                "title": "Authors",
+                "type": "array"
+              },
+              "journal": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Journal"
+              },
+              "year": {
+                "anyOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Year"
+              },
+              "month": {
+                "anyOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Month"
+              },
+              "volume": {
+                "anyOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Volume"
+              },
+              "issue": {
+                "anyOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Issue"
+              },
+              "description": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Description"
               }
             },
             "required": [
-              "id",
-              "name"
+              "doi",
+              "title",
+              "authors",
+              "journal",
+              "year",
+              "volume",
+              "issue",
+              "description"
             ],
             "title": "Document",
             "type": "object"

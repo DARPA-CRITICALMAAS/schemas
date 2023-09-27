@@ -38,6 +38,7 @@
 - **`grade`**: Refer to *[Grade](#Grade)*.
 - **`containedMetal`** *(float)*.
 - **`reference`**: Refer to *[Reference](#Reference)*.
+- **`date`** *(date)*.
 
 ## ResourceReserveCategory
 
@@ -86,7 +87,31 @@
 ### Properties
 
 - **`id`** *(string)*
-- **`title`** *(string)*
+- **`doi`** 
+    - **Any of**
+        - *string*
+        - *null*
+- **`uri`** 
+  - **Any of**
+    - *string*
+    - *null*
+- **`authors`** *(array)*
+    - **Items** *(string)*
+- **`journal`**
+    - **Any of**
+        - *string*
+        - *null*
+- **`year`** *(string)*
+- **`month`** *(string)*
+- **`volume`**
+    - **Any of**
+        - *integer*
+        - *null*
+- **`issue`**
+    - **Any of**
+        - *integer*
+        - *null*
+- **`description`** *(string)*
 
 
 ## Reference
@@ -94,7 +119,6 @@
 ### Properties
 
 - **`id`** *(string)*
-- **`date`** *(date)*
 - **`page`** *(integer)*
-- **`line`** *(integer)*
+- **`coords`** *(list(integer))*
 - **`document`**: Refer to *[Document](#Document)*.
