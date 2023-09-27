@@ -155,10 +155,9 @@ NOTE: This would be nice to have but isn't required (especially for the initial 
 - **`type`**: Line type.
   - **All of**
     - : Refer to *[LineType](#LineType)*.
-- **`direction`**: Line direction.
-  - **Any of**
-    - *integer*
-    - *null*
+- **`direction`**: Line polarity.
+  - **All of**
+    - : Refer to *[LinePolarity](#LinePolarity)*.
 
   Examples:
   ```json
@@ -177,7 +176,9 @@ NOTE: This would be nice to have but isn't required (especially for the initial 
 ### Properties
 
 - **`id`** *(integer)*: Internal ID.
-- **`type`** *(string)*: Name of this line type.
+- **`name`**: Name of this line type.
+  - **All of**
+    - : Refer to *[LineTypeName](#LineTypeName)*.
 
   Examples:
   ```json
@@ -281,7 +282,9 @@ NOTE: This would be nice to have but isn't required (especially for the initial 
 ### Properties
 
 - **`id`** *(integer)*: Internal ID.
-- **`type`** *(string)*: Name of this point type.
+- **`name`**: Name of this point type.
+  - **All of**
+    - : Refer to *[PointTypeName](#PointTypeName)*.
 
   Examples:
   ```json
@@ -324,6 +327,9 @@ NOTE: This would be nice to have but isn't required (especially for the initial 
 ### Properties
 
 - **`id`** *(integer)*: Internal ID.
+- **`name`**: Type of feature.
+  - **All of**
+    - : Refer to *[PolygonTypeName](#PolygonTypeName)*.
 - **`color`** *(string)*: Color extracted from map/legend.
 - **`pattern`**: Pattern extracted from map/legend.
   - **Any of**

@@ -305,20 +305,16 @@
             "description": "Line type"
           },
           "direction": {
-            "anyOf": [
+            "allOf": [
               {
-                "type": "integer"
-              },
-              {
-                "type": "null"
+                "$ref": "#/$defs/LinePolarity"
               }
             ],
-            "description": "Line direction",
+            "description": "Line polarity",
             "examples": [
               1,
               -1
-            ],
-            "title": "Direction"
+            ]
           }
         },
         "required": [
@@ -331,6 +327,16 @@
         "title": "LineFeature",
         "type": "object"
       },
+      "LinePolarity": {
+        "description": "Positive: ticks are to right of line/directed towards endpoint\nNegative: ticks are to left of line/directed away from endpoint",
+        "enum": [
+          1,
+          -1,
+          0
+        ],
+        "title": "LinePolarity",
+        "type": "integer"
+      },
       "LineType": {
         "description": "Line type information.",
         "properties": {
@@ -339,15 +345,18 @@
             "title": "Id",
             "type": "integer"
           },
-          "type": {
+          "name": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/LineTypeName"
+              }
+            ],
             "description": "Name of this line type",
             "examples": [
               "contact",
               "normal fault",
               "thrust fault"
-            ],
-            "title": "Type",
-            "type": "string"
+            ]
           },
           "description": {
             "anyOf": [
@@ -388,13 +397,40 @@
         },
         "required": [
           "id",
-          "type",
+          "name",
           "description",
           "dash_pattern",
           "symbol"
         ],
         "title": "LineType",
         "type": "object"
+      },
+      "LineTypeName": {
+        "enum": [
+          "anticline",
+          "antiform",
+          "normal fault",
+          "reverse fault",
+          "thrust fault",
+          "left-lateral strike-slip fault",
+          "right-lateral strike-slip fault",
+          "strike-slip fault",
+          "fault",
+          "lineament",
+          "scarp",
+          "syncline",
+          "synform",
+          "bed",
+          "crater",
+          "caldera",
+          "dike",
+          "escarpment",
+          "fold",
+          "other",
+          "unknown"
+        ],
+        "title": "LineTypeName",
+        "type": "string"
       },
       "MapFeatureExtractions": {
         "description": "Extractions from a map used to estimate features",
@@ -603,16 +639,19 @@
             "title": "Id",
             "type": "integer"
           },
-          "type": {
+          "name": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/PointTypeName"
+              }
+            ],
             "description": "Name of this point type",
             "examples": [
               "outcrop",
               "borehole",
               "geochron",
               "strike/dip"
-            ],
-            "title": "Type",
-            "type": "string"
+            ]
           },
           "description": {
             "anyOf": [
@@ -629,11 +668,31 @@
         },
         "required": [
           "id",
-          "type",
+          "name",
           "description"
         ],
         "title": "PointType",
         "type": "object"
+      },
+      "PointTypeName": {
+        "enum": [
+          "bedding",
+          "foliation",
+          "lineation",
+          "joint",
+          "fault",
+          "fracture",
+          "fold axis",
+          "sample location",
+          "outcrop",
+          "mine site",
+          "contact",
+          "cleavage",
+          "other",
+          "unknown"
+        ],
+        "title": "PointTypeName",
+        "type": "string"
       },
       "PolygonFeature": {
         "description": "Polygon containing map unit information.",
@@ -671,6 +730,14 @@
             "description": "Internal ID",
             "title": "Id",
             "type": "integer"
+          },
+          "name": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/PolygonTypeName"
+              }
+            ],
+            "description": "Type of feature"
           },
           "color": {
             "description": "Color extracted from map/legend",
@@ -739,6 +806,7 @@
         },
         "required": [
           "id",
+          "name",
           "color",
           "pattern",
           "abbreviation",
@@ -748,6 +816,18 @@
         ],
         "title": "PolygonType",
         "type": "object"
+      },
+      "PolygonTypeName": {
+        "enum": [
+          "geologic unit",
+          "tailings",
+          "outcrop",
+          "body of water",
+          "other",
+          "unknown"
+        ],
+        "title": "PolygonTypeName",
+        "type": "string"
       },
       "ProjectionMeta": {
         "description": "Information about the map projection. Projection information should also be applied\nto the map image and output vector data (if using GeoPackage output format).",

@@ -1,5 +1,6 @@
 from pydantic import BaseModel, Field
 from typing import Optional, TypeVar
+from enum import Enum
 
 Polygon = TypeVar("Polygon")
 Line = TypeVar("Line")
@@ -35,10 +36,19 @@ class GeologicUnit(BaseModel):
     )
 
 
+class PolygonTypeName(Enum):
+    geologic_unit = "geologic unit"
+    tailings = "tailings"
+    outcrop = "outcrop"
+    water = "body of water"
+    other = "other"
+    unknown = "unknown"
+
 class PolygonType(BaseModel):
     """Information about a polygon extracted from the map legend."""
 
     id: int = Field(..., description="Internal ID")
+    name: PolygonTypeName = Field(..., description="Type of feature")
 
     color: str = Field(..., description="Color extracted from map/legend")
     pattern: Optional[str] = Field(..., description="Pattern extracted from map/legend")
@@ -61,13 +71,43 @@ class PolygonFeature(BaseModel):
     geometry: Polygon = Field(..., description="Polygon geometry")
     type: PolygonType = Field(..., description="Polygon type information")
 
+class LineTypeName(Enum):
+    anticline = "anticline"
+    antiform = "antiform"
+    normal_fault = "normal fault"
+    reverse_fault = "reverse fault"
+    thrust_fault = "thrust fault"
+    left_lateral_strike_slip_fault = "left-lateral strike-slip fault"
+    right_lateral_strike_slip_fault = "right-lateral strike-slip fault"
+    strike_slip_fault = "strike-slip fault"
+    fault = "fault"
+    lineament = "lineament"
+    scarp = "scarp"
+    syncline = "syncline"
+    synform = "synform"
+    bed = "bed"
+    crater = "crater"
+    caldera = "caldera"
+    dike = "dike"
+    escarpment = "escarpment"
+    fold = "fold"
+    other = "other"
+    unknown = "unknown"
+
+class LinePolarity(Enum):
+    """
+    Positive: ticks are to right of line/directed towards endpoint
+    Negative: ticks are to left of line/directed away from endpoint"""
+    positive = 1
+    negative = -1
+    undirected = 0
 
 class LineType(BaseModel):
     """Line type information."""
 
     id: int = Field(..., description="Internal ID")
 
-    type: str = Field(
+    name: LineTypeName = Field(
         ...,
         description="Name of this line type",
         examples=["contact", "normal fault", "thrust fault"],
@@ -88,16 +128,32 @@ class LineFeature(BaseModel):
     )
 
     type: LineType = Field(..., description="Line type")
-    direction: Optional[int] = Field(
-        ..., description="Line direction", examples=[1, -1]
+    direction: LinePolarity = Field(
+        ..., description="Line polarity", examples=[1, -1]
     )
 
+
+class PointTypeName(Enum):
+    bedding = "bedding"
+    foliation = "foliation"
+    lineation = "lineation"
+    joint = "joint"
+    fault = "fault"
+    fracture = "fracture"
+    fold_axis = "fold axis"
+    sample_location = "sample location"
+    outcrop = "outcrop"
+    mine_site = "mine site"
+    contact = "contact"
+    cleavage = "cleavage"
+    other = "other"
+    unknown = "unknown"
 
 class PointType(BaseModel):
     """Point type information."""
 
     id: int = Field(..., description="Internal ID")
-    type: str = Field(
+    name: PointTypeName = Field(
         ...,
         description="Name of this point type",
         examples=["outcrop", "borehole", "geochron", "strike/dip"],
