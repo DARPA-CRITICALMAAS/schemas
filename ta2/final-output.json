@@ -222,13 +222,9 @@
               }
             },
             "required": [
-              "doi",
               "title",
               "authors",
-              "journal",
               "year",
-              "volume",
-              "issue",
               "description"
             ],
             "title": "Document",
