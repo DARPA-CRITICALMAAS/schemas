@@ -165,6 +165,11 @@ class PageExtraction(BaseModel):
     )
     model: Optional[ExtractionIdentifier]
 
+class System(BaseModel):
+    """Information about a system (inference engine, HMI, and/or human)"""
+    id: int = Field(..., description="Internal ID")
+    system_name: str = Field(..., description="System name")
+    version: str = Field(..., description="System version")
 
 class GroundControlPoint(BaseModel):
     """Ground control point"""
@@ -172,12 +177,16 @@ class GroundControlPoint(BaseModel):
     id: int = Field(..., description="Internal ID")
     map_geom: Point = Field(..., description="Point geometry")
     px_geom: Point = Field(..., description="Point geometry")
-
+    system: System
+    human_entered: bool = Field(..., description="Human entered")
+    confidence: ConfidenceEstimation
 
 class ProjectionMeta(BaseModel):
     """Information about the map projection. Projection information should also be applied
     to the map image and output vector data (if using GeoPackage output format)."""
 
+    system: System
+    timestamp: str = Field(..., description="Time of model run")
     gcps: list[GroundControlPoint] = Field(..., description="Ground control points")
     projection: WKT = Field(..., description="Map projection information")
 
@@ -229,4 +238,4 @@ class Map(BaseModel):
     cross_sections: list[CrossSection]
 
     pipelines: list[ModelRun]
-    projection_info: ProjectionMeta
+    projection_info: list[ProjectionMeta]
