@@ -108,28 +108,152 @@
             "title": "Page",
             "type": "int"
           },
-          "line": {
-            "title": "Line",
-            "type": "int"
+          "BoundingBox": {
+            "properties": {
+              "x_min": {
+                "title": "x_min",
+                "type": "float"
+              },
+              "x_max": {
+                "title": "x_max",
+                "type": "float"
+              },
+              "y_min": {
+                "title": "y_min",
+                "type": "float"
+              },
+              "y_max": {
+                "title": "y_max",
+                "type": "float"
+              }
+            },
+            "required": [
+              "x_min",
+              "x_max",
+              "y_min",
+              "y_max"
+            ],
+            "title": "Document",
+            "type": "object"
           },
-          "date": {
-            "title": "date",
-            "type": "datetime"
-          },
-          "document": {
+          "Document": {
             "properties": {
               "id": {
                 "title": "id",
                 "type": "string"
               },
-              "name": {
-                "title": "Name",
-                "type": "string"
+              "doi": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Doi"
+              },
+              "uri": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "URI"
+              },
+              "title": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Title"
+              },
+              "authors": {
+                "items": {
+                  "type": "string"
+                },
+                "title": "Authors",
+                "type": "array"
+              },
+              "journal": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Journal"
+              },
+              "year": {
+                "anyOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Year"
+              },
+              "month": {
+                "anyOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Month"
+              },
+              "volume": {
+                "anyOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Volume"
+              },
+              "issue": {
+                "anyOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Issue"
+              },
+              "description": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Description"
               }
             },
             "required": [
-              "id",
-              "name"
+              "title",
+              "authors",
+              "year",
+              "description"
             ],
             "title": "Document",
             "type": "object"
@@ -139,8 +263,7 @@
           "id",
           "document",
           "page",
-          "line",
-          "date"
+          "BoundingBox"
         ],
         "title": "Reference",
         "type": "object"
