@@ -433,169 +433,6 @@
     "type": "object"
   },
   {
-    "properties": {
-      "deposit_type": {
-        "title": "Deposit Type",
-        "type": "string"
-      },
-      "GeoEnv_age_range": {
-        "anyOf": [
-          {
-            "items": {
-              "type": "string"
-            },
-            "type": "array"
-          },
-          {
-            "type": "null"
-          }
-        ],
-        "title": "Geoenv Age Range"
-      },
-      "GeoEnv_rock_types": {
-        "anyOf": [
-          {
-            "items": {
-              "type": "string"
-            },
-            "type": "array"
-          },
-          {
-            "type": "null"
-          }
-        ],
-        "title": "Geoenv Rock Types"
-      },
-      "GeoEnv_textures": {
-        "anyOf": [
-          {
-            "items": {
-              "type": "string"
-            },
-            "type": "array"
-          },
-          {
-            "type": "null"
-          }
-        ],
-        "title": "Geoenv Textures"
-      },
-      "GeoEnv_dep_env": {
-        "anyOf": [
-          {
-            "items": {
-              "type": "string"
-            },
-            "type": "array"
-          },
-          {
-            "type": "null"
-          }
-        ],
-        "title": "Geoenv Dep Env"
-      },
-      "GeoEnv_tectonic_settings": {
-        "anyOf": [
-          {
-            "items": {
-              "type": "string"
-            },
-            "type": "array"
-          },
-          {
-            "type": "null"
-          }
-        ],
-        "title": "Geoenv Tectonic Settings"
-      },
-      "DepDesc_ore_controls": {
-        "anyOf": [
-          {
-            "items": {
-              "type": "string"
-            },
-            "type": "array"
-          },
-          {
-            "type": "null"
-          }
-        ],
-        "title": "Depdesc Ore Controls"
-      },
-      "DepDesc_alteration": {
-        "anyOf": [
-          {
-            "items": {
-              "type": "string"
-            },
-            "type": "array"
-          },
-          {
-            "type": "null"
-          }
-        ],
-        "title": "Depdesc Alteration"
-      },
-      "DepDesc_mineralogy": {
-        "anyOf": [
-          {
-            "items": {
-              "type": "string"
-            },
-            "type": "array"
-          },
-          {
-            "type": "null"
-          }
-        ],
-        "title": "Depdesc Mineralogy"
-      },
-      "DepDesc_geo_signature": {
-        "anyOf": [
-          {
-            "items": {
-              "type": "string"
-            },
-            "type": "array"
-          },
-          {
-            "type": "null"
-          }
-        ],
-        "title": "Depdesc Geo Signature"
-      },
-      "DepDesc_texture_structure": {
-        "anyOf": [
-          {
-            "items": {
-              "type": "string"
-            },
-            "type": "array"
-          },
-          {
-            "type": "null"
-          }
-        ],
-        "title": "Depdesc Texture Structure"
-      }
-    },
-    "required": [
-      "deposit_type",
-      "GeoEnv_age_range",
-      "GeoEnv_rock_types",
-      "GeoEnv_textures",
-      "GeoEnv_dep_env",
-      "GeoEnv_tectonic_settings",
-      "DepDesc_ore_controls",
-      "DepDesc_alteration",
-      "DepDesc_mineralogy",
-      "DepDesc_geo_signature",
-      "DepDesc_texture_structure"
-    ],
-    "title": "MineralDepositModel",
-    "type": "object"
-  },
-  {
     "$defs": {
       "Commodity": {
         "description": "A mineral or elemental commodity, with information about its importance in a deposit.",
@@ -782,27 +619,6 @@
   },
   {
     "$defs": {
-      "Criteria": {
-        "properties": {
-          "theoretical": {
-            "title": "Theoretical",
-            "type": "string"
-          },
-          "mappable": {
-            "items": {
-              "$ref": "#/$defs/MappableCriteria"
-            },
-            "title": "Mappable",
-            "type": "array"
-          }
-        },
-        "required": [
-          "theoretical",
-          "mappable"
-        ],
-        "title": "Criteria",
-        "type": "object"
-      },
       "Document": {
         "properties": {
           "doi": {
@@ -905,9 +721,20 @@
       },
       "MappableCriteria": {
         "properties": {
-          "info": {
-            "title": "Info",
+          "criteria": {
+            "title": "Criteria",
             "type": "string"
+          },
+          "theoretical": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Theoretical"
           },
           "potential_dataset": {
             "anyOf": [
@@ -929,7 +756,8 @@
           }
         },
         "required": [
-          "info",
+          "criteria",
+          "theoretical",
           "potential_dataset",
           "supporting_references"
         ],
@@ -979,63 +807,84 @@
       },
       "trigger": {
         "items": {
-          "$ref": "#/$defs/Criteria"
+          "$ref": "#/$defs/MappableCriteria"
         },
         "title": "Trigger",
         "type": "array"
       },
-      "source": {
+      "source_fluid": {
         "items": {
-          "$ref": "#/$defs/Criteria"
+          "$ref": "#/$defs/MappableCriteria"
         },
-        "title": "Source",
+        "title": "Source Fluid",
+        "type": "array"
+      },
+      "source_ligand": {
+        "items": {
+          "$ref": "#/$defs/MappableCriteria"
+        },
+        "title": "Source Ligand",
+        "type": "array"
+      },
+      "source_metal": {
+        "items": {
+          "$ref": "#/$defs/MappableCriteria"
+        },
+        "title": "Source Metal",
+        "type": "array"
+      },
+      "source_other": {
+        "items": {
+          "$ref": "#/$defs/MappableCriteria"
+        },
+        "title": "Source Other",
         "type": "array"
       },
       "conduit": {
         "items": {
-          "$ref": "#/$defs/Criteria"
+          "$ref": "#/$defs/MappableCriteria"
         },
         "title": "Conduit",
         "type": "array"
       },
       "driver": {
         "items": {
-          "$ref": "#/$defs/Criteria"
+          "$ref": "#/$defs/MappableCriteria"
         },
         "title": "Driver",
         "type": "array"
       },
       "throttle": {
         "items": {
-          "$ref": "#/$defs/Criteria"
+          "$ref": "#/$defs/MappableCriteria"
         },
         "title": "Throttle",
         "type": "array"
       },
       "trap": {
         "items": {
-          "$ref": "#/$defs/Criteria"
+          "$ref": "#/$defs/MappableCriteria"
         },
         "title": "Trap",
         "type": "array"
       },
       "dispersion": {
         "items": {
-          "$ref": "#/$defs/Criteria"
+          "$ref": "#/$defs/MappableCriteria"
         },
         "title": "Dispersion",
         "type": "array"
       },
       "exhumation": {
         "items": {
-          "$ref": "#/$defs/Criteria"
+          "$ref": "#/$defs/MappableCriteria"
         },
         "title": "Exhumation",
         "type": "array"
       },
       "direct_detection": {
         "items": {
-          "$ref": "#/$defs/Criteria"
+          "$ref": "#/$defs/MappableCriteria"
         },
         "title": "Direct Detection",
         "type": "array"
@@ -1044,7 +893,10 @@
     "required": [
       "deposit_type",
       "trigger",
-      "source",
+      "source_fluid",
+      "source_ligand",
+      "source_metal",
+      "source_other",
       "conduit",
       "driver",
       "throttle",

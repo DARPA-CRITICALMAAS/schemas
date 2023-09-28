@@ -37,62 +37,6 @@
   - **Items**: Refer to *[Document](#Document)*.
 - **`geologic_unit`**: Refer to *[GeologicUnit](#GeologicUnit)*.
 
-## MineralDepositModel
-
-### Properties
-
-- **`deposit_type`** *(string)*
-- **`GeoEnv_age_range`**
-  - **Any of**
-    - *array*
-      - **Items** *(string)*
-    - *null*
-- **`GeoEnv_rock_types`**
-  - **Any of**
-    - *array*
-      - **Items** *(string)*
-    - *null*
-- **`GeoEnv_textures`**
-  - **Any of**
-    - *array*
-      - **Items** *(string)*
-    - *null*
-- **`GeoEnv_dep_env`**
-  - **Any of**
-    - *array*
-      - **Items** *(string)*
-    - *null*
-- **`GeoEnv_tectonic_settings`**
-  - **Any of**
-    - *array*
-      - **Items** *(string)*
-    - *null*
-- **`DepDesc_ore_controls`**
-  - **Any of**
-    - *array*
-      - **Items** *(string)*
-    - *null*
-- **`DepDesc_alteration`**
-  - **Any of**
-    - *array*
-      - **Items** *(string)*
-    - *null*
-- **`DepDesc_mineralogy`**
-  - **Any of**
-    - *array*
-      - **Items** *(string)*
-    - *null*
-- **`DepDesc_geo_signature`**
-  - **Any of**
-    - *array*
-      - **Items** *(string)*
-    - *null*
-- **`DepDesc_texture_structure`**
-  - **Any of**
-    - *array*
-      - **Items** *(string)*
-    - *null*
-
 ## GradeTonnageModel
 
 ### Properties
@@ -110,23 +54,29 @@
 
 - **`deposit_type`** *(string)*
 - **`trigger`** *(array)*
-  - **Items**: Refer to *[Criteria](#Criteria)*.
-- **`source`** *(array)*
-  - **Items**: Refer to *[Criteria](#Criteria)*.
+  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
+- **`source_fluid`** *(array)*
+  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
+- **`source_ligand`** *(array)*
+  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
+- **`source_metal`** *(array)*
+  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
+- **`source_other`** *(array)*
+  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
 - **`conduit`** *(array)*
-  - **Items**: Refer to *[Criteria](#Criteria)*.
+  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
 - **`driver`** *(array)*
-  - **Items**: Refer to *[Criteria](#Criteria)*.
+  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
 - **`throttle`** *(array)*
-  - **Items**: Refer to *[Criteria](#Criteria)*.
+  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
 - **`trap`** *(array)*
-  - **Items**: Refer to *[Criteria](#Criteria)*.
+  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
 - **`dispersion`** *(array)*
-  - **Items**: Refer to *[Criteria](#Criteria)*.
+  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
 - **`exhumation`** *(array)*
-  - **Items**: Refer to *[Criteria](#Criteria)*.
+  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
 - **`direct_detection`** *(array)*
-  - **Items**: Refer to *[Criteria](#Criteria)*.
+  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
 
 ## Commodity
 
@@ -184,14 +134,6 @@
 - **`unit`**: Unit of concentration.
   - **All of**
     - : Refer to *[ConcentrationUnit](#ConcentrationUnit)*.
-
-## Criteria
-
-### Properties
-
-- **`theoretical`** *(string)*
-- **`mappable`** *(array)*
-  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
 
 ## Document
 
@@ -266,7 +208,11 @@
 
 ### Properties
 
-- **`info`** *(string)*
+- **`criteria`** *(string)*
+- **`theoretical`**
+  - **Any of**
+    - *string*
+    - *null*
 - **`potential_dataset`**
   - **Any of**
     - *string*
