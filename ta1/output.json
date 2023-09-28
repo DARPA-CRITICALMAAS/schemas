@@ -259,12 +259,26 @@
           "px_geom": {
             "description": "Point geometry",
             "title": "Px Geom"
+          },
+          "system": {
+            "$ref": "#/$defs/System"
+          },
+          "human_entered": {
+            "description": "Human entered",
+            "title": "Human Entered",
+            "type": "boolean"
+          },
+          "confidence": {
+            "$ref": "#/$defs/ConfidenceEstimation"
           }
         },
         "required": [
           "id",
           "map_geom",
-          "px_geom"
+          "px_geom",
+          "system",
+          "human_entered",
+          "confidence"
         ],
         "title": "GroundControlPoint",
         "type": "object"
@@ -832,6 +846,14 @@
       "ProjectionMeta": {
         "description": "Information about the map projection. Projection information should also be applied\nto the map image and output vector data (if using GeoPackage output format).",
         "properties": {
+          "system": {
+            "$ref": "#/$defs/System"
+          },
+          "timestamp": {
+            "description": "Time of model run",
+            "title": "Timestamp",
+            "type": "string"
+          },
           "gcps": {
             "description": "Ground control points",
             "items": {
@@ -847,10 +869,39 @@
           }
         },
         "required": [
+          "system",
+          "timestamp",
           "gcps",
           "projection"
         ],
         "title": "ProjectionMeta",
+        "type": "object"
+      },
+      "System": {
+        "description": "Information about a system (inference engine, HMI, and/or human)",
+        "properties": {
+          "id": {
+            "description": "Internal ID",
+            "title": "Id",
+            "type": "integer"
+          },
+          "system_name": {
+            "description": "System name",
+            "title": "System Name",
+            "type": "string"
+          },
+          "version": {
+            "description": "System version",
+            "title": "Version",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "system_name",
+          "version"
+        ],
+        "title": "System",
         "type": "object"
       }
     },
@@ -933,7 +984,11 @@
         "type": "array"
       },
       "projection_info": {
-        "$ref": "#/$defs/ProjectionMeta"
+        "items": {
+          "$ref": "#/$defs/ProjectionMeta"
+        },
+        "title": "Projection Info",
+        "type": "array"
       }
     },
     "required": [

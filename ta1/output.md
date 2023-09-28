@@ -23,7 +23,8 @@
     - *null*
 - **`pipelines`** *(array)*
   - **Items**: Refer to *[ModelRun](#ModelRun)*.
-- **`projection_info`**: Refer to *[ProjectionMeta](#ProjectionMeta)*.
+- **`projection_info`** *(array)*
+  - **Items**: Refer to *[ProjectionMeta](#ProjectionMeta)*.
 
 ## ConfidenceEstimation
 
@@ -133,6 +134,9 @@ NOTE: This would be nice to have but isn't required (especially for the initial 
 - **`id`** *(integer)*: Internal ID.
 - **`map_geom`**: Point geometry.
 - **`px_geom`**: Point geometry.
+- **`system`**: Refer to *[System](#System)*.
+- **`human_entered`** *(boolean)*: Human entered.
+- **`confidence`**: Refer to *[ConfidenceEstimation](#ConfidenceEstimation)*.
 
 ## LineFeature
 
@@ -359,7 +363,19 @@ to the map image and output vector data (if using GeoPackage output format).*
 
 ### Properties
 
+- **`system`**: Refer to *[System](#System)*.
+- **`timestamp`** *(string)*: Time of model run.
 - **`gcps`** *(array)*: Ground control points.
   - **Items**: Refer to *[GroundControlPoint](#GroundControlPoint)*.
 - **`projection`** *(string)*: Map projection information.
+
+## System
+
+*Information about a system (inference engine, HMI, and/or human)*
+
+### Properties
+
+- **`id`** *(integer)*: Internal ID.
+- **`system_name`** *(string)*: System name.
+- **`version`** *(string)*: System version.
 
