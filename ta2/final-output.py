@@ -1,10 +1,12 @@
 import erdantic as erd
 from datetime import datetime
-from enum import Enum, auto
-from typing import List, Optional
+from enum import Enum
+from typing import List, Optional, TypeVar
 
-from typing import TypeVar
 from pydantic import BaseModel, Field
+
+from json import dumps
+from jsonschema2md import Parser
 
 Point = TypeVar("Point")
 Polygon = TypeVar("Polygon")
@@ -83,28 +85,64 @@ class LocationInfo(BaseModel):
     location: Geometry = Field(
         description="Type: Polygon or Point, value indicates the geolocation of the site"
     )
-    location_source: str = Field(description="Source dataset that the location info is retrieved from. e.g., MRDS")
-    crs: str = Field(description='The Coordinate Reference System (CRS) of the location')
-    country: str = Field( description="Country that the mine site resides in")
-    state_or_province: Optional[str] = Field(description="State or province that the mine site resides in")
+    location_source: str = Field(description = "Source dataset that the location info is retrieved from. e.g., MRDS")
+    crs: str = Field(description = 'The Coordinate Reference System (CRS) of the location')
+    country: str = Field( description = "Country that the mine site resides in")
+    state_or_province: Optional[str] = Field(description = "State or province that the mine site resides in")
 
 
 
 class MineralSite(BaseModel):
     id: str
-    name: str = Field(description="Name of the mine, e.g., Tungsten Jim")
+    name: str = Field(description = "Name of the mine, e.g., Tungsten Jim")
+
+
     mineral_inventory: MineralInventory
     location_info: LocationInfo
 
     same_as: Optional[dict] = Field(
-        description='Dictionary that stores the IDs point to other databases: '
-                    'e.g.: {"MRDS" : [{"dep_id" : "10289747","mrds_id" : "W018008",  '
-                    '  "altername_or_previous_names": "Thompson Creek Tungsten Mine, Tungsten Jim Mine"    },'
-                    '    {"dep_id": "10022920",    "mrds_id":"FS00436",    "record_type":"Site"}  ],'
-                    '  "USMIN" : [  {"ftr_id":"Mf00576",  "site_id":"ID00055",  "ftr_name":"Tungsten Jim"},'
-                    '  {"ftr_id":"Mo00569",  "site_id":"ID00055"  }  ]}'
+        description='Dictionary that stores the IDs point to other databases: e.g.: {"MRDS" : [{"dep_id" : "10289747","mrds_id" : "W018008",    "altername_or_previous_names": "Thompson Creek Tungsten Mine, Tungsten Jim Mine"    },    {"dep_id": "10022920",    "mrds_id":"FS00436",    "record_type":"Site"}  ],  "USMIN" : [  {"ftr_id":"Mf00576",  "site_id":"ID00055",  "ftr_name":"Tungsten Jim"},  {"ftr_id":"Mo00569",  "site_id":"ID00055"  }  ]}'
     )
     
 diagram2 = erd.create(MineralSite)
 
 diagram2.draw("final-output.png")
+
+# Schemas can conform to other ones by inheriting from them or by declaring conformance
+# with the `conforms_to` attribute. This is useful for schemas that are not directly loaded
+# into the database, but are used to validate other schemas.
+
+
+
+graph = erd.create(MineralSite)
+
+name = "final-output"
+# Easy one-liner
+graph.draw(out=name + ".png")
+
+schema = MineralSite.model_json_schema()
+
+with open(name + ".json", "w") as f:
+    f.write(dumps(schema, indent=2))
+
+parser = Parser(
+    examples_as_yaml=False,
+)
+
+md_lines = []
+
+sub_models = [d.model for d in graph.models if d.model is not MineralSite]
+models = [MineralSite] + sub_models
+
+for d in models:
+    schema = d.model_json_schema()
+    lines = parser.parse_schema(schema)
+    md_lines.extend(lines)
+    md_lines.append("\n")
+
+text = "".join(md_lines).replace("#/$defs/", "").replace("#$defs/", "#")
+# Move headers down a level
+text = text.replace("\n#", "\n##")
+
+with open(name + ".md", "w") as f:
+    f.write(text)
