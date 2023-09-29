@@ -164,7 +164,6 @@ sub_models = [d.model for d in graph.models if d.model is not MineralSite]
 models = [MineralSite] + sub_models
 
 for d in models:
-    print(d)
     schema = d.model_json_schema()
     lines = parser.parse_schema(schema)
     md_lines.extend(lines)
