@@ -6,6 +6,7 @@
 - **`name`** *(string)*: Name of the mine, e.g., Tungsten Jim.
 - **`mineral_inventory`**: Refer to *[MineralInventory](#MineralInventory)*.
 - **`location_info`**: Refer to *[LocationInfo](#LocationInfo)*.
+- **`geology_info`**: Refer to *[GeologyInfo](#GeologyInfo)*.
 - **`same_as`**: Dictionary that stores the IDs point to other databases: e.g.: {"MRDS" : [{"dep_id" : "10289747","mrds_id" : "W018008",    "altername_or_previous_names": "Thompson Creek Tungsten Mine, Tungsten Jim Mine"    },    {"dep_id": "10022920",    "mrds_id":"FS00436",    "record_type":"Site"}  ],  "USMIN" : [  {"ftr_id":"Mf00576",  "site_id":"ID00055",  "ftr_name":"Tungsten Jim"},  {"ftr_id":"Mo00569",  "site_id":"ID00055"  }  ]}.
   - **Any of**
     - *object*
@@ -65,6 +66,42 @@
     - *integer*
     - *null*
 - **`description`** *(string)*: Description of the document.
+
+## GeologyInfo
+
+### Properties
+
+- **`age`**: Age of the geologic unit or event.
+  - **Any of**
+    - *string*
+    - *null*
+- **`unit_name`**: Name of the geologic unit.
+  - **Any of**
+    - *string*
+    - *null*
+- **`description`**
+  - **Any of**
+    - *string*
+    - *null*
+- **`lithology`**
+  - **Any of**
+    - *array*
+      - **Items** *(string)*
+    - *null*
+- **`process`**
+  - **Any of**
+    - *array*
+      - **Items** *(string)*
+    - *null*
+- **`environment`**
+  - **Any of**
+    - *array*
+      - **Items** *(string)*
+    - *null*
+- **`comments`**
+  - **Any of**
+    - *string*
+    - *null*
 
 ## Grade
 

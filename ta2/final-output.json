@@ -177,6 +177,109 @@
         "title": "Document",
         "type": "object"
       },
+      "GeologyInfo": {
+        "properties": {
+          "age": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Age of the geologic unit or event",
+            "title": "Age"
+          },
+          "unit_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Name of the geologic unit",
+            "title": "Unit Name"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "lithology": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lithology"
+          },
+          "process": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Process"
+          },
+          "environment": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Environment"
+          },
+          "comments": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Comments"
+          }
+        },
+        "required": [
+          "age",
+          "unit_name",
+          "description",
+          "lithology",
+          "process",
+          "environment",
+          "comments"
+        ],
+        "title": "GeologyInfo",
+        "type": "object"
+      },
       "Grade": {
         "properties": {
           "gradeUnit": {
@@ -403,6 +506,9 @@
       "location_info": {
         "$ref": "#/$defs/LocationInfo"
       },
+      "geology_info": {
+        "$ref": "#/$defs/GeologyInfo"
+      },
       "same_as": {
         "anyOf": [
           {
@@ -421,6 +527,7 @@
       "name",
       "mineral_inventory",
       "location_info",
+      "geology_info",
       "same_as"
     ],
     "title": "MineralSite",
