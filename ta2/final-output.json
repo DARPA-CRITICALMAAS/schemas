@@ -176,6 +176,109 @@
       "title": "Document",
       "type": "object"
     },
+    "GeologyInfo": {
+      "properties": {
+        "age": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Age of the geologic unit or event",
+          "title": "Age"
+        },
+        "unit_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Name of the geologic unit",
+          "title": "Unit Name"
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Description"
+        },
+        "lithology": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Lithology"
+        },
+        "process": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Process"
+        },
+        "environment": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Environment"
+        },
+        "comments": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Comments"
+        }
+      },
+      "required": [
+        "age",
+        "unit_name",
+        "description",
+        "lithology",
+        "process",
+        "environment",
+        "comments"
+      ],
+      "title": "GeologyInfo",
+      "type": "object"
+    },
     "Grade": {
       "properties": {
         "gradeUnit": {
@@ -247,9 +350,12 @@
           "type": "string"
         },
         "depositType": {
-          "allOf": [
+          "anyOf": [
             {
               "$ref": "#/$defs/DepositType"
+            },
+            {
+              "type": "null"
             }
           ],
           "description": "The deposit type of an inventory item"
@@ -263,47 +369,73 @@
           "description": "The commodity of an inventory item"
         },
         "category": {
-          "allOf": [
+          "anyOf": [
             {
               "$ref": "#/$defs/ResourceReserveCategory"
+            },
+            {
+              "type": "null"
             }
           ],
           "description": "The category of an inventory item"
         },
         "ore": {
-          "allOf": [
+          "anyOf": [
             {
               "$ref": "#/$defs/Ore"
+            },
+            {
+              "type": "null"
             }
           ],
           "description": "The ore of an inventory item"
         },
         "grade": {
-          "allOf": [
+          "anyOf": [
             {
               "$ref": "#/$defs/Grade"
+            },
+            {
+              "type": "null"
             }
           ],
           "description": "The grade of an inventory item"
         },
         "containedMetal": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "description": "The quantity of a contained metal in an inventory item",
-          "title": "Containedmetal",
-          "type": "number"
+          "title": "Containedmetal"
         },
         "reference": {
-          "allOf": [
+          "anyOf": [
             {
               "$ref": "#/$defs/Reference"
+            },
+            {
+              "type": "null"
             }
           ],
           "description": "The reference of an inventory item"
         },
         "date": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
           "description": "When in the point of time mineral inventory valid",
-          "format": "date-time",
-          "title": "Date",
-          "type": "string"
+          "title": "Date"
         }
       },
       "required": [
@@ -354,12 +486,12 @@
           "type": "integer"
         },
         "bounding_box": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/BoundingBox"
-            }
-          ],
-          "description": "coordinates of the document where reference is found"
+          "description": "coordinates of the document where reference is found",
+          "items": {
+            "$ref": "#/$defs/BoundingBox"
+          },
+          "title": "Bounding Box",
+          "type": "array"
         }
       },
       "required": [
@@ -397,10 +529,17 @@
       "type": "string"
     },
     "mineral_inventory": {
-      "$ref": "#/$defs/MineralInventory"
+      "items": {
+        "$ref": "#/$defs/MineralInventory"
+      },
+      "title": "Mineral Inventory",
+      "type": "array"
     },
     "location_info": {
       "$ref": "#/$defs/LocationInfo"
+    },
+    "geology_info": {
+      "$ref": "#/$defs/GeologyInfo"
     },
     "same_as": {
       "anyOf": [
@@ -420,6 +559,7 @@
     "name",
     "mineral_inventory",
     "location_info",
+    "geology_info",
     "same_as"
   ],
   "title": "MineralSite",

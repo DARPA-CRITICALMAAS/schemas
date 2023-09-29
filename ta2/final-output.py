@@ -23,6 +23,14 @@ class ResourceReserveCategory(Enum):
     EXTRACTED = "extracted"
     CUMULATIVE_EXTRACTED = "cumulative extracted"
 
+class GeologyInfo(BaseModel):
+    age: Optional[str] = Field(description = "Age of the geologic unit or event")
+    unit_name: Optional[str] = Field(description = "Name of the geologic unit")
+    description: Optional[str]
+    lithology: Optional[list[str]]
+    process: Optional[list[str]]
+    environment: Optional[list[str]]
+    comments: Optional[str]
 
 class Ore(BaseModel):
     oreUnit: str = Field( description="The unit in which ore quantity is measured, eg, metric tonnes")
@@ -54,11 +62,33 @@ class Document(BaseModel):
 
 
 
+
 class Reference(BaseModel):
     id: str
     document: Document
     page: int
-    bounding_box: BoundingBox = Field(description="coordinates of the document where reference is found")
+    bounding_box: list[BoundingBox] = Field(description="coordinates of the document where reference is found")
+
+class MappableCriteria(BaseModel):
+    criteria: str
+    theoretical: Optional[str]
+    potential_dataset: Optional[str]
+    supporting_references: list[Reference]
+
+class MineralSystem(BaseModel):
+    deposit_type: str
+    trigger: list[MappableCriteria]
+    source_fluid: list[MappableCriteria]
+    source_ligand: list[MappableCriteria]
+    source_metal: list[MappableCriteria]
+    source_other: list[MappableCriteria]
+    conduit: list[MappableCriteria]
+    driver: list[MappableCriteria]
+    throttle: list[MappableCriteria]
+    trap: list[MappableCriteria]
+    dispersion: list[MappableCriteria]
+    exhumation: list[MappableCriteria]
+    direct_detection: list[MappableCriteria]
 
 class Commodity(BaseModel):
     id: str
@@ -70,14 +100,14 @@ class Grade(BaseModel):
 
 class MineralInventory(BaseModel):
     id: str
-    depositType: DepositType = Field( description="The deposit type of an inventory item")
+    depositType: Optional[DepositType] = Field( description="The deposit type of an inventory item")
     commodity: Commodity = Field( description="The commodity of an inventory item")
-    category: ResourceReserveCategory = Field( description="The category of an inventory item")
-    ore: Ore = Field( description="The ore of an inventory item")
-    grade: Grade = Field( description="The grade of an inventory item")
-    containedMetal: float = Field( description="The quantity of a contained metal in an inventory item")
-    reference: Reference = Field( description="The reference of an inventory item")
-    date: datetime = Field(description="When in the point of time mineral inventory valid")
+    category: Optional[ResourceReserveCategory] = Field( description="The category of an inventory item")
+    ore: Optional[Ore] = Field( description="The ore of an inventory item")
+    grade: Optional[Grade] = Field( description="The grade of an inventory item")
+    containedMetal: Optional[float] = Field( description="The quantity of a contained metal in an inventory item")
+    reference: Optional[Reference] = Field( description="The reference of an inventory item")
+    date: Optional[datetime] = Field(description="When in the point of time mineral inventory valid")
 
 
 
@@ -95,18 +125,16 @@ class LocationInfo(BaseModel):
 class MineralSite(BaseModel):
     id: str
     name: str = Field(description = "Name of the mine, e.g., Tungsten Jim")
-
-
-    mineral_inventory: MineralInventory
+    mineral_inventory: list[MineralInventory]
     location_info: LocationInfo
-
+    geology_info: GeologyInfo
     same_as: Optional[dict] = Field(
         description='Dictionary that stores the IDs point to other databases: e.g.: {"MRDS" : [{"dep_id" : "10289747","mrds_id" : "W018008",    "altername_or_previous_names": "Thompson Creek Tungsten Mine, Tungsten Jim Mine"    },    {"dep_id": "10022920",    "mrds_id":"FS00436",    "record_type":"Site"}  ],  "USMIN" : [  {"ftr_id":"Mf00576",  "site_id":"ID00055",  "ftr_name":"Tungsten Jim"},  {"ftr_id":"Mo00569",  "site_id":"ID00055"  }  ]}'
     )
     
-diagram2 = erd.create(MineralSite)
-
-diagram2.draw("final-output.png")
+# diagram2 = erd.create(MineralSite)
+#
+# diagram2.draw("final-output.png")
 
 # Schemas can conform to other ones by inheriting from them or by declaring conformance
 # with the `conforms_to` attribute. This is useful for schemas that are not directly loaded
@@ -114,7 +142,7 @@ diagram2.draw("final-output.png")
 
 
 
-graph = erd.create(MineralSite)
+graph = erd.create(MineralSystem, MineralSite)
 
 name = "final-output"
 # Easy one-liner
