@@ -160,12 +160,11 @@ parser = Parser(
 md_lines = []
 
 sub_models = [d.model for d in graph.models if d.model is not MineralSite]
-sub_models_system = [d.model for d in graph.models if d.model is not MineralSystem]
 
 models = [MineralSite] + sub_models
-models = models + [MineralSystem] + sub_models_system
 
 for d in models:
+    print(d)
     schema = d.model_json_schema()
     lines = parser.parse_schema(schema)
     md_lines.extend(lines)
