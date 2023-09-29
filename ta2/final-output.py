@@ -131,10 +131,7 @@ class MineralSite(BaseModel):
     same_as: Optional[dict] = Field(
         description='Dictionary that stores the IDs point to other databases: e.g.: {"MRDS" : [{"dep_id" : "10289747","mrds_id" : "W018008",    "altername_or_previous_names": "Thompson Creek Tungsten Mine, Tungsten Jim Mine"    },    {"dep_id": "10022920",    "mrds_id":"FS00436",    "record_type":"Site"}  ],  "USMIN" : [  {"ftr_id":"Mf00576",  "site_id":"ID00055",  "ftr_name":"Tungsten Jim"},  {"ftr_id":"Mo00569",  "site_id":"ID00055"  }  ]}'
     )
-    
-# diagram2 = erd.create(MineralSite)
-#
-# diagram2.draw("final-output.png")
+
 
 # Schemas can conform to other ones by inheriting from them or by declaring conformance
 # with the `conforms_to` attribute. This is useful for schemas that are not directly loaded
@@ -150,8 +147,11 @@ graph.draw(out=name + ".png")
 
 schema = MineralSite.model_json_schema()
 
+schema_mineral_system = MineralSystem.model_json_schema()
+
+
 with open(name + ".json", "w") as f:
-    f.write(dumps(schema, indent=2))
+    f.write(dumps([schema, schema_mineral_system], indent=2))
 
 parser = Parser(
     examples_as_yaml=False,
@@ -160,7 +160,10 @@ parser = Parser(
 md_lines = []
 
 sub_models = [d.model for d in graph.models if d.model is not MineralSite]
+sub_models_system = [d.model for d in graph.models if d.model is not MineralSystem]
+
 models = [MineralSite] + sub_models
+models = models + [MineralSystem] + sub_models_system
 
 for d in models:
     schema = d.model_json_schema()

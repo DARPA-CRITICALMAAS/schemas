@@ -1,567 +1,895 @@
-{
-  "$defs": {
-    "BoundingBox": {
-      "properties": {
-        "x_min": {
-          "title": "X Min",
-          "type": "number"
+[
+  {
+    "$defs": {
+      "BoundingBox": {
+        "properties": {
+          "x_min": {
+            "title": "X Min",
+            "type": "number"
+          },
+          "x_max": {
+            "title": "X Max",
+            "type": "number"
+          },
+          "y_min": {
+            "title": "Y Min",
+            "type": "number"
+          },
+          "y_max": {
+            "title": "Y Max",
+            "type": "number"
+          }
         },
-        "x_max": {
-          "title": "X Max",
-          "type": "number"
-        },
-        "y_min": {
-          "title": "Y Min",
-          "type": "number"
-        },
-        "y_max": {
-          "title": "Y Max",
-          "type": "number"
-        }
+        "required": [
+          "x_min",
+          "x_max",
+          "y_min",
+          "y_max"
+        ],
+        "title": "BoundingBox",
+        "type": "object"
       },
-      "required": [
-        "x_min",
-        "x_max",
-        "y_min",
-        "y_max"
-      ],
-      "title": "BoundingBox",
-      "type": "object"
-    },
-    "Commodity": {
-      "properties": {
-        "id": {
-          "title": "Id",
-          "type": "string"
-        },
-        "name": {
-          "title": "Name",
-          "type": "string"
-        }
-      },
-      "required": [
-        "id",
-        "name"
-      ],
-      "title": "Commodity",
-      "type": "object"
-    },
-    "DepositType": {
-      "properties": {
-        "id": {
-          "title": "Id",
-          "type": "string"
-        },
-        "name": {
-          "description": "Name of the deposit type",
-          "title": "Name",
-          "type": "string"
-        }
-      },
-      "required": [
-        "id",
-        "name"
-      ],
-      "title": "DepositType",
-      "type": "object"
-    },
-    "Document": {
-      "properties": {
-        "id": {
-          "title": "Id",
-          "type": "string"
-        },
-        "title": {
-          "description": "Title of the document",
-          "title": "Title",
-          "type": "string"
-        },
-        "doi": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "description": "doi of the document",
-          "title": "Doi"
-        },
-        "uri": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "description": "URI of the document, if it does not have a doi",
-          "title": "Uri"
-        },
-        "authors": {
-          "description": "list of the authors of the document",
-          "items": {
+      "Commodity": {
+        "properties": {
+          "id": {
+            "title": "Id",
             "type": "string"
           },
-          "title": "Authors",
-          "type": "array"
+          "name": {
+            "title": "Name",
+            "type": "string"
+          }
         },
-        "journal": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "description": "journal document belongs to",
-          "title": "Journal"
-        },
-        "year": {
-          "description": "Published year of the document",
-          "title": "Year",
-          "type": "integer"
-        },
-        "month": {
-          "description": "Published month of the document",
-          "title": "Month",
-          "type": "integer"
-        },
-        "volume": {
-          "anyOf": [
-            {
-              "type": "integer"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "description": "Volume of the document",
-          "title": "Volume"
-        },
-        "issue": {
-          "anyOf": [
-            {
-              "type": "integer"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "description": "Issue number of the document",
-          "title": "Issue"
-        },
-        "description": {
-          "description": "Description of the document",
-          "title": "Description",
-          "type": "string"
-        }
+        "required": [
+          "id",
+          "name"
+        ],
+        "title": "Commodity",
+        "type": "object"
       },
-      "required": [
-        "id",
-        "title",
-        "doi",
-        "uri",
-        "authors",
-        "journal",
-        "year",
-        "month",
-        "volume",
-        "issue",
-        "description"
-      ],
-      "title": "Document",
-      "type": "object"
-    },
-    "GeologyInfo": {
-      "properties": {
-        "age": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "description": "Age of the geologic unit or event",
-          "title": "Age"
+      "DepositType": {
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "name": {
+            "description": "Name of the deposit type",
+            "title": "Name",
+            "type": "string"
+          }
         },
-        "unit_name": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "description": "Name of the geologic unit",
-          "title": "Unit Name"
-        },
-        "description": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "title": "Description"
-        },
-        "lithology": {
-          "anyOf": [
-            {
-              "items": {
+        "required": [
+          "id",
+          "name"
+        ],
+        "title": "DepositType",
+        "type": "object"
+      },
+      "Document": {
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "title": {
+            "description": "Title of the document",
+            "title": "Title",
+            "type": "string"
+          },
+          "doi": {
+            "anyOf": [
+              {
                 "type": "string"
               },
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "title": "Lithology"
-        },
-        "process": {
-          "anyOf": [
-            {
-              "items": {
+              {
+                "type": "null"
+              }
+            ],
+            "description": "doi of the document",
+            "title": "Doi"
+          },
+          "uri": {
+            "anyOf": [
+              {
                 "type": "string"
               },
-              "type": "array"
+              {
+                "type": "null"
+              }
+            ],
+            "description": "URI of the document, if it does not have a doi",
+            "title": "Uri"
+          },
+          "authors": {
+            "description": "list of the authors of the document",
+            "items": {
+              "type": "string"
             },
-            {
-              "type": "null"
-            }
-          ],
-          "title": "Process"
-        },
-        "environment": {
-          "anyOf": [
-            {
-              "items": {
+            "title": "Authors",
+            "type": "array"
+          },
+          "journal": {
+            "anyOf": [
+              {
                 "type": "string"
               },
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "title": "Environment"
+              {
+                "type": "null"
+              }
+            ],
+            "description": "journal document belongs to",
+            "title": "Journal"
+          },
+          "year": {
+            "description": "Published year of the document",
+            "title": "Year",
+            "type": "integer"
+          },
+          "month": {
+            "description": "Published month of the document",
+            "title": "Month",
+            "type": "integer"
+          },
+          "volume": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Volume of the document",
+            "title": "Volume"
+          },
+          "issue": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Issue number of the document",
+            "title": "Issue"
+          },
+          "description": {
+            "description": "Description of the document",
+            "title": "Description",
+            "type": "string"
+          }
         },
-        "comments": {
-          "anyOf": [
-            {
+        "required": [
+          "id",
+          "title",
+          "doi",
+          "uri",
+          "authors",
+          "journal",
+          "year",
+          "month",
+          "volume",
+          "issue",
+          "description"
+        ],
+        "title": "Document",
+        "type": "object"
+      },
+      "GeologyInfo": {
+        "properties": {
+          "age": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Age of the geologic unit or event",
+            "title": "Age"
+          },
+          "unit_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Name of the geologic unit",
+            "title": "Unit Name"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "lithology": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lithology"
+          },
+          "process": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Process"
+          },
+          "environment": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Environment"
+          },
+          "comments": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Comments"
+          }
+        },
+        "required": [
+          "age",
+          "unit_name",
+          "description",
+          "lithology",
+          "process",
+          "environment",
+          "comments"
+        ],
+        "title": "GeologyInfo",
+        "type": "object"
+      },
+      "Grade": {
+        "properties": {
+          "gradeUnit": {
+            "description": "The unit in which grade is measured, eg, percent",
+            "title": "Gradeunit",
+            "type": "string"
+          },
+          "gradeValue": {
+            "description": "The value of grade",
+            "title": "Gradevalue",
+            "type": "number"
+          }
+        },
+        "required": [
+          "gradeUnit",
+          "gradeValue"
+        ],
+        "title": "Grade",
+        "type": "object"
+      },
+      "LocationInfo": {
+        "properties": {
+          "location": {
+            "description": "Type: Polygon or Point, value indicates the geolocation of the site",
+            "title": "Location"
+          },
+          "location_source": {
+            "description": "Source dataset that the location info is retrieved from. e.g., MRDS",
+            "title": "Location Source",
+            "type": "string"
+          },
+          "crs": {
+            "description": "The Coordinate Reference System (CRS) of the location",
+            "title": "Crs",
+            "type": "string"
+          },
+          "country": {
+            "description": "Country that the mine site resides in",
+            "title": "Country",
+            "type": "string"
+          },
+          "state_or_province": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "State or province that the mine site resides in",
+            "title": "State Or Province"
+          }
+        },
+        "required": [
+          "location",
+          "location_source",
+          "crs",
+          "country",
+          "state_or_province"
+        ],
+        "title": "LocationInfo",
+        "type": "object"
+      },
+      "MineralInventory": {
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "depositType": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/DepositType"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The deposit type of an inventory item"
+          },
+          "commodity": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/Commodity"
+              }
+            ],
+            "description": "The commodity of an inventory item"
+          },
+          "category": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/ResourceReserveCategory"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The category of an inventory item"
+          },
+          "ore": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/Ore"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The ore of an inventory item"
+          },
+          "grade": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/Grade"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The grade of an inventory item"
+          },
+          "containedMetal": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The quantity of a contained metal in an inventory item",
+            "title": "Containedmetal"
+          },
+          "reference": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/Reference"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The reference of an inventory item"
+          },
+          "date": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "When in the point of time mineral inventory valid",
+            "title": "Date"
+          }
+        },
+        "required": [
+          "id",
+          "depositType",
+          "commodity",
+          "category",
+          "ore",
+          "grade",
+          "containedMetal",
+          "reference",
+          "date"
+        ],
+        "title": "MineralInventory",
+        "type": "object"
+      },
+      "Ore": {
+        "properties": {
+          "oreUnit": {
+            "description": "The unit in which ore quantity is measured, eg, metric tonnes",
+            "title": "Oreunit",
+            "type": "string"
+          },
+          "oreValue": {
+            "description": "The value of ore quantity",
+            "title": "Orevalue",
+            "type": "number"
+          }
+        },
+        "required": [
+          "oreUnit",
+          "oreValue"
+        ],
+        "title": "Ore",
+        "type": "object"
+      },
+      "Reference": {
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "document": {
+            "$ref": "#/$defs/Document"
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer"
+          },
+          "bounding_box": {
+            "description": "coordinates of the document where reference is found",
+            "items": {
+              "$ref": "#/$defs/BoundingBox"
+            },
+            "title": "Bounding Box",
+            "type": "array"
+          }
+        },
+        "required": [
+          "id",
+          "document",
+          "page",
+          "bounding_box"
+        ],
+        "title": "Reference",
+        "type": "object"
+      },
+      "ResourceReserveCategory": {
+        "enum": [
+          "inferred",
+          "indicated",
+          "measured",
+          "probable",
+          "proven",
+          "original resource",
+          "extracted",
+          "cumulative extracted"
+        ],
+        "title": "ResourceReserveCategory",
+        "type": "string"
+      }
+    },
+    "properties": {
+      "id": {
+        "title": "Id",
+        "type": "string"
+      },
+      "name": {
+        "description": "Name of the mine, e.g., Tungsten Jim",
+        "title": "Name",
+        "type": "string"
+      },
+      "mineral_inventory": {
+        "items": {
+          "$ref": "#/$defs/MineralInventory"
+        },
+        "title": "Mineral Inventory",
+        "type": "array"
+      },
+      "location_info": {
+        "$ref": "#/$defs/LocationInfo"
+      },
+      "geology_info": {
+        "$ref": "#/$defs/GeologyInfo"
+      },
+      "same_as": {
+        "anyOf": [
+          {
+            "type": "object"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "description": "Dictionary that stores the IDs point to other databases: e.g.: {\"MRDS\" : [{\"dep_id\" : \"10289747\",\"mrds_id\" : \"W018008\",    \"altername_or_previous_names\": \"Thompson Creek Tungsten Mine, Tungsten Jim Mine\"    },    {\"dep_id\": \"10022920\",    \"mrds_id\":\"FS00436\",    \"record_type\":\"Site\"}  ],  \"USMIN\" : [  {\"ftr_id\":\"Mf00576\",  \"site_id\":\"ID00055\",  \"ftr_name\":\"Tungsten Jim\"},  {\"ftr_id\":\"Mo00569\",  \"site_id\":\"ID00055\"  }  ]}",
+        "title": "Same As"
+      }
+    },
+    "required": [
+      "id",
+      "name",
+      "mineral_inventory",
+      "location_info",
+      "geology_info",
+      "same_as"
+    ],
+    "title": "MineralSite",
+    "type": "object"
+  },
+  {
+    "$defs": {
+      "BoundingBox": {
+        "properties": {
+          "x_min": {
+            "title": "X Min",
+            "type": "number"
+          },
+          "x_max": {
+            "title": "X Max",
+            "type": "number"
+          },
+          "y_min": {
+            "title": "Y Min",
+            "type": "number"
+          },
+          "y_max": {
+            "title": "Y Max",
+            "type": "number"
+          }
+        },
+        "required": [
+          "x_min",
+          "x_max",
+          "y_min",
+          "y_max"
+        ],
+        "title": "BoundingBox",
+        "type": "object"
+      },
+      "Document": {
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "title": {
+            "description": "Title of the document",
+            "title": "Title",
+            "type": "string"
+          },
+          "doi": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "doi of the document",
+            "title": "Doi"
+          },
+          "uri": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "URI of the document, if it does not have a doi",
+            "title": "Uri"
+          },
+          "authors": {
+            "description": "list of the authors of the document",
+            "items": {
               "type": "string"
             },
-            {
-              "type": "null"
-            }
-          ],
-          "title": "Comments"
-        }
+            "title": "Authors",
+            "type": "array"
+          },
+          "journal": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "journal document belongs to",
+            "title": "Journal"
+          },
+          "year": {
+            "description": "Published year of the document",
+            "title": "Year",
+            "type": "integer"
+          },
+          "month": {
+            "description": "Published month of the document",
+            "title": "Month",
+            "type": "integer"
+          },
+          "volume": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Volume of the document",
+            "title": "Volume"
+          },
+          "issue": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Issue number of the document",
+            "title": "Issue"
+          },
+          "description": {
+            "description": "Description of the document",
+            "title": "Description",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "doi",
+          "uri",
+          "authors",
+          "journal",
+          "year",
+          "month",
+          "volume",
+          "issue",
+          "description"
+        ],
+        "title": "Document",
+        "type": "object"
       },
-      "required": [
-        "age",
-        "unit_name",
-        "description",
-        "lithology",
-        "process",
-        "environment",
-        "comments"
-      ],
-      "title": "GeologyInfo",
-      "type": "object"
-    },
-    "Grade": {
-      "properties": {
-        "gradeUnit": {
-          "description": "The unit in which grade is measured, eg, percent",
-          "title": "Gradeunit",
-          "type": "string"
-        },
-        "gradeValue": {
-          "description": "The value of grade",
-          "title": "Gradevalue",
-          "type": "number"
-        }
-      },
-      "required": [
-        "gradeUnit",
-        "gradeValue"
-      ],
-      "title": "Grade",
-      "type": "object"
-    },
-    "LocationInfo": {
-      "properties": {
-        "location": {
-          "description": "Type: Polygon or Point, value indicates the geolocation of the site",
-          "title": "Location"
-        },
-        "location_source": {
-          "description": "Source dataset that the location info is retrieved from. e.g., MRDS",
-          "title": "Location Source",
-          "type": "string"
-        },
-        "crs": {
-          "description": "The Coordinate Reference System (CRS) of the location",
-          "title": "Crs",
-          "type": "string"
-        },
-        "country": {
-          "description": "Country that the mine site resides in",
-          "title": "Country",
-          "type": "string"
-        },
-        "state_or_province": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "description": "State or province that the mine site resides in",
-          "title": "State Or Province"
-        }
-      },
-      "required": [
-        "location",
-        "location_source",
-        "crs",
-        "country",
-        "state_or_province"
-      ],
-      "title": "LocationInfo",
-      "type": "object"
-    },
-    "MineralInventory": {
-      "properties": {
-        "id": {
-          "title": "Id",
-          "type": "string"
-        },
-        "depositType": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/DepositType"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "description": "The deposit type of an inventory item"
-        },
-        "commodity": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/Commodity"
-            }
-          ],
-          "description": "The commodity of an inventory item"
-        },
-        "category": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/ResourceReserveCategory"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "description": "The category of an inventory item"
-        },
-        "ore": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/Ore"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "description": "The ore of an inventory item"
-        },
-        "grade": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/Grade"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "description": "The grade of an inventory item"
-        },
-        "containedMetal": {
-          "anyOf": [
-            {
-              "type": "number"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "description": "The quantity of a contained metal in an inventory item",
-          "title": "Containedmetal"
-        },
-        "reference": {
-          "anyOf": [
-            {
+      "MappableCriteria": {
+        "properties": {
+          "criteria": {
+            "title": "Criteria",
+            "type": "string"
+          },
+          "theoretical": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Theoretical"
+          },
+          "potential_dataset": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Potential Dataset"
+          },
+          "supporting_references": {
+            "items": {
               "$ref": "#/$defs/Reference"
             },
-            {
-              "type": "null"
-            }
-          ],
-          "description": "The reference of an inventory item"
+            "title": "Supporting References",
+            "type": "array"
+          }
         },
-        "date": {
-          "anyOf": [
-            {
-              "format": "date-time",
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "description": "When in the point of time mineral inventory valid",
-          "title": "Date"
-        }
+        "required": [
+          "criteria",
+          "theoretical",
+          "potential_dataset",
+          "supporting_references"
+        ],
+        "title": "MappableCriteria",
+        "type": "object"
       },
-      "required": [
-        "id",
-        "depositType",
-        "commodity",
-        "category",
-        "ore",
-        "grade",
-        "containedMetal",
-        "reference",
-        "date"
-      ],
-      "title": "MineralInventory",
-      "type": "object"
-    },
-    "Ore": {
-      "properties": {
-        "oreUnit": {
-          "description": "The unit in which ore quantity is measured, eg, metric tonnes",
-          "title": "Oreunit",
-          "type": "string"
-        },
-        "oreValue": {
-          "description": "The value of ore quantity",
-          "title": "Orevalue",
-          "type": "number"
-        }
-      },
-      "required": [
-        "oreUnit",
-        "oreValue"
-      ],
-      "title": "Ore",
-      "type": "object"
-    },
-    "Reference": {
-      "properties": {
-        "id": {
-          "title": "Id",
-          "type": "string"
-        },
-        "document": {
-          "$ref": "#/$defs/Document"
-        },
-        "page": {
-          "title": "Page",
-          "type": "integer"
-        },
-        "bounding_box": {
-          "description": "coordinates of the document where reference is found",
-          "items": {
-            "$ref": "#/$defs/BoundingBox"
+      "Reference": {
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string"
           },
-          "title": "Bounding Box",
-          "type": "array"
-        }
-      },
-      "required": [
-        "id",
-        "document",
-        "page",
-        "bounding_box"
-      ],
-      "title": "Reference",
-      "type": "object"
-    },
-    "ResourceReserveCategory": {
-      "enum": [
-        "inferred",
-        "indicated",
-        "measured",
-        "probable",
-        "proven",
-        "original resource",
-        "extracted",
-        "cumulative extracted"
-      ],
-      "title": "ResourceReserveCategory",
-      "type": "string"
-    }
-  },
-  "properties": {
-    "id": {
-      "title": "Id",
-      "type": "string"
-    },
-    "name": {
-      "description": "Name of the mine, e.g., Tungsten Jim",
-      "title": "Name",
-      "type": "string"
-    },
-    "mineral_inventory": {
-      "items": {
-        "$ref": "#/$defs/MineralInventory"
-      },
-      "title": "Mineral Inventory",
-      "type": "array"
-    },
-    "location_info": {
-      "$ref": "#/$defs/LocationInfo"
-    },
-    "geology_info": {
-      "$ref": "#/$defs/GeologyInfo"
-    },
-    "same_as": {
-      "anyOf": [
-        {
-          "type": "object"
+          "document": {
+            "$ref": "#/$defs/Document"
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer"
+          },
+          "bounding_box": {
+            "description": "coordinates of the document where reference is found",
+            "items": {
+              "$ref": "#/$defs/BoundingBox"
+            },
+            "title": "Bounding Box",
+            "type": "array"
+          }
         },
-        {
-          "type": "null"
-        }
-      ],
-      "description": "Dictionary that stores the IDs point to other databases: e.g.: {\"MRDS\" : [{\"dep_id\" : \"10289747\",\"mrds_id\" : \"W018008\",    \"altername_or_previous_names\": \"Thompson Creek Tungsten Mine, Tungsten Jim Mine\"    },    {\"dep_id\": \"10022920\",    \"mrds_id\":\"FS00436\",    \"record_type\":\"Site\"}  ],  \"USMIN\" : [  {\"ftr_id\":\"Mf00576\",  \"site_id\":\"ID00055\",  \"ftr_name\":\"Tungsten Jim\"},  {\"ftr_id\":\"Mo00569\",  \"site_id\":\"ID00055\"  }  ]}",
-      "title": "Same As"
-    }
-  },
-  "required": [
-    "id",
-    "name",
-    "mineral_inventory",
-    "location_info",
-    "geology_info",
-    "same_as"
-  ],
-  "title": "MineralSite",
-  "type": "object"
-}
+        "required": [
+          "id",
+          "document",
+          "page",
+          "bounding_box"
+        ],
+        "title": "Reference",
+        "type": "object"
+      }
+    },
+    "properties": {
+      "deposit_type": {
+        "title": "Deposit Type",
+        "type": "string"
+      },
+      "trigger": {
+        "items": {
+          "$ref": "#/$defs/MappableCriteria"
+        },
+        "title": "Trigger",
+        "type": "array"
+      },
+      "source_fluid": {
+        "items": {
+          "$ref": "#/$defs/MappableCriteria"
+        },
+        "title": "Source Fluid",
+        "type": "array"
+      },
+      "source_ligand": {
+        "items": {
+          "$ref": "#/$defs/MappableCriteria"
+        },
+        "title": "Source Ligand",
+        "type": "array"
+      },
+      "source_metal": {
+        "items": {
+          "$ref": "#/$defs/MappableCriteria"
+        },
+        "title": "Source Metal",
+        "type": "array"
+      },
+      "source_other": {
+        "items": {
+          "$ref": "#/$defs/MappableCriteria"
+        },
+        "title": "Source Other",
+        "type": "array"
+      },
+      "conduit": {
+        "items": {
+          "$ref": "#/$defs/MappableCriteria"
+        },
+        "title": "Conduit",
+        "type": "array"
+      },
+      "driver": {
+        "items": {
+          "$ref": "#/$defs/MappableCriteria"
+        },
+        "title": "Driver",
+        "type": "array"
+      },
+      "throttle": {
+        "items": {
+          "$ref": "#/$defs/MappableCriteria"
+        },
+        "title": "Throttle",
+        "type": "array"
+      },
+      "trap": {
+        "items": {
+          "$ref": "#/$defs/MappableCriteria"
+        },
+        "title": "Trap",
+        "type": "array"
+      },
+      "dispersion": {
+        "items": {
+          "$ref": "#/$defs/MappableCriteria"
+        },
+        "title": "Dispersion",
+        "type": "array"
+      },
+      "exhumation": {
+        "items": {
+          "$ref": "#/$defs/MappableCriteria"
+        },
+        "title": "Exhumation",
+        "type": "array"
+      },
+      "direct_detection": {
+        "items": {
+          "$ref": "#/$defs/MappableCriteria"
+        },
+        "title": "Direct Detection",
+        "type": "array"
+      }
+    },
+    "required": [
+      "deposit_type",
+      "trigger",
+      "source_fluid",
+      "source_ligand",
+      "source_metal",
+      "source_other",
+      "conduit",
+      "driver",
+      "throttle",
+      "trap",
+      "dispersion",
+      "exhumation",
+      "direct_detection"
+    ],
+    "title": "MineralSystem",
+    "type": "object"
+  }
+]
