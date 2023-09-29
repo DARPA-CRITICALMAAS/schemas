@@ -7,6 +7,8 @@
 - **`name`** *(string)*: Map name.
 - **`source_url`** *(string)*: URL of the map source (e.g., NGMDB information page).
 - **`image_url`** *(string)*: URL of the map image, as a web-accessible, cloud-optimized GeoTIFF.
+- **`image_size`** *(array)*: Pixel size of the map image.
+  - **Items** *(integer)*
 - **`authors`** *(string)*: Map authors.
 - **`publisher`** *(string)*: Map publisher.
 - **`year`** *(integer)*: Map publication year.
@@ -14,8 +16,11 @@
 - **`scale`** *(string)*: Map scale.
 - **`bounds`**: Map geographic bounds.
 - **`features`**: Refer to *[MapFeatureExtractions](#MapFeatureExtractions)*.
-- **`cross_sections`** *(array)*
-  - **Items**: Refer to *[CrossSection](#CrossSection)*.
+- **`cross_sections`**
+  - **Any of**
+    - *array*
+      - **Items**: Refer to *[CrossSection](#CrossSection)*.
+    - *null*
 - **`pipelines`** *(array)*
   - **Items**: Refer to *[ModelRun](#ModelRun)*.
 - **`projection_info`**: Refer to *[ProjectionMeta](#ProjectionMeta)*.
@@ -53,7 +58,7 @@ NOTE: This would be nice to have but isn't required (especially for the initial 
 - **`id`** *(integer)*: Internal ID.
 - **`label`** *(string)*: Cross section label.
 - **`line_of_section`**: Geographic line of section.
-- **`image`**: Image of the cross section.
+- **`image`**: Bounding pixel coordinates of the cross section.
 
 ## ExtractionIdentifier
 
@@ -64,6 +69,60 @@ NOTE: This would be nice to have but isn't required (especially for the initial 
 - **`model`** *(string)*: Model name.
 - **`id`** *(integer)*: ID of the extracted feature.
 - **`field`** *(string)*: Field name of the model.
+
+## GeologicUnit
+
+*Information about a geologic unit synthesized from map legend extractions.*
+
+### Properties
+
+- **`name`** *(string)*: Geologic unit name extracted from legend.
+- **`description`** *(string)*: Map unit description.
+- **`comments`**: Map unit comments.
+  - **Any of**
+    - *string*
+    - *null*
+- **`age_text`** *(string)*: Text representation of age extracted from legend.
+- **`t_interval`**: Youngest interval.
+  - **Any of**
+    - *string*
+    - *integer*
+    - *null*
+
+  Examples:
+  ```json
+  "Holocene"
+  ```
+
+  ```json
+  "Cretaceous"
+  ```
+
+- **`b_interval`**: Oldest interval.
+  - **Any of**
+    - *string*
+    - *integer*
+    - *null*
+
+  Examples:
+  ```json
+  "Mesozoic"
+  ```
+
+  ```json
+  "Neoproterozoic"
+  ```
+
+- **`t_age`**: Minimum age (in Ma).
+  - **Any of**
+    - *integer*
+    - *null*
+- **`b_age`**: Maximum age (in Ma).
+  - **Any of**
+    - *integer*
+    - *null*
+- **`lithology`** *(array)*: Structured lithology information extracted from legend.
+  - **Items** *(string)*
 
 ## GroundControlPoint
 
@@ -96,10 +155,9 @@ NOTE: This would be nice to have but isn't required (especially for the initial 
 - **`type`**: Line type.
   - **All of**
     - : Refer to *[LineType](#LineType)*.
-- **`direction`**: Line direction.
-  - **Any of**
-    - *integer*
-    - *null*
+- **`direction`**: Line polarity.
+  - **All of**
+    - : Refer to *[LinePolarity](#LinePolarity)*.
 
   Examples:
   ```json
@@ -118,7 +176,9 @@ NOTE: This would be nice to have but isn't required (especially for the initial 
 ### Properties
 
 - **`id`** *(integer)*: Internal ID.
-- **`type`** *(string)*: Name of this line type.
+- **`name`**: Name of this line type.
+  - **All of**
+    - : Refer to *[LineTypeName](#LineTypeName)*.
 
   Examples:
   ```json
@@ -159,75 +219,6 @@ NOTE: This would be nice to have but isn't required (especially for the initial 
 - **`points`** *(array)*: Map points.
   - **Items**: Refer to *[PointFeature](#PointFeature)*.
 
-## MapUnit
-
-### Properties
-
-- **`age_text`** *(string)*: Text representation of age extracted from legend.
-- **`t_interval`**: Youngest interval.
-  - **Any of**
-    - *string*
-    - *integer*
-    - *null*
-
-  Examples:
-  ```json
-  "Holocene"
-  ```
-
-  ```json
-  "Cretaceous"
-  ```
-
-- **`b_interval`**: Oldest interval.
-  - **Any of**
-    - *string*
-    - *integer*
-    - *null*
-
-  Examples:
-  ```json
-  "Mesozoic"
-  ```
-
-  ```json
-  "Neoproterozoic"
-  ```
-
-- **`t_age`**: Minimum age (in Ma).
-  - **Any of**
-    - *integer*
-    - *null*
-- **`b_age`**: Maximum age (in Ma).
-  - **Any of**
-    - *integer*
-    - *null*
-- **`id`** *(integer)*: Internal ID.
-- **`name`** *(string)*: Geologic unit name extracted from legend.
-- **`color`** *(string)*: Color extracted from map/legend.
-- **`pattern`**: Pattern extracted from map/legend.
-  - **Any of**
-    - *string*
-    - *null*
-- **`abbreviation`**: Abbreviation extracted from map/legend.
-  - **Any of**
-    - *string*
-    - *null*
-- **`description`**: Description text extracted from legend.
-  - **Any of**
-    - *string*
-    - *null*
-- **`lithology`** *(array)*: Lithology information extracted from legend.
-  - **Items** *(string)*
-- **`comments`**: Comments extracted from legend.
-  - **Any of**
-    - *string*
-    - *null*
-- **`category`**: Name of containing legend block.
-  - **Any of**
-    - *string*
-    - *null*
-
 ## ModelRun
 
 *Information about a model run.*
@@ -241,8 +232,6 @@ NOTE: This would be nice to have but isn't required (especially for the initial 
   - **Any of**
     - *string*
     - *null*
-- **`image_size`** *(array)*: Pixel size of the map image.
-  - **Items** *(integer)*
 - **`confidence`** *(array)*
   - **Items**: Refer to *[ConfidenceEstimation](#ConfidenceEstimation)*.
 - **`boxes`** *(array)*
@@ -293,7 +282,9 @@ NOTE: This would be nice to have but isn't required (especially for the initial 
 ### Properties
 
 - **`id`** *(integer)*: Internal ID.
-- **`type`** *(string)*: Name of this point type.
+- **`name`**: Name of this point type.
+  - **All of**
+    - : Refer to *[PointTypeName](#PointTypeName)*.
 
   Examples:
   ```json
@@ -325,9 +316,41 @@ NOTE: This would be nice to have but isn't required (especially for the initial 
 
 - **`id`** *(integer)*: Internal ID.
 - **`geometry`**: Polygon geometry.
-- **`map_unit`**: Map unit information.
+- **`type`**: Polygon type information.
   - **All of**
-    - : Refer to *[MapUnit](#MapUnit)*.
+    - : Refer to *[PolygonType](#PolygonType)*.
+
+## PolygonType
+
+*Information about a polygon extracted from the map legend.*
+
+### Properties
+
+- **`id`** *(integer)*: Internal ID.
+- **`name`**: Type of feature.
+  - **All of**
+    - : Refer to *[PolygonTypeName](#PolygonTypeName)*.
+- **`color`** *(string)*: Color extracted from map/legend.
+- **`pattern`**: Pattern extracted from map/legend.
+  - **Any of**
+    - *string*
+    - *null*
+- **`abbreviation`**: Abbreviation extracted from map/legend.
+  - **Any of**
+    - *string*
+    - *null*
+- **`description`**: Description text extracted from legend.
+  - **Any of**
+    - *string*
+    - *null*
+- **`category`**: Name of containing legend block.
+  - **Any of**
+    - *string*
+    - *null*
+- **`map_unit`**: Map unit information.
+  - **Any of**
+    - : Refer to *[GeologicUnit](#GeologicUnit)*.
+    - *null*
 
 ## ProjectionMeta
 

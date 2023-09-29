@@ -62,7 +62,6 @@ class Document(BaseModel):
 
 
 
-
 class Reference(BaseModel):
     id: str
     document: Document
@@ -120,6 +119,15 @@ class LocationInfo(BaseModel):
     country: str = Field( description = "Country that the mine site resides in")
     state_or_province: Optional[str] = Field(description = "State or province that the mine site resides in")
 
+class GeologyInfo(BaseModel):
+    age: Optional[str] = Field(description = "Age of the geologic unit or event")
+    unit_name: Optional[str] = Field(description = "Name of the geologic unit")
+    description: Optional[str]
+    lithology: Optional[list[str]]
+    process: Optional[list[str]]
+    environment: Optional[list[str]]
+    comments: Optional[str]
+
 
 
 class MineralSite(BaseModel):
@@ -128,6 +136,7 @@ class MineralSite(BaseModel):
     mineral_inventory: list[MineralInventory]
     location_info: LocationInfo
     geology_info: GeologyInfo
+
     same_as: Optional[dict] = Field(
         description='Dictionary that stores the IDs point to other databases: e.g.: {"MRDS" : [{"dep_id" : "10289747","mrds_id" : "W018008",    "altername_or_previous_names": "Thompson Creek Tungsten Mine, Tungsten Jim Mine"    },    {"dep_id": "10022920",    "mrds_id":"FS00436",    "record_type":"Site"}  ],  "USMIN" : [  {"ftr_id":"Mf00576",  "site_id":"ID00055",  "ftr_name":"Tungsten Jim"},  {"ftr_id":"Mo00569",  "site_id":"ID00055"  }  ]}'
     )
@@ -175,3 +184,7 @@ text = text.replace("\n#", "\n##")
 
 with open(name + ".md", "w") as f:
     f.write(text)
+
+    same_as: Optional[dict] = Field(
+        description='Dictionary that stores the IDs point to other databases: e.g.: {"MRDS" : [{"dep_id" : "10289747","mrds_id" : "W018008",    "altername_or_previous_names": "Thompson Creek Tungsten Mine, Tungsten Jim Mine"    },    {"dep_id": "10022920",    "mrds_id":"FS00436",    "record_type":"Site"}  ],  "USMIN" : [  {"ftr_id":"Mf00576",  "site_id":"ID00055",  "ftr_name":"Tungsten Jim"},  {"ftr_id":"Mo00569",  "site_id":"ID00055"  }  ]}'
+    )
