@@ -1,198 +1,226 @@
-# MineralOccurrence
-
-*A mineral resource site, based on MRDS.*
+# MineralSite
 
 ### Properties
 
-- **`id`** *(integer)*
-- **`mrds_id`**
+- **`id`** *(string)*
+- **`name`** *(string)*: Name of the mine, e.g., Tungsten Jim.
+- **`mineral_inventory`** *(array)*
+  - **Items**: Refer to *[MineralInventory](#MineralInventory)*.
+- **`location_info`**: Refer to *[LocationInfo](#LocationInfo)*.
+- **`geology_info`**: Refer to *[GeologyInfo](#GeologyInfo)*.
+- **`same_as`**: Dictionary that stores the IDs point to other databases: e.g.: {"MRDS" : [{"dep_id" : "10289747","mrds_id" : "W018008",    "altername_or_previous_names": "Thompson Creek Tungsten Mine, Tungsten Jim Mine"    },    {"dep_id": "10022920",    "mrds_id":"FS00436",    "record_type":"Site"}  ],  "USMIN" : [  {"ftr_id":"Mf00576",  "site_id":"ID00055",  "ftr_name":"Tungsten Jim"},  {"ftr_id":"Mo00569",  "site_id":"ID00055"  }  ]}.
   - **Any of**
-    - *string*
+    - *object*
     - *null*
-- **`mrds_url`**
-  - **Any of**
-    - *string*
-    - *null*
-- **`type`**: Refer to *[OccurrenceType](#OccurrenceType)*.
-- **`area_name`**
-  - **Any of**
-    - *string*
-    - *null*
-- **`commodities`** *(array)*
-  - **Items**: Refer to *[Commodity](#Commodity)*.
-- **`location`**
-  - **Any of**
-    - 
-    - *null*
-- **`history`**
-  - **Any of**
-    - : Refer to *[History](#History)*.
-    - *null*
-- **`reporter`**
-  - **Any of**
-    - *string*
-    - *null*
-- **`score`**: Refer to *[Score](#Score)*.
-- **`sources`** *(array)*
-  - **Items**: Refer to *[Document](#Document)*.
-- **`geologic_unit`**: Refer to *[GeologicUnit](#GeologicUnit)*.
 
-## MineralDepositModel
+## BoundingBox
 
 ### Properties
 
-
-## GradeTonnageModel
-
-### Properties
-
-- **`ore_quantity`** *(number)*: Ore quantity in metric tons.
-- **`materials`** *(array)*
-  - **Items**: Refer to *[CommodityWithConcentration](#CommodityWithConcentration)*.
-- **`level`**: Type of resource.
-  - **All of**
-    - : Refer to *[ResourceDevelopmentLevel](#ResourceDevelopmentLevel)*.
+- **`x_min`** *(number)*
+- **`x_max`** *(number)*
+- **`y_min`** *(number)*
+- **`y_max`** *(number)*
 
 ## Commodity
 
-*A mineral or elemental commodity, with information about its importance in a deposit.*
+### Properties
+
+- **`id`** *(string)*
+- **`name`** *(string)*
+
+## DepositType
 
 ### Properties
 
-- **`species`**: Species of interest (mineral, element, or other commodity).
-  - **Any of**
-    - : Refer to *[MineralSpecies](#MineralSpecies)*.
-    - *string*
-
-  Examples:
-  ```json
-  "quartz"
-  ```
-
-  ```json
-  "gold"
-  ```
-
-  ```json
-  "silver"
-  ```
-
-  ```json
-  "copper"
-  ```
-
-  ```json
-  "lead"
-  ```
-
-  ```json
-  "zinc"
-  ```
-
-  ```json
-  "aggregate"
-  ```
-
-- **`is_ore`** *(boolean)*: Is this an ore or gangue mineral in this deposit?
-- **`importance`**: Importance of this mineral in this deposit.
-  - **All of**
-    - : Refer to *[Importance](#Importance)*.
-
-## CommodityWithConcentration
-
-### Properties
-
-- **`material`**: Species of interest (mineral or element).
-  - **All of**
-    - : Refer to *[Commodity](#Commodity)*.
-- **`concentration`** *(number)*: Concentration of species in ppm.
-- **`unit`**: Unit of concentration.
-  - **All of**
-    - : Refer to *[ConcentrationUnit](#ConcentrationUnit)*.
+- **`id`** *(string)*
+- **`name`** *(string)*: Name of the deposit type.
 
 ## Document
 
 ### Properties
 
-- **`doi`**
+- **`id`** *(string)*
+- **`title`** *(string)*: Title of the document.
+- **`doi`**: doi of the document.
   - **Any of**
     - *string*
     - *null*
-- **`title`**
+- **`uri`**: URI of the document, if it does not have a doi.
   - **Any of**
     - *string*
     - *null*
-- **`authors`** *(array)*
+- **`authors`** *(array)*: list of the authors of the document.
   - **Items** *(string)*
-- **`journal`**
+- **`journal`**: journal document belongs to.
   - **Any of**
     - *string*
     - *null*
-- **`year`**
+- **`year`** *(integer)*: Published year of the document.
+- **`month`** *(integer)*: Published month of the document.
+- **`volume`**: Volume of the document.
   - **Any of**
     - *integer*
     - *null*
-- **`volume`**
+- **`issue`**: Issue number of the document.
   - **Any of**
     - *integer*
     - *null*
-- **`issue`**
+- **`description`** *(string)*: Description of the document.
+
+## GeologyInfo
+
+### Properties
+
+- **`age`**: Age of the geologic unit or event.
   - **Any of**
-    - *integer*
+    - *string*
+    - *null*
+- **`unit_name`**: Name of the geologic unit.
+  - **Any of**
+    - *string*
     - *null*
 - **`description`**
   - **Any of**
     - *string*
     - *null*
+- **`lithology`**
+  - **Any of**
+    - *array*
+      - **Items** *(string)*
+    - *null*
+- **`process`**
+  - **Any of**
+    - *array*
+      - **Items** *(string)*
+    - *null*
+- **`environment`**
+  - **Any of**
+    - *array*
+      - **Items** *(string)*
+    - *null*
+- **`comments`**
+  - **Any of**
+    - *string*
+    - *null*
 
-## GeologicUnit
+## Grade
 
 ### Properties
 
-- **`age`** *(string)*
-- **`name`** *(string)*
-- **`description`** *(string)*
-- **`lithology`** *(array)*
-  - **Items** *(string)*
-- **`environments`** *(array)*
-  - **Items** *(string)*
-- **`comments`** *(string)*
+- **`gradeUnit`** *(string)*: The unit in which grade is measured, eg, percent.
+- **`gradeValue`** *(number)*: The value of grade.
 
-## History
+## LocationInfo
 
 ### Properties
 
-- **`discovery_year`**
-  - **Any of**
-    - *integer*
-    - *null*
-- **`production_years`**
-  - **Any of**
-    - *string*
-    - *null*
-- **`development_status`**
-  - **Any of**
-    - *string*
-    - *null*
-- **`operation_type`**
+- **`location`**: Type: Polygon or Point, value indicates the geolocation of the site.
+- **`location_source`** *(string)*: Source dataset that the location info is retrieved from. e.g., MRDS.
+- **`crs`** *(string)*: The Coordinate Reference System (CRS) of the location.
+- **`country`** *(string)*: Country that the mine site resides in.
+- **`state_or_province`**: State or province that the mine site resides in.
   - **Any of**
     - *string*
     - *null*
 
-## MineralSpecies
-
-*A mineral or elemental species of interest*
+## MappableCriteria
 
 ### Properties
 
-- **`name`** *(string)*
-- **`mindat_id`**
+- **`criteria`** *(string)*
+- **`theoretical`**
   - **Any of**
     - *string*
     - *null*
-- **`formula`**
+- **`potential_dataset`**
   - **Any of**
     - *string*
     - *null*
-- **`metallic`** *(boolean)*: Is this a metallic mineral/element?
+- **`supporting_references`** *(array)*
+  - **Items**: Refer to *[Reference](#Reference)*.
+
+## MineralInventory
+
+### Properties
+
+- **`id`** *(string)*
+- **`depositType`**: The deposit type of an inventory item.
+  - **Any of**
+    - : Refer to *[DepositType](#DepositType)*.
+    - *null*
+- **`commodity`**: The commodity of an inventory item.
+  - **All of**
+    - : Refer to *[Commodity](#Commodity)*.
+- **`category`**: The category of an inventory item.
+  - **Any of**
+    - : Refer to *[ResourceReserveCategory](#ResourceReserveCategory)*.
+    - *null*
+- **`ore`**: The ore of an inventory item.
+  - **Any of**
+    - : Refer to *[Ore](#Ore)*.
+    - *null*
+- **`grade`**: The grade of an inventory item.
+  - **Any of**
+    - : Refer to *[Grade](#Grade)*.
+    - *null*
+- **`containedMetal`**: The quantity of a contained metal in an inventory item.
+  - **Any of**
+    - *number*
+    - *null*
+- **`reference`**: The reference of an inventory item.
+  - **Any of**
+    - : Refer to *[Reference](#Reference)*.
+    - *null*
+- **`date`**: When in the point of time mineral inventory valid.
+  - **Any of**
+    - *string, format: date-time*
+    - *null*
+
+## MineralSystem
+
+### Properties
+
+- **`deposit_type`** *(string)*
+- **`trigger`** *(array)*
+  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
+- **`source_fluid`** *(array)*
+  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
+- **`source_ligand`** *(array)*
+  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
+- **`source_metal`** *(array)*
+  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
+- **`source_other`** *(array)*
+  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
+- **`conduit`** *(array)*
+  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
+- **`driver`** *(array)*
+  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
+- **`throttle`** *(array)*
+  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
+- **`trap`** *(array)*
+  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
+- **`dispersion`** *(array)*
+  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
+- **`exhumation`** *(array)*
+  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
+- **`direct_detection`** *(array)*
+  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
+
+## Ore
+
+### Properties
+
+- **`oreUnit`** *(string)*: The unit in which ore quantity is measured, eg, metric tonnes.
+- **`oreValue`** *(number)*: The value of ore quantity.
+
+## Reference
+
+### Properties
+
+- **`id`** *(string)*
+- **`document`**: Refer to *[Document](#Document)*.
+- **`page`** *(integer)*
+- **`bounding_box`** *(array)*: coordinates of the document where reference is found.
+  - **Items**: Refer to *[BoundingBox](#BoundingBox)*.
 
