@@ -351,9 +351,12 @@
             "type": "string"
           },
           "depositType": {
-            "allOf": [
+            "anyOf": [
               {
                 "$ref": "#/$defs/DepositType"
+              },
+              {
+                "type": "null"
               }
             ],
             "description": "The deposit type of an inventory item"
@@ -367,47 +370,73 @@
             "description": "The commodity of an inventory item"
           },
           "category": {
-            "allOf": [
+            "anyOf": [
               {
                 "$ref": "#/$defs/ResourceReserveCategory"
+              },
+              {
+                "type": "null"
               }
             ],
             "description": "The category of an inventory item"
           },
           "ore": {
-            "allOf": [
+            "anyOf": [
               {
                 "$ref": "#/$defs/Ore"
+              },
+              {
+                "type": "null"
               }
             ],
             "description": "The ore of an inventory item"
           },
           "grade": {
-            "allOf": [
+            "anyOf": [
               {
                 "$ref": "#/$defs/Grade"
+              },
+              {
+                "type": "null"
               }
             ],
             "description": "The grade of an inventory item"
           },
           "containedMetal": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "description": "The quantity of a contained metal in an inventory item",
-            "title": "Containedmetal",
-            "type": "number"
+            "title": "Containedmetal"
           },
           "reference": {
-            "allOf": [
+            "anyOf": [
               {
                 "$ref": "#/$defs/Reference"
+              },
+              {
+                "type": "null"
               }
             ],
             "description": "The reference of an inventory item"
           },
           "date": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "description": "When in the point of time mineral inventory valid",
-            "format": "date-time",
-            "title": "Date",
-            "type": "string"
+            "title": "Date"
           }
         },
         "required": [
@@ -458,12 +487,12 @@
             "type": "integer"
           },
           "bounding_box": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/BoundingBox"
-              }
-            ],
-            "description": "coordinates of the document where reference is found"
+            "description": "coordinates of the document where reference is found",
+            "items": {
+              "$ref": "#/$defs/BoundingBox"
+            },
+            "title": "Bounding Box",
+            "type": "array"
           }
         },
         "required": [
@@ -501,7 +530,11 @@
         "type": "string"
       },
       "mineral_inventory": {
-        "$ref": "#/$defs/MineralInventory"
+        "items": {
+          "$ref": "#/$defs/MineralInventory"
+        },
+        "title": "Mineral Inventory",
+        "type": "array"
       },
       "location_info": {
         "$ref": "#/$defs/LocationInfo"
@@ -531,6 +564,332 @@
       "same_as"
     ],
     "title": "MineralSite",
+    "type": "object"
+  },
+  {
+    "$defs": {
+      "BoundingBox": {
+        "properties": {
+          "x_min": {
+            "title": "X Min",
+            "type": "number"
+          },
+          "x_max": {
+            "title": "X Max",
+            "type": "number"
+          },
+          "y_min": {
+            "title": "Y Min",
+            "type": "number"
+          },
+          "y_max": {
+            "title": "Y Max",
+            "type": "number"
+          }
+        },
+        "required": [
+          "x_min",
+          "x_max",
+          "y_min",
+          "y_max"
+        ],
+        "title": "BoundingBox",
+        "type": "object"
+      },
+      "Document": {
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "title": {
+            "description": "Title of the document",
+            "title": "Title",
+            "type": "string"
+          },
+          "doi": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "doi of the document",
+            "title": "Doi"
+          },
+          "uri": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "URI of the document, if it does not have a doi",
+            "title": "Uri"
+          },
+          "authors": {
+            "description": "list of the authors of the document",
+            "items": {
+              "type": "string"
+            },
+            "title": "Authors",
+            "type": "array"
+          },
+          "journal": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "journal document belongs to",
+            "title": "Journal"
+          },
+          "year": {
+            "description": "Published year of the document",
+            "title": "Year",
+            "type": "integer"
+          },
+          "month": {
+            "description": "Published month of the document",
+            "title": "Month",
+            "type": "integer"
+          },
+          "volume": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Volume of the document",
+            "title": "Volume"
+          },
+          "issue": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Issue number of the document",
+            "title": "Issue"
+          },
+          "description": {
+            "description": "Description of the document",
+            "title": "Description",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "doi",
+          "uri",
+          "authors",
+          "journal",
+          "year",
+          "month",
+          "volume",
+          "issue",
+          "description"
+        ],
+        "title": "Document",
+        "type": "object"
+      },
+      "MappableCriteria": {
+        "properties": {
+          "criteria": {
+            "title": "Criteria",
+            "type": "string"
+          },
+          "theoretical": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Theoretical"
+          },
+          "potential_dataset": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Potential Dataset"
+          },
+          "supporting_references": {
+            "items": {
+              "$ref": "#/$defs/Reference"
+            },
+            "title": "Supporting References",
+            "type": "array"
+          }
+        },
+        "required": [
+          "criteria",
+          "theoretical",
+          "potential_dataset",
+          "supporting_references"
+        ],
+        "title": "MappableCriteria",
+        "type": "object"
+      },
+      "Reference": {
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "document": {
+            "$ref": "#/$defs/Document"
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer"
+          },
+          "bounding_box": {
+            "description": "coordinates of the document where reference is found",
+            "items": {
+              "$ref": "#/$defs/BoundingBox"
+            },
+            "title": "Bounding Box",
+            "type": "array"
+          }
+        },
+        "required": [
+          "id",
+          "document",
+          "page",
+          "bounding_box"
+        ],
+        "title": "Reference",
+        "type": "object"
+      }
+    },
+    "properties": {
+      "deposit_type": {
+        "title": "Deposit Type",
+        "type": "string"
+      },
+      "trigger": {
+        "items": {
+          "$ref": "#/$defs/MappableCriteria"
+        },
+        "title": "Trigger",
+        "type": "array"
+      },
+      "source_fluid": {
+        "items": {
+          "$ref": "#/$defs/MappableCriteria"
+        },
+        "title": "Source Fluid",
+        "type": "array"
+      },
+      "source_ligand": {
+        "items": {
+          "$ref": "#/$defs/MappableCriteria"
+        },
+        "title": "Source Ligand",
+        "type": "array"
+      },
+      "source_metal": {
+        "items": {
+          "$ref": "#/$defs/MappableCriteria"
+        },
+        "title": "Source Metal",
+        "type": "array"
+      },
+      "source_other": {
+        "items": {
+          "$ref": "#/$defs/MappableCriteria"
+        },
+        "title": "Source Other",
+        "type": "array"
+      },
+      "conduit": {
+        "items": {
+          "$ref": "#/$defs/MappableCriteria"
+        },
+        "title": "Conduit",
+        "type": "array"
+      },
+      "driver": {
+        "items": {
+          "$ref": "#/$defs/MappableCriteria"
+        },
+        "title": "Driver",
+        "type": "array"
+      },
+      "throttle": {
+        "items": {
+          "$ref": "#/$defs/MappableCriteria"
+        },
+        "title": "Throttle",
+        "type": "array"
+      },
+      "trap": {
+        "items": {
+          "$ref": "#/$defs/MappableCriteria"
+        },
+        "title": "Trap",
+        "type": "array"
+      },
+      "dispersion": {
+        "items": {
+          "$ref": "#/$defs/MappableCriteria"
+        },
+        "title": "Dispersion",
+        "type": "array"
+      },
+      "exhumation": {
+        "items": {
+          "$ref": "#/$defs/MappableCriteria"
+        },
+        "title": "Exhumation",
+        "type": "array"
+      },
+      "direct_detection": {
+        "items": {
+          "$ref": "#/$defs/MappableCriteria"
+        },
+        "title": "Direct Detection",
+        "type": "array"
+      }
+    },
+    "required": [
+      "deposit_type",
+      "trigger",
+      "source_fluid",
+      "source_ligand",
+      "source_metal",
+      "source_other",
+      "conduit",
+      "driver",
+      "throttle",
+      "trap",
+      "dispersion",
+      "exhumation",
+      "direct_detection"
+    ],
+    "title": "MineralSystem",
     "type": "object"
   }
 ]
