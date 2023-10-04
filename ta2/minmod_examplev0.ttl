@@ -29,7 +29,7 @@ mndr:Q1 a mndr:MineralInventory ;
     mndr:date "2023-09-29T00:00:00Z" .
 
 mndr:Q2 a mndr:LocationInfo ;
-    mndr:location "Point(35.75, -82.26)" ;
+    mndr:location "POINT( -82.265278 35.764722)"^^geo:wktLiteral ;
     mndr:location_source "MRDS" ;
     mndr:crs "WGS84" ;
     mndr:country "USA" ;
@@ -88,3 +88,4 @@ mndr:Q10 a mndr:BoundingBox ;
     mndr:x_max 20 ;
     mndr:y_min 30 ;
     mndr:y_max 40 .
+
