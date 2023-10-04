@@ -282,20 +282,20 @@
       },
       "Grade": {
         "properties": {
-          "gradeUnit": {
+          "grade_unit": {
             "description": "The unit in which grade is measured, eg, percent",
-            "title": "Gradeunit",
+            "title": "Grade Unit",
             "type": "string"
           },
-          "gradeValue": {
+          "grade_value": {
             "description": "The value of grade",
-            "title": "Gradevalue",
+            "title": "Grade Value",
             "type": "number"
           }
         },
         "required": [
-          "gradeUnit",
-          "gradeValue"
+          "grade_unit",
+          "grade_value"
         ],
         "title": "Grade",
         "type": "object"
@@ -350,7 +350,7 @@
             "title": "Id",
             "type": "string"
           },
-          "depositType": {
+          "deposit_type": {
             "anyOf": [
               {
                 "$ref": "#/$defs/DepositType"
@@ -441,7 +441,7 @@
         },
         "required": [
           "id",
-          "depositType",
+          "deposit_type",
           "commodity",
           "category",
           "ore",
@@ -455,20 +455,20 @@
       },
       "Ore": {
         "properties": {
-          "oreUnit": {
+          "ore_unit": {
             "description": "The unit in which ore quantity is measured, eg, metric tonnes",
-            "title": "Oreunit",
+            "title": "Ore Unit",
             "type": "string"
           },
-          "oreValue": {
+          "ore_value": {
             "description": "The value of ore quantity",
-            "title": "Orevalue",
+            "title": "Ore Value",
             "type": "number"
           }
         },
         "required": [
-          "oreUnit",
-          "oreValue"
+          "ore_unit",
+          "ore_value"
         ],
         "title": "Ore",
         "type": "object"
@@ -594,6 +594,25 @@
           "y_max"
         ],
         "title": "BoundingBox",
+        "type": "object"
+      },
+      "DepositType": {
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "name": {
+            "description": "Name of the deposit type",
+            "title": "Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ],
+        "title": "DepositType",
         "type": "object"
       },
       "Document": {
@@ -786,8 +805,7 @@
     },
     "properties": {
       "deposit_type": {
-        "title": "Deposit Type",
-        "type": "string"
+        "$ref": "#/$defs/DepositType"
       },
       "trigger": {
         "items": {

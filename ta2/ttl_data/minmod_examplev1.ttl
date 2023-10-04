@@ -49,7 +49,7 @@ mndr:Q03 a mndr:SameAs ;
     mndr:USMIN_ID "ID00055 (demo)" .
 
 gkbi:Q26199 a gkbi:Q26097 ;
-    mndr:id "Q26097" ;
+    mndr:id "Q26199" ;
     mndr:name "Greisen tin ±W-Mo mineral deposit type" .
 
 gkbi:Q392 a gkbi:Q418 ;

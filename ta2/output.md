@@ -108,8 +108,8 @@
 
 ### Properties
 
-- **`gradeUnit`** *(string)*: The unit in which grade is measured, eg, percent.
-- **`gradeValue`** *(number)*: The value of grade.
+- **`grade_unit`** *(string)*: The unit in which grade is measured, eg, percent.
+- **`grade_value`** *(number)*: The value of grade.
 
 ## LocationInfo
 
@@ -145,7 +145,7 @@
 ### Properties
 
 - **`id`** *(string)*
-- **`depositType`**: The deposit type of an inventory item.
+- **`deposit_type`**: The deposit type of an inventory item.
   - **Any of**
     - : Refer to *[DepositType](#DepositType)*.
     - *null*
@@ -181,7 +181,7 @@
 
 ### Properties
 
-- **`deposit_type`** *(string)*
+- **`deposit_type`**: Refer to *[DepositType](#DepositType)*.
 - **`trigger`** *(array)*
   - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
 - **`source_fluid`** *(array)*
@@ -211,8 +211,8 @@
 
 ### Properties
 
-- **`oreUnit`** *(string)*: The unit in which ore quantity is measured, eg, metric tonnes.
-- **`oreValue`** *(number)*: The value of ore quantity.
+- **`ore_unit`** *(string)*: The unit in which ore quantity is measured, eg, metric tonnes.
+- **`ore_value`** *(number)*: The value of ore quantity.
 
 ## Reference
 

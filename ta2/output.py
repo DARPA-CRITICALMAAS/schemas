@@ -33,8 +33,8 @@ class GeologyInfo(BaseModel):
     comments: Optional[str]
 
 class Ore(BaseModel):
-    oreUnit: str = Field( description="The unit in which ore quantity is measured, eg, metric tonnes")
-    oreValue: float = Field( description="The value of ore quantity")
+    ore_unit: str = Field( description="The unit in which ore quantity is measured, eg, metric tonnes")
+    ore_value: float = Field( description="The value of ore quantity")
 
 
 
@@ -75,7 +75,7 @@ class MappableCriteria(BaseModel):
     supporting_references: list[Reference]
 
 class MineralSystem(BaseModel):
-    deposit_type: str
+    deposit_type: DepositType
     trigger: list[MappableCriteria]
     source_fluid: list[MappableCriteria]
     source_ligand: list[MappableCriteria]
@@ -94,12 +94,12 @@ class Commodity(BaseModel):
     name: str
 
 class Grade(BaseModel):
-    gradeUnit: str = Field( description="The unit in which grade is measured, eg, percent")
-    gradeValue: float = Field( description="The value of grade")
+    grade_unit: str = Field( description="The unit in which grade is measured, eg, percent")
+    grade_value: float = Field( description="The value of grade")
 
 class MineralInventory(BaseModel):
     id: str
-    depositType: Optional[DepositType] = Field( description="The deposit type of an inventory item")
+    deposit_type: Optional[DepositType] = Field( description="The deposit type of an inventory item")
     commodity: Commodity = Field( description="The commodity of an inventory item")
     category: Optional[ResourceReserveCategory] = Field( description="The category of an inventory item")
     ore: Optional[Ore] = Field( description="The ore of an inventory item")
@@ -127,8 +127,6 @@ class GeologyInfo(BaseModel):
     process: Optional[list[str]]
     environment: Optional[list[str]]
     comments: Optional[str]
-
-
 
 class MineralSite(BaseModel):
     id: str
