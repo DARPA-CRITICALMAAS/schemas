@@ -402,7 +402,7 @@
             ],
             "description": "The grade of an inventory item"
           },
-          "containedMetal": {
+          "contained_metal": {
             "anyOf": [
               {
                 "type": "number"
@@ -412,7 +412,7 @@
               }
             ],
             "description": "The quantity of a contained metal in an inventory item",
-            "title": "Containedmetal"
+            "title": "Contained Metal"
           },
           "reference": {
             "anyOf": [
@@ -446,7 +446,7 @@
           "category",
           "ore",
           "grade",
-          "containedMetal",
+          "contained_metal",
           "reference",
           "date"
         ],

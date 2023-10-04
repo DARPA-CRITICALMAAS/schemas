@@ -164,7 +164,7 @@
   - **Any of**
     - : Refer to *[Grade](#Grade)*.
     - *null*
-- **`containedMetal`**: The quantity of a contained metal in an inventory item.
+- **`contained_metal`**: The quantity of a contained metal in an inventory item.
   - **Any of**
     - *number*
     - *null*

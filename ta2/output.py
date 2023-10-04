@@ -104,7 +104,7 @@ class MineralInventory(BaseModel):
     category: Optional[ResourceReserveCategory] = Field( description="The category of an inventory item")
     ore: Optional[Ore] = Field( description="The ore of an inventory item")
     grade: Optional[Grade] = Field( description="The grade of an inventory item")
-    containedMetal: Optional[float] = Field( description="The quantity of a contained metal in an inventory item")
+    contained_metal: Optional[float] = Field( description="The quantity of a contained metal in an inventory item")
     reference: Optional[Reference] = Field( description="The reference of an inventory item")
     date: Optional[datetime] = Field(description="When in the point of time mineral inventory valid")
 
