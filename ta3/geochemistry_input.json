@@ -1,33 +1,20 @@
 [
   {
     "$defs": {
-      "GeologyGeologicData": {
+      "AnalyticMethod": {
+        "description": "Metadata of analytical methods used to obtain chemical and physical data. ",
         "properties": {
-          "sample_source": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Physical settings or environments from which the samples were collected. ",
-            "title": "Sample Source"
+          "analytic_method": {
+            "description": "Unique short name of analytical method.",
+            "title": "Analytic Method",
+            "type": "string"
           },
-          "primary_class": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Primary classifications of sample media. ",
-            "title": "Primary Class"
+          "analytic_method_desc": {
+            "description": "Descriptions of analytical methods.",
+            "title": "Analytic Method Desc",
+            "type": "string"
           },
-          "secondary_class": {
+          "digestion_method": {
             "anyOf": [
               {
                 "type": "string"
@@ -36,188 +23,396 @@
                 "type": "null"
               }
             ],
-            "description": "Secondary classifications or subclasses of sample media. ",
-            "title": "Secondary Class"
+            "description": "Digestion methods used in analytical methods.",
+            "title": "Digestion Method"
           },
-          "specific_name": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Specific names for sample media. ",
-            "title": "Specific Name"
-          },
-          "sample_comment": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Attributes used to modify PRIMARY_CLASS, SECONDARY_CLASS, or SPECIFIC_NAME. ",
-            "title": "Sample Comment"
-          },
-          "addl_attr": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Additional attributes used to modify PRIMARY_CLASS, SECONDARY_CLASS, or SPECIFIC_NAME.",
-            "title": "Addl Attr"
-          },
-          "geologic_age": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Ages or ranges of ages from the Geological Time Scale for the collected samples. ",
-            "title": "Geologic Age"
-          },
-          "stratigraphy": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Names of the stratigraphic units from which samples were collected. ",
-            "title": "Stratigraphy"
-          },
-          "strat_grp": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Summary field of formations, groups or supergroups for entries in STRATIGRAPHY. ",
-            "title": "Strat Grp"
-          },
-          "start_sort": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Summary field for entries in STRATIGRAPHY. ",
-            "title": "Start Sort"
-          },
-          "regional_geology": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Regional geologic settings of stratigraphic units. ",
-            "title": "Regional Geology"
-          },
-          "tectonic_setting": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Tectonic settings for deposition of stratigraphic units. ",
-            "title": "Tectonic Setting"
-          },
-          "source_terrain": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Tectonic terrains as sources of deposition for stratigraphic units. ",
-            "title": "Source Terrain"
-          },
-          "metallogeny": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Metallogenic associations of stratigraphic units. ",
-            "title": "Metallogeny"
-          },
-          "mineralizaton": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Indications of mineralization or mineralization types as provided by sample submitters. ",
-            "title": "Mineralizaton"
-          },
-          "alteration": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Indications of the presence or types of alteration noted in samples by submitters. ",
-            "title": "Alteration"
+          "source": {
+            "$ref": "#/$defs/AnalyticMethodBiblio"
           }
         },
         "required": [
-          "sample_source",
-          "primary_class",
-          "secondary_class",
-          "specific_name",
-          "sample_comment",
-          "addl_attr",
-          "geologic_age",
-          "stratigraphy",
-          "strat_grp",
-          "start_sort",
-          "regional_geology",
-          "tectonic_setting",
-          "source_terrain",
-          "metallogeny",
-          "mineralizaton",
-          "alteration"
+          "analytic_method",
+          "analytic_method_desc",
+          "digestion_method",
+          "source"
         ],
-        "title": "GeologyGeologicData",
+        "title": "AnalyticMethod",
         "type": "object"
       },
-      "GeologySampleAnalyticData": {
+      "AnalyticMethodBiblio": {
+        "description": "Metadata of references for analytical methods used to obtain chemical data. ",
+        "properties": {
+          "analytic_method_pub_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Unique author identifiers for analytic method publications.",
+            "title": "Analytic Method Pub Id"
+          },
+          "reference_pub_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Reference identifiers for analytic method publications.",
+            "title": "Reference Pub Id"
+          },
+          "analytic_method": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Analytical method abbreviations, refers to field ANALYTIC_METHOD of AnalyticalMethod table.",
+            "title": "Analytic Method"
+          },
+          "media": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Analyzed media types for analytic method publications.",
+            "title": "Media"
+          },
+          "pub_author": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Authors of analytical method publications.",
+            "title": "Pub Author"
+          },
+          "pub_year": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Year of analytic method publication. Min: 1947, Max: 2017, Units: year",
+            "title": "Pub Year"
+          },
+          "pub_citation": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Bibliographic citation for analytic method publication; may refer to chapter or section of publication.",
+            "title": "Pub Citation"
+          },
+          "pub_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "URL of analytical method publication, if available.",
+            "title": "Pub Url"
+          }
+        },
+        "required": [
+          "analytic_method_pub_id",
+          "reference_pub_id",
+          "analytic_method",
+          "media",
+          "pub_author",
+          "pub_year",
+          "pub_citation",
+          "pub_url"
+        ],
+        "title": "AnalyticMethodBiblio",
+        "type": "object"
+      },
+      "CoordinatesQualifier": {
+        "description": "Metadata of qualifier codes for the precision of geographic coordinates.",
+        "properties": {
+          "coordinates_qual": {
+            "description": "Qualifier code regarding precision of coordinates gained using GIS. Value 1-5.",
+            "title": "Coordinates Qual",
+            "type": "integer"
+          },
+          "coordinates_qual_desc": {
+            "description": "Description of coordinate qualifier.",
+            "title": "Coordinates Qual Desc",
+            "type": "string"
+          },
+          "estimated_accuracy": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Estimated positional accuracy of geospatial coordinates resolved by project.",
+            "title": "Estimated Accuracy"
+          }
+        },
+        "required": [
+          "coordinates_qual",
+          "coordinates_qual_desc",
+          "estimated_accuracy"
+        ],
+        "title": "CoordinatesQualifier",
+        "type": "object"
+      },
+      "Map": {
+        "description": "Schema for map information.",
+        "properties": {
+          "ref_url": {
+            "description": "Source URL of the map.",
+            "title": "Ref Url",
+            "type": "string"
+          },
+          "ref_name": {
+            "description": "Short name of the map.",
+            "title": "Ref Name",
+            "type": "string"
+          },
+          "ref_title": {
+            "description": "Title of the map.",
+            "title": "Ref Title",
+            "type": "string"
+          },
+          "ref_authors": {
+            "description": "Authors",
+            "items": {
+              "type": "string"
+            },
+            "title": "Ref Authors",
+            "type": "array"
+          },
+          "ref_source": {
+            "description": "Publication/data release containing the map",
+            "examples": [
+              "U.S. Geological Survey Data Series 424"
+            ],
+            "title": "Ref Source",
+            "type": "string"
+          },
+          "ref_year": {
+            "description": "Publication year",
+            "examples": [
+              "2009"
+            ],
+            "title": "Ref Year",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "ref_url",
+          "ref_name",
+          "ref_title",
+          "ref_authors",
+          "ref_source",
+          "ref_year"
+        ],
+        "title": "Map",
+        "type": "object"
+      },
+      "MapPoint": {
+        "properties": {
+          "id": {
+            "description": "Internal ID of the point. CMIBS Sample ID.",
+            "title": "Id",
+            "type": "integer"
+          },
+          "source": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/Map"
+              }
+            ],
+            "description": "Source map of the point."
+          },
+          "geometry": {
+            "description": "Geometry of this feature, expressed as Lat Long in geographic coordinates.",
+            "title": "Geometry"
+          },
+          "geology": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/SampleData"
+              }
+            ],
+            "description": "Associated geologic data of the sample."
+          },
+          "mineral_best_value": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/Mineral_BestValueData"
+              }
+            ],
+            "description": "'Best Value' element chemical data."
+          },
+          "whole_rock_majors_best_value": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/WholeRockMajors_BestValueData"
+              }
+            ],
+            "description": "Table of 'best value' chemical 'whole rock' major element data for rock, sediment, soil and organic samples."
+          },
+          "whole_rock_others_best_value": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/WholeRockOthers_BestValueData"
+              }
+            ],
+            "description": "Table of 'best value' chemical 'whole rock' data of other various elements, compounds and physical measurements for rock, sediment, soil and organic samples."
+          }
+        },
+        "required": [
+          "id",
+          "source",
+          "geometry",
+          "geology",
+          "mineral_best_value",
+          "whole_rock_majors_best_value",
+          "whole_rock_others_best_value"
+        ],
+        "title": "MapPoint",
+        "type": "object"
+      },
+      "MapTile": {
+        "description": "A tile representing geologic map information covering a small area.",
+        "properties": {
+          "x": {
+            "description": "X coordinate of the tile.",
+            "title": "X",
+            "type": "integer"
+          },
+          "y": {
+            "description": "Y coordinate of the tile.",
+            "title": "Y",
+            "type": "integer"
+          },
+          "z": {
+            "description": "Z coordinate of the tile.",
+            "title": "Z",
+            "type": "integer"
+          },
+          "points": {
+            "description": "Points in the tile.",
+            "items": {
+              "$ref": "#/$defs/MapPoint"
+            },
+            "title": "Points",
+            "type": "array"
+          }
+        },
+        "required": [
+          "x",
+          "y",
+          "z",
+          "points"
+        ],
+        "title": "MapTile",
+        "type": "object"
+      },
+      "Mineral_BestValueData": {
+        "description": "Table of 'best value' chemical data for rock, sediment, soil and organic samples.\nValues listed as optional due to some elements being measured in ppm and others as a percent, and not all elements\nhaving measurements.",
+        "properties": {
+          "cmibs_id": {
+            "description": "Unique identifier assigned to each sample entered in the CMIBS geochemical database; foreign key from Geology table.",
+            "title": "Cmibs Id",
+            "type": "integer"
+          },
+          "mineral_ppm": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Parts per million of target mineral for best model.",
+            "title": "Mineral Ppm"
+          },
+          "mineral_pct": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Best value of target mineral in weight percent.",
+            "title": "Mineral Pct"
+          },
+          "mineral_am": {
+            "$ref": "#/$defs/AnalyticMethod"
+          },
+          "mineral_ppm_all": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Parts per million of target mineral for all models.",
+            "title": "Mineral Ppm All"
+          },
+          "mineral_pct_all": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "All values of target mineral in weight percent.",
+            "title": "Mineral Pct All"
+          }
+        },
+        "required": [
+          "cmibs_id",
+          "mineral_ppm",
+          "mineral_pct",
+          "mineral_am",
+          "mineral_ppm_all",
+          "mineral_pct_all"
+        ],
+        "title": "Mineral_BestValueData",
+        "type": "object"
+      },
+      "SampleAnalyticData": {
+        "description": "Metadata of descriptive and analytical attributes for rock, sediment, soil and organic samples.\nMany fields may be optional.",
         "properties": {
           "field_id": {
             "anyOf": [
@@ -240,7 +435,7 @@
                 "type": "null"
               }
             ],
-            "description": "Laboratory batch identifiers assigned by the Sample Control Officers of the analytical laboratories that received the samples as batches. ",
+            "description": "Laboratory batch identifiers assigned by the Sample Control Officers of the analytical laboratories that received the samples as batches.",
             "title": "Lab Id"
           },
           "job_id": {
@@ -252,7 +447,7 @@
                 "type": "null"
               }
             ],
-            "description": "Unique identifiers assigned to submitted samples by the Sample Control Officer of the analytical laboratory that received the samples",
+            "description": "Unique identifiers assigned to submitted samples by the Sample Control Officer of the analytical laboratory that received the samples.",
             "title": "Job Id"
           },
           "submitter": {
@@ -264,7 +459,7 @@
                 "type": "null"
               }
             ],
-            "description": " Names of the individuals who submitted samples in batches to the laboratories for analysis",
+            "description": "Names of the individuals who submitted samples in batches to the laboratories for analysis.",
             "title": "Submitter"
           },
           "project_name": {
@@ -276,7 +471,7 @@
                 "type": "null"
               }
             ],
-            "description": "Project names, at times derived from project account numbers, of work groups funded for the collection and analysis of submitted samples",
+            "description": "Project names, at times derived from project account numbers, of work groups funded for the collection and analysis of submitted samples.",
             "title": "Project Name"
           },
           "date_submitted": {
@@ -288,7 +483,7 @@
                 "type": "null"
               }
             ],
-            "description": "Date sample was submitted to Sample Control for initial database processing prior to sample prep and analysis; or date sample and its data were added to the database from non-USGS sources. in the format mm/dd/yyyy",
+            "description": "Date sample was submitted to Sample Control for initial database processing prior to sample prep and analysis; or date sample and its data were added to the database from non-USGS sources; in the format mm/dd/yyyy.",
             "title": "Date Submitted"
           },
           "method_collected": {
@@ -312,7 +507,7 @@
                 "type": "null"
               }
             ],
-            "description": "Original NGDB batch numbers (JOB_ID) of USGS resubmitted samples that have been given new batch numbers upon resubmittal for further analysis. ",
+            "description": "Original NGDB batch numbers (JOB_ID) of USGS resubmitted samples that have been given new batch numbers upon resubmittal for further analysis.",
             "title": "Previous Job Id"
           },
           "previous_lab_id": {
@@ -365,55 +560,270 @@
           "publ_id",
           "data_source"
         ],
-        "title": "GeologySampleAnalyticData",
+        "title": "SampleAnalyticData",
         "type": "object"
       },
-      "GeologySampleData": {
-        "description": "metadata related to the geology of the sample from Geology.txt file",
+      "SampleData": {
+        "description": "Metadata of spatial, geologic and descriptive attributes for rock, sediment, soil and organic samples.",
         "properties": {
+          "cmibs_id": {
+            "description": "Unique identifier assigned to each sample entered in the CMIBS geochemical database.",
+            "title": "Cmibs Id",
+            "type": "integer"
+          },
           "analytics": {
-            "anyOf": [
+            "allOf": [
               {
-                "$ref": "#/$defs/GeologySampleAnalyticData"
-              },
-              {
-                "type": "null"
+                "$ref": "#/$defs/SampleAnalyticData"
               }
             ],
-            "description": "data related to the analytic methods for obtainingand processing the sample"
+            "description": "Data related to the analytic methods for obtaining and processing the sample."
           },
           "location": {
-            "anyOf": [
+            "allOf": [
               {
-                "$ref": "#/$defs/GeologySampleLocationData"
-              },
-              {
-                "type": "null"
+                "$ref": "#/$defs/SampleLocationData"
               }
             ],
-            "description": "data related ot the location of the sample"
+            "description": "Data related ot the location of the sample."
           },
           "geologic": {
-            "anyOf": [
+            "allOf": [
               {
-                "$ref": "#/$defs/GeologyGeologicData"
-              },
-              {
-                "type": "null"
+                "$ref": "#/$defs/SampleGeologicData"
               }
             ],
-            "description": "data related to the specific geology of the sample"
+            "description": "Data related to the specific geology of the sample."
           }
         },
         "required": [
+          "cmibs_id",
           "analytics",
           "location",
           "geologic"
         ],
-        "title": "GeologySampleData",
+        "title": "SampleData",
         "type": "object"
       },
-      "GeologySampleLocationData": {
+      "SampleGeologicData": {
+        "description": "Metadata of geologic attributes for rock, sediment, soil and organic samples. Many fields may be optional.",
+        "properties": {
+          "sample_source": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Physical settings or environments from which the samples were collected.",
+            "title": "Sample Source"
+          },
+          "primary_class": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Primary classifications of sample media.",
+            "title": "Primary Class"
+          },
+          "secondary_class": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Secondary classifications or subclasses of sample media.",
+            "title": "Secondary Class"
+          },
+          "specific_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Specific names for sample media.",
+            "title": "Specific Name"
+          },
+          "sample_comment": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Attributes used to modify PRIMARY_CLASS, SECONDARY_CLASS, or SPECIFIC_NAME.",
+            "title": "Sample Comment"
+          },
+          "addl_attr": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Additional attributes used to modify PRIMARY_CLASS, SECONDARY_CLASS, or SPECIFIC_NAME.",
+            "title": "Addl Attr"
+          },
+          "geologic_age": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Ages or ranges of ages from the Geological Time Scale for the collected samples.",
+            "title": "Geologic Age"
+          },
+          "stratigraphy": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Names of the stratigraphic units from which samples were collected.",
+            "title": "Stratigraphy"
+          },
+          "strat_grp": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Summary field of formations, groups or supergroups for entries in STRATIGRAPHY.",
+            "title": "Strat Grp"
+          },
+          "start_sort": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Summary field for entries in STRATIGRAPHY.",
+            "title": "Start Sort"
+          },
+          "regional_geology": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Regional geologic settings of stratigraphic units.",
+            "title": "Regional Geology"
+          },
+          "tectonic_setting": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Tectonic settings for deposition of stratigraphic units.",
+            "title": "Tectonic Setting"
+          },
+          "source_terrain": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Tectonic terrains as sources of deposition for stratigraphic units.",
+            "title": "Source Terrain"
+          },
+          "metallogeny": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Metallogenic associations of stratigraphic units.",
+            "title": "Metallogeny"
+          },
+          "mineralizaton": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Indications of mineralization or mineralization types as provided by sample submitters.",
+            "title": "Mineralizaton"
+          },
+          "alteration": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Indications of the presence or types of alteration noted in samples by submitters.",
+            "title": "Alteration"
+          }
+        },
+        "required": [
+          "sample_source",
+          "primary_class",
+          "secondary_class",
+          "specific_name",
+          "sample_comment",
+          "addl_attr",
+          "geologic_age",
+          "stratigraphy",
+          "strat_grp",
+          "start_sort",
+          "regional_geology",
+          "tectonic_setting",
+          "source_terrain",
+          "metallogeny",
+          "mineralizaton",
+          "alteration"
+        ],
+        "title": "SampleGeologicData",
+        "type": "object"
+      },
+      "SampleLocationData": {
+        "description": "Metadata of spatial attributes for rock, sediment, soil and organic samples. Many fields may be optional.",
         "properties": {
           "country": {
             "anyOf": [
@@ -424,7 +834,7 @@
                 "type": "null"
               }
             ],
-            "description": "Countries or marine bodies of water from where samples were collected",
+            "description": "Countries or marine bodies of water from where samples were collected.",
             "title": "Country"
           },
           "state_province": {
@@ -448,7 +858,7 @@
                 "type": "null"
               }
             ],
-            "description": " Names of 1:250,000-scale quadrangles (1-degree x 2-degree or 1-degree by 3-degree) in which samples were collected.",
+            "description": "Names of 1:250,000-scale quadrangles (1-degree x 2-degree or 1-degree by 3-degree) in which samples were collected.",
             "title": "Quad"
           },
           "latitude": {
@@ -457,7 +867,7 @@
             "type": "number"
           },
           "longitude": {
-            "description": "Longitude coordinate of sample site, reported in decimal degrees; there are sites on both sides of the International Date Line; see metadata for further datum and spheroid information",
+            "description": "Longitude coordinate of sample site, reported in decimal degrees; there are sites on both sides of the International Date Line; see metadata for further datum and spheroid information.",
             "title": "Longitude",
             "type": "number"
           },
@@ -486,16 +896,12 @@
             "title": "Datum"
           },
           "coordinates_qual": {
-            "anyOf": [
+            "allOf": [
               {
-                "type": "integer"
-              },
-              {
-                "type": "null"
+                "$ref": "#/$defs/CoordinatesQualifier"
               }
             ],
-            "description": "Qualifier code regarding precision of coordinates gained using GIS. Not all samples have the code if they weren\u2019t determined by GIS analysis",
-            "title": "Coordinates Qual"
+            "description": "Qualifier code regarding precision of coordinates gained using GIS. Not all samples have the code if they weren\u2019t determined by GIS analysis."
           },
           "coordinates_comment": {
             "anyOf": [
@@ -506,7 +912,7 @@
                 "type": "null"
               }
             ],
-            "description": " Comments regarding precision of geospatial coordinates.",
+            "description": "Comments regarding precision of geospatial coordinates.",
             "title": "Coordinates Comment"
           },
           "locate_desc": {
@@ -547,255 +953,90 @@
           "locate_desc",
           "depth"
         ],
-        "title": "GeologySampleLocationData",
+        "title": "SampleLocationData",
         "type": "object"
       },
-      "Map": {
-        "description": "Schema for map information.",
-        "properties": {
-          "ref_url": {
-            "description": "Source URL of the map",
-            "title": "Ref Url",
-            "type": "string"
-          },
-          "ref_name": {
-            "description": "Short name of the map",
-            "title": "Ref Name",
-            "type": "string"
-          },
-          "ref_title": {
-            "description": "Title of the map",
-            "title": "Ref Title",
-            "type": "string"
-          },
-          "ref_authors": {
-            "description": "Authors",
-            "items": {
-              "type": "string"
-            },
-            "title": "Ref Authors",
-            "type": "array"
-          },
-          "ref_source": {
-            "description": "Publication/data release containing the map",
-            "examples": [
-              "U.S. Geological Survey Data Series 424"
-            ],
-            "title": "Ref Source",
-            "type": "string"
-          },
-          "ref_year": {
-            "description": "Publication year",
-            "examples": [
-              "2009"
-            ],
-            "title": "Ref Year",
-            "type": "integer"
-          }
-        },
-        "required": [
-          "ref_url",
-          "ref_name",
-          "ref_title",
-          "ref_authors",
-          "ref_source",
-          "ref_year"
-        ],
-        "title": "Map",
-        "type": "object"
-      },
-      "MapPoint": {
-        "properties": {
-          "id": {
-            "description": "Internal ID of the point. CMIBS Sample ID",
-            "title": "Id",
-            "type": "integer"
-          },
-          "geometry": {
-            "description": "Geometry of this feature, expressed as Lat Long in geographic coordinates",
-            "title": "Geometry"
-          },
-          "geology": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/GeologySampleData"
-              }
-            ],
-            "description": "Associated geologic data of the sample"
-          },
-          "mineral_best_value": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/MineralBestValueData"
-              }
-            ],
-            "description": "'Best Value' element chemical data"
-          },
-          "whole_rock_best_value_majors": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/WholeRockBestValueMajorsData"
-              }
-            ],
-            "description": "'Best Value' whole rock chemical data"
-          },
-          "whole_rock_best_value_others": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/WholeRockBestValueOthersData"
-              }
-            ],
-            "description": "'Best Value' whole rock chemical data"
-          },
-          "source": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/Map"
-              }
-            ],
-            "description": "Source map of the point"
-          }
-        },
-        "required": [
-          "id",
-          "geometry",
-          "geology",
-          "mineral_best_value",
-          "whole_rock_best_value_majors",
-          "whole_rock_best_value_others",
-          "source"
-        ],
-        "title": "MapPoint",
-        "type": "object"
-      },
-      "MapTile": {
-        "description": "A tile representing geologic map information covering a small area.",
-        "properties": {
-          "x": {
-            "description": "X coordinate of the tile",
-            "title": "X",
-            "type": "integer"
-          },
-          "y": {
-            "description": "Y coordinate of the tile",
-            "title": "Y",
-            "type": "integer"
-          },
-          "z": {
-            "description": "Z coordinate of the tile",
-            "title": "Z",
-            "type": "integer"
-          },
-          "points": {
-            "description": "Points in the tile",
-            "items": {
-              "$ref": "#/$defs/MapPoint"
-            },
-            "title": "Points",
-            "type": "array"
-          }
-        },
-        "required": [
-          "x",
-          "y",
-          "z",
-          "points"
-        ],
-        "title": "MapTile",
-        "type": "object"
-      },
-      "MineralBestValueData": {
-        "description": "Data from BestValue_Element.txt file\nvalues listed as optional due to some elements being measured in ppm and others as a percent, and not all elements\nhaving measurements",
+      "WholeRockMajors_BestValueData": {
+        "description": "Table of 'best value' chemical 'whole rock' major element data for rock, sediment, soil and organic samples. ",
         "properties": {
           "cmibs_id": {
-            "description": "Unique identifier assigned to each sample entered in the CMIBS geochemical database; foreign key from Geology table",
-            "title": "Cmibs Id",
-            "type": "integer"
-          },
-          "element_ppm": {
-            "anyOf": [
-              {
-                "type": "number"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "elemental best value in ppm",
-            "title": "Element Ppm"
-          },
-          "element_pct": {
-            "anyOf": [
-              {
-                "type": "number"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "elemental best value in pct",
-            "title": "Element Pct"
-          },
-          "element_am": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "analytical method used for \"best value\", abbreviation; see ANALYTIC_METHOD field of AnalyticMethod table for method description",
-            "title": "Element Am"
-          },
-          "element_ppm_all": {
-            "anyOf": [
-              {
-                "type": "number"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "elemental all values in ppm",
-            "title": "Element Ppm All"
-          },
-          "element_pct_all": {
-            "anyOf": [
-              {
-                "type": "number"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "elemental all values in pct",
-            "title": "Element Pct All"
-          }
-        },
-        "required": [
-          "cmibs_id",
-          "element_ppm",
-          "element_pct",
-          "element_am",
-          "element_ppm_all",
-          "element_pct_all"
-        ],
-        "title": "MineralBestValueData",
-        "type": "object"
-      },
-      "WholeRockBestValueMajorsData": {
-        "description": "Data from BestValue_WholeRock_Majors.txt file",
-        "properties": {
-          "cmibs_id": {
-            "description": "Unique identifier assigned to each sample entered in the CMIBS geochemical database; foreign key from Geology table",
+            "description": "Unique identifier assigned to each sample entered in the CMIBS geochemical database; foreign key from Geology table.",
             "title": "Cmibs Id",
             "type": "integer"
           },
           "wr_qual": {
-            "description": "Qualifier for whole rock analysis, from 1 to 6, where 1 is the most precise analytical method package with the best sample digestion, and 6 is the least",
+            "description": "Qualifier for whole rock analysis, from 1 to 6, where 1 is the most precise analytical method package with the best sample digestion, and 6 is the least.",
             "title": "Wr Qual",
             "type": "integer"
+          },
+          "wr_def": {
+            "description": "Definition of qualifier for whole rock analysis.",
+            "title": "Wr Def",
+            "type": "string"
+          },
+          "compoundmajor_pct": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Best value in weight percent of whole rock majority.",
+            "title": "Compoundmajor Pct"
+          },
+          "compoundmajor_am": {
+            "$ref": "#/$defs/AnalyticMethod"
+          },
+          "compoundmajor_pct_all": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "All values in weight percent of whole rock majority.",
+            "title": "Compoundmajor Pct All"
+          }
+        },
+        "required": [
+          "cmibs_id",
+          "wr_qual",
+          "wr_def",
+          "compoundmajor_pct",
+          "compoundmajor_am",
+          "compoundmajor_pct_all"
+        ],
+        "title": "WholeRockMajors_BestValueData",
+        "type": "object"
+      },
+      "WholeRockOthers_BestValueData": {
+        "description": "Table of 'best value' chemical 'whole rock' data of other various elements, compounds and physical measurements\nfor rock, sediment, soil and organic samples",
+        "properties": {
+          "cmibs_id": {
+            "description": "Unique identifier assigned to each sample entered in the CMIBS geochemical database; foreign key from Geology table.",
+            "title": "Cmibs Id",
+            "type": "integer"
+          },
+          "loi_pct": {
+            "description": "Loss on ignition as 'best value', in weight percent. Negative values indicate concentrations less than the lower limit of determination for the analytical method. The absolute value of the negative number is the lower limit of determination. A null or empty cell means not analyzed. LOI first at 600 to 650 degrees centegrade, LOI second at 900 to 950 degrees centegrade.",
+            "title": "Loi Pct",
+            "type": "number"
+          },
+          "loi_pct_all": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Loss on ignition, at 600 to 650 or 900 to 950 degrees centigrade, all values, in weight percent, and their analytical methods, from best method to least, as concatenations.",
+            "title": "Loi Pct All"
           },
           "compound_pct": {
             "anyOf": [
@@ -806,22 +1047,18 @@
                 "type": "null"
               }
             ],
-            "description": "compound best value in weight percent",
+            "description": "Other compound, as 'best value', in weight percent. Negative values indicate concentrations less than the lower limit of determination for the analytical method. The absolute value of the negative number is the lower limit of determination. A null (or empty cell) means not analyzed.",
             "title": "Compound Pct"
           },
-          "compound_am": {
-            "anyOf": [
+          "compound_pct_am": {
+            "allOf": [
               {
-                "type": "string"
-              },
-              {
-                "type": "null"
+                "$ref": "#/$defs/AnalyticMethod"
               }
             ],
-            "description": "analytical method used for \"best value\", abbreviation; see ANALYTIC_METHOD field of AnalyticMethod table for method description",
-            "title": "Compound Am"
+            "description": "Analytical methods used for 'best values' of other compound."
           },
-          "element_pct_all": {
+          "compound_pct_all": {
             "anyOf": [
               {
                 "type": "number"
@@ -830,58 +1067,236 @@
                 "type": "null"
               }
             ],
-            "description": "compound all values in weight pct",
-            "title": "Element Pct All"
-          }
-        },
-        "required": [
-          "cmibs_id",
-          "wr_qual",
-          "compound_pct",
-          "compound_am",
-          "element_pct_all"
-        ],
-        "title": "WholeRockBestValueMajorsData",
-        "type": "object"
-      },
-      "WholeRockBestValueOthersData": {
-        "description": "Data from BestValue_WholeRock_Others.txt file",
-        "properties": {
-          "cmibs_id": {
-            "description": "Unique identifier assigned to each sample entered in the CMIBS geochemical database; foreign key from Geology table",
-            "title": "Cmibs Id",
-            "type": "integer"
+            "description": "Other compound, all values, in weight percent, and their analytical methods, from best method to least, as concatenations.",
+            "title": "Compound Pct All"
           },
-          "loi_pct": {
-            "description": "Loss on ignition, at 900 to 950 degrees centigrade, as \"best value\", in weight percent. Negative values indicate concentrations less than the lower limit of determination for the analytical method. The absolute value of the negative number is the lower limit of determination. A null (or empty cell) means not analyzed. (Source: Metadata author)",
-            "title": "Loi Pct",
-            "type": "number"
+          "dop_si": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Degree of pyritization, as a calculation FePyr(FePyr + FeHCl), as 'best value', in standard units. Negative values indicate concentrations less than the lower limit of determination for the analytical method. The absolute value of the negative number is the lower limit of determination. A null (or empty cell) means not analyzed for the species.",
+            "title": "Dop Si"
           },
-          "loi_am": {
-            "description": "Loss on ignition, at 900 to 950 degrees centigrade, analytical method used for \"best value\"; see ANALYTIC_METHOD field of AnalyticMethod table for method description",
-            "title": "Loi Am",
-            "type": "number"
+          "dop_am": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/AnalyticMethod"
+              }
+            ],
+            "description": "Degree of pyritization, analytical method used for 'best value'; see ANALYTIC_METHOD field of AnalyticMethod table for method description."
           },
-          "NOT_FINISHED": {
-            "description": "still lots of columns to go through",
-            "title": "Not Finished",
-            "type": "string"
+          "dop_si_all": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Degree of pyritization, all values, in weight percent, and their analytical methods, from best method to least, as a concatenation.",
+            "title": "Dop Si All"
+          },
+          "varDensity_gcc": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Variable 'Bulk' or 'Powder' density, as 'best value', in grams per cubic centimeter. A null (or empty cell) means not analyzed for the species.",
+            "title": "Vardensity Gcc"
+          },
+          "varDensity_am": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/AnalyticMethod"
+              }
+            ],
+            "description": "Variable 'Bulk' or 'Powder' density, analytical method used for 'best value'."
+          },
+          "varDensity_gcc_all": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Variable 'Bulk' or 'Powder' density, all values, in grams per cubic centimeter, and their analytical methods, from best method to least, as a concatenation.",
+            "title": "Vardensity Gcc All"
+          },
+          "satind_si": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Saturation index, as 'best value', in standard units. A null (or empty cell) means not analyzed for the species.",
+            "title": "Satind Si"
+          },
+          "satind_am": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/AnalyticMethod"
+              }
+            ],
+            "description": "Saturation index, analytical method used for 'best value.'"
+          },
+          "satind_si_all": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Saturation index, all values, in standard units, and their analytical methods, from best method to least, as a concatenation.",
+            "title": "Satind Si All"
+          },
+          "tmax_degC": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Temperature at which the maximum release of hydrocarbons occurs during pyrolysis, as 'best value', in degrees Centigrade. A null (or empty cell) means not analyzed for the species.",
+            "title": "Tmax Degc"
+          },
+          "tmax_am": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/AnalyticMethod"
+              }
+            ],
+            "description": "Temperature at which the maximum release of hydrocarbons occurs during pyrolysis, analytical methods used for 'best values.'"
+          },
+          "tmax_degC_all": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Temperature at which the maximum release of hydrocarbons occurs during pyrolysis, all values, in weight percent, and their analytical methods, from best method to least, as concatenations.",
+            "title": "Tmax Degc All"
+          },
+          "sVar_mgg": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "S1. Free hydrocarbons in the sample,  S2.Hydrocarbons generated through thermal cracking of nonvolatile organic matter, or  S3. Carbon dioxide produced during pyrolysis of kerogen, as 'best value', in milligrams of S1-2. hydrocarbon or S3. carbon dioxide per gram of rock. Negative values indicate concentrations less than the lower limit of determination for the analytical method. The absolute value of the negative number is the lower limit of determination. A null (or empty cell) means not analyzed for the species.",
+            "title": "Svar Mgg"
+          },
+          "sVar_am": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/AnalyticMethod"
+              }
+            ],
+            "description": "Analytical method useds for 'best values.'"
+          },
+          "sVar_mgg_all": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "All values for S1, S2, S3, in weight percent, and their analytical methods, from best method to least,as concatenations.",
+            "title": "Svar Mgg All"
+          },
+          "var_ratio": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Hydrogen index (hi), or oxygen index (oi), or production index (pi), as 'best value', in milligrams of hi: hydrocarbons [100 x S2] (hi), oi: carbon dioxide [100 x S3],pi: [S1] hydrocarbons milligrams of [S1 + S2] hydrocarbons, per gram of total organic carbon. A null (or empty cell) means not analyzed for the species.",
+            "title": "Var Ratio"
+          },
+          "var_am": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/AnalyticMethod"
+              }
+            ],
+            "description": "Analytical methods used for 'best values.'"
+          },
+          "var_ratio_all": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Hydrogen index (in weight percent), oxygen index (in parts per million), or production index (in weight percent), all values, in weight percent, and their analytical methods, from best method to least, as concatenations.",
+            "title": "Var Ratio All"
           }
         },
         "required": [
           "cmibs_id",
           "loi_pct",
-          "loi_am",
-          "NOT_FINISHED"
+          "loi_pct_all",
+          "compound_pct",
+          "compound_pct_am",
+          "compound_pct_all",
+          "dop_si",
+          "dop_am",
+          "dop_si_all",
+          "varDensity_gcc",
+          "varDensity_am",
+          "varDensity_gcc_all",
+          "satind_si",
+          "satind_am",
+          "satind_si_all",
+          "tmax_degC",
+          "tmax_am",
+          "tmax_degC_all",
+          "sVar_mgg",
+          "sVar_am",
+          "sVar_mgg_all",
+          "var_ratio",
+          "var_am",
+          "var_ratio_all"
         ],
-        "title": "WholeRockBestValueOthersData",
+        "title": "WholeRockOthers_BestValueData",
         "type": "object"
       }
     },
     "description": "Tiling scheme information.",
     "properties": {
       "bounds": {
-        "description": "Bounding box of the tile scheme",
+        "description": "Bounding box of the tile scheme.",
         "items": {
           "type": "number"
         },
@@ -889,17 +1304,17 @@
         "type": "array"
       },
       "crs": {
-        "description": "Coordinate reference system of the tile scheme",
+        "description": "Coordinate reference system of the tile scheme.",
         "title": "Crs",
         "type": "string"
       },
       "tile_size": {
-        "description": "Size of the tiles in the scheme",
+        "description": "Size of the tiles in the scheme.",
         "title": "Tile Size",
         "type": "integer"
       },
       "tiles": {
-        "description": "List of tiles in the scheme",
+        "description": "List of tiles in the scheme.",
         "items": {
           "$ref": "#/$defs/MapTile"
         },
