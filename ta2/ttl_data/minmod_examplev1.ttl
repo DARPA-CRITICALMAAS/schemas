@@ -29,10 +29,10 @@ mndr:Q01 a mndr:MineralInventory ;
     mndr:date "2023-09-29T00:00:00Z" .
 
 mndr:Q02 a mndr:LocationInfo ;
-    mndr:location "Point(35.75, -82.26)" ;
+    mndr:location "POINT( -82.265278 35.764722)"^^geo:wktLiteral ;
     mndr:location_source "MRDS" ;
     mndr:crs "WGS84" ;
-    gkbi:Q27 Q161 ;
+    gkbi:Q27 gkbi:Q161 ;
     mndr:state_or_province "North Carolina" .
 
 mndr:Q011 a mndr:GeologyInfo ;
