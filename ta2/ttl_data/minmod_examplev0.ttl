@@ -19,12 +19,12 @@ mndr:Q0 a mndr:MineralSite ;
 
 mndr:Q1 a mndr:MineralInventory ;
     mndr:id "Inv001 (demo)" ;
-    mndr:depositType mndr:Q4 ;
+    mndr:deposit_type mndr:Q4 ;
     mndr:commodity mndr:Q5 ;
     mndr:category "measured" ;
     mndr:ore mndr:Q6 ;
     mndr:grade mndr:Q7 ;
-    mndr:containedMetal 1000 ;
+    mndr:contained_metal 1000 ;
     mndr:reference mndr:Q8 ;
     mndr:date "2023-09-29T00:00:00Z" .
 
@@ -57,18 +57,39 @@ mndr:Q5 a mndr:Commodity ;
     mndr:name "Mica (demo)" .
 
 mndr:Q6 a mndr:Ore ;
-    mndr:oreUnit "metric tonnes" ;
-    mndr:oreValue 50000 .
+    mndr:ore_unit "metric tonnes" ;
+    mndr:ore_value 50000 .
 
 mndr:Q7 a mndr:Grade ;
-    mndr:gradeUnit "percent" ;
-    mndr:gradeValue 2 .
+    mndr:grade_unit "percent" ;
+    mndr:grade_value 2 .
 
 mndr:Q8 a mndr:Reference ;
     mndr:id "Ref001" ;
     mndr:document mndr:Q9 ;
     mndr:page 12 ;
     mndr:bounding_box mndr:Q10 .
+
+mndr:Q12 a mndr:MappableCriteria ;
+    mndr:criteria "Critera001 (demo)" ;
+    mndr:theoretical "theory (demo)" ;
+    mndr:potential_dataset "dataset (demo)" ;
+    mndr:references (mndr:Q8) ;
+
+mndr:Q13 a mndr:MineralSystem ;
+    mndr:deposit_type mndr:Q4 ;
+    mndr:trigger (mndr:Q12) ;
+    mndr:source_fluid (mndr:Q12) ;
+    mndr:source_ligand (mndr:Q12) ;
+    mndr:source_metal (mndr:Q12) ;
+    mndr:source_other (mndr:Q12) ;
+    mndr:conduit (mndr:Q12) ;
+    mndr:driver (mndr:Q12) ;
+    mndr:throttle (mndr:Q12) ;
+    mndr:trap (mndr:Q12) ;
+    mndr:dispersion (mndr:Q12) ;
+    mndr:exhumation (mndr:Q12) ;
+    mndr:direct_detection (mndr:Q12) ;
 
 mndr:Q9 a mndr:Document ;
     mndr:id "Doc001" ;

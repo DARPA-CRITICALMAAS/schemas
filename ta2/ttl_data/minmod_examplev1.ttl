@@ -19,12 +19,12 @@ mndr:Q00 a mndr:MineralSite ;
 
 mndr:Q01 a mndr:MineralInventory ;
     mndr:id "Inv001 (demo)" ;
-    mndr:depositType gkbi:Q26199 ;
+    mndr:deposit_type gkbi:Q26199 ;
     mndr:commodity gkbi:Q392 ;
     mndr:category "measured" ;
     mndr:ore mndr:Q06 ;
     mndr:grade mndr:Q07 ;
-    mndr:containedMetal 1000 ;
+    mndr:contained_metal 1000 ;
     mndr:reference mndr:Q08 ;
     mndr:date "2023-09-29T00:00:00Z" .
 
@@ -57,12 +57,12 @@ gkbi:Q392 a gkbi:Q418 ;
     mndr:name "Tin" .
 
 mndr:Q06 a mndr:Ore ;
-    mndr:oreUnit "metric tonnes" ;
-    mndr:oreValue 50000 .
+    mndr:ore_unit "metric tonnes" ;
+    mndr:ore_value 50000 .
 
 mndr:Q07 a mndr:Grade ;
-    mndr:gradeUnit "percent" ;
-    mndr:gradeValue 2 .
+    mndr:grade_unit "percent" ;
+    mndr:grade_value 2 .
 
 mndr:Q08 a mndr:Reference ;
     mndr:id "Ref001" ;
@@ -88,3 +88,24 @@ mndr:Q010 a mndr:BoundingBox ;
     mndr:x_max 20 ;
     mndr:y_min 30 ;
     mndr:y_max 40 .
+
+mndr:Q12 a mndr:MappableCriteria ;
+    mndr:criteria "Critera001 (demo)" ;
+    mndr:theoretical "theory (demo)" ;
+    mndr:potential_dataset "dataset (demo)" ;
+    mndr:references (mndr:Q08) ;
+
+mndr:Q13 a mndr:MineralSystem ;
+    mndr:deposit_type gkbi:Q26199 ;
+    mndr:trigger (mndr:Q12) ;
+    mndr:source_fluid (mndr:Q12) ;
+    mndr:source_ligand (mndr:Q12) ;
+    mndr:source_metal (mndr:Q12) ;
+    mndr:source_other (mndr:Q12) ;
+    mndr:conduit (mndr:Q12) ;
+    mndr:driver (mndr:Q12) ;
+    mndr:throttle (mndr:Q12) ;
+    mndr:trap (mndr:Q12) ;
+    mndr:dispersion (mndr:Q12) ;
+    mndr:exhumation (mndr:Q12) ;
+    mndr:direct_detection (mndr:Q12) ;
