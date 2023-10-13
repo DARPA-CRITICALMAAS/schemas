@@ -116,8 +116,9 @@ class LocationInfo(BaseModel):
     )
     location_source: str = Field(description = "Source dataset that the location info is retrieved from. e.g., MRDS")
     crs: str = Field(description = 'The Coordinate Reference System (CRS) of the location')
-    country: str = Field( description = "Country that the mine site resides in")
+    country: Optional[str] = Field( description = "Country that the mine site resides in")
     state_or_province: Optional[str] = Field(description = "State or province that the mine site resides in")
+    location_source_record_id: str = Field(description ="ID points to the same_as field in MineralSites")
 
 class GeologyInfo(BaseModel):
     age: Optional[str] = Field(description = "Age of the geologic unit or event")

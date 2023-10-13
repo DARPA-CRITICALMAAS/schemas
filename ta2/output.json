@@ -317,9 +317,16 @@
             "type": "string"
           },
           "country": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "description": "Country that the mine site resides in",
-            "title": "Country",
-            "type": "string"
+            "title": "Country"
           },
           "state_or_province": {
             "anyOf": [
@@ -332,6 +339,11 @@
             ],
             "description": "State or province that the mine site resides in",
             "title": "State Or Province"
+          },
+          "location_source_record_id": {
+            "description": "ID points to the same_as field in MineralSites",
+            "title": "Location Source Record Id",
+            "type": "string"
           }
         },
         "required": [
@@ -339,7 +351,8 @@
           "location_source",
           "crs",
           "country",
-          "state_or_province"
+          "state_or_province",
+          "location_source_record_id"
         ],
         "title": "LocationInfo",
         "type": "object"

@@ -118,11 +118,15 @@
 - **`location`**: Type: Polygon or Point, value indicates the geolocation of the site.
 - **`location_source`** *(string)*: Source dataset that the location info is retrieved from. e.g., MRDS.
 - **`crs`** *(string)*: The Coordinate Reference System (CRS) of the location.
-- **`country`** *(string)*: Country that the mine site resides in.
+- **`country`**: Country that the mine site resides in.
+  - **Any of**
+    - *string*
+    - *null*
 - **`state_or_province`**: State or province that the mine site resides in.
   - **Any of**
     - *string*
     - *null*
+- **`location_source_record_id`** *(string)*: ID points to the same_as field in MineralSites.
 
 ## MappableCriteria
 
