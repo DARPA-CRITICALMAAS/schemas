@@ -8,7 +8,7 @@
   - **Items**: Refer to *[MineralInventory](#MineralInventory)*.
 - **`location_info`**: Refer to *[LocationInfo](#LocationInfo)*.
 - **`geology_info`**: Refer to *[GeologyInfo](#GeologyInfo)*.
-- **`same_as`**: Dictionary that stores the IDs point to other databases: e.g.: {"MRDS" : [{"dep_id" : "10289747","mrds_id" : "W018008",    "altername_or_previous_names": "Thompson Creek Tungsten Mine, Tungsten Jim Mine"    },    {"dep_id": "10022920",    "mrds_id":"FS00436",    "record_type":"Site"}  ],  "USMIN" : [  {"ftr_id":"Mf00576",  "site_id":"ID00055",  "ftr_name":"Tungsten Jim"},  {"ftr_id":"Mo00569",  "site_id":"ID00055"  }  ]}.
+- **`same_as`**: Dictionary that stores the IDs point to other databases: e.g.: {"MRDS" : [{"id":1,"Attributes": {"dep_id" : "10289747","mrds_id" : "W018008", "altername_or_previous_names": "Thompson Creek Tungsten Mine, Tungsten Jim Mine" }, "geometry": "POINT (-112.22194434499863 46.756337603970515)"},{"id":2,"Attributes": {"dep_id": "10022920", "mrds_id":"FS00436", "record_type":"Site"},"geometry": "POINT (-112.84298100894938 46.869337351353394)"}], "USMIN" : [ {"id":8, "Attributes": {"ftr_id":"Mf00576", "site_id":"ID00055", "ftr_name":"Tungsten Jim"}, "geometry":"POINT (-112.47445877319991 46.68033517492356)"}, {"id":10, "Attributes": {"ftr_id":"Mo00569", "site_id":"ID00055" }, "geometry":"POINT (-114.58608965399998 44.333859519000065)"} ]}.
   - **Any of**
     - *object*
     - *null*
@@ -118,6 +118,7 @@
 - **`location`**: Type: Polygon or Point, value indicates the geolocation of the site.
 - **`location_source`** *(string)*: Source dataset that the location info is retrieved from. e.g., MRDS.
 - **`crs`** *(string)*: The Coordinate Reference System (CRS) of the location.
+- **`location_source_record_id`** *(string)*: ID points to the same_as field in MineralSites.
 - **`country`**: Country that the mine site resides in.
   - **Any of**
     - *string*
@@ -126,7 +127,6 @@
   - **Any of**
     - *string*
     - *null*
-- **`location_source_record_id`** *(string)*: ID points to the same_as field in MineralSites.
 
 ## MappableCriteria
 
