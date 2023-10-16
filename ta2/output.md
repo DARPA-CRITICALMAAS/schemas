@@ -13,6 +13,77 @@
     - *object*
     - *null*
 
+## MineralSystem
+
+### Properties
+
+- **`deposit_type`**: Refer to *[DepositType](#DepositType)*.
+- **`trigger`** *(array)*
+  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
+- **`source_fluid`** *(array)*
+  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
+- **`source_ligand`** *(array)*
+  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
+- **`source_metal`** *(array)*
+  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
+- **`source_other`** *(array)*
+  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
+- **`conduit`** *(array)*
+  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
+- **`driver`** *(array)*
+  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
+- **`throttle`** *(array)*
+  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
+- **`trap`** *(array)*
+  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
+- **`dispersion`** *(array)*
+  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
+- **`exhumation`** *(array)*
+  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
+- **`direct_detection`** *(array)*
+  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
+
+## MineralInventory
+
+### Properties
+
+- **`id`** *(string)*
+- **`deposit_type`**: The deposit type of an inventory item.
+  - **Any of**
+    - : Refer to *[DepositType](#DepositType)*.
+    - *null*
+- **`commodity`**: The commodity of an inventory item.
+  - **All of**
+    - : Refer to *[Commodity](#Commodity)*.
+- **`category`**: The category of an inventory item.
+  - **Any of**
+    - : Refer to *[ResourceReserveCategory](#ResourceReserveCategory)*.
+    - *null*
+- **`ore`**: The ore of an inventory item.
+  - **Any of**
+    - : Refer to *[Ore](#Ore)*.
+    - *null*
+- **`grade`**: The grade of an inventory item.
+  - **Any of**
+    - : Refer to *[Grade](#Grade)*.
+    - *null*
+- **`cutoff_grade`**: The cutoff grade of the observed inventory item.
+  - **Any of**
+    - : Refer to *[Grade](#Grade)*.
+    - *null*
+- **`contained_metal`**: The quantity of a contained metal in an inventory item.
+  - **Any of**
+    - *number*
+    - *null*
+- **`reference`**: The reference of an inventory item.
+  - **Any of**
+    - : Refer to *[Reference](#Reference)*.
+    - *null*
+- **`date`**: When in the point of time mineral inventory valid.
+  - **Any of**
+    - *string, format: date-time*
+    - *null*
+
 ## BoundingBox
 
 ### Properties
@@ -144,73 +215,6 @@
 - **`supporting_references`** *(array)*
   - **Items**: Refer to *[Reference](#Reference)*.
 
-## MineralInventory
-
-### Properties
-
-- **`id`** *(string)*
-- **`deposit_type`**: The deposit type of an inventory item.
-  - **Any of**
-    - : Refer to *[DepositType](#DepositType)*.
-    - *null*
-- **`commodity`**: The commodity of an inventory item.
-  - **All of**
-    - : Refer to *[Commodity](#Commodity)*.
-- **`category`**: The category of an inventory item.
-  - **Any of**
-    - : Refer to *[ResourceReserveCategory](#ResourceReserveCategory)*.
-    - *null*
-- **`ore`**: The ore of an inventory item.
-  - **Any of**
-    - : Refer to *[Ore](#Ore)*.
-    - *null*
-- **`grade`**: The grade of an inventory item.
-  - **Any of**
-    - : Refer to *[Grade](#Grade)*.
-    - *null*
-- **`contained_metal`**: The quantity of a contained metal in an inventory item.
-  - **Any of**
-    - *number*
-    - *null*
-- **`reference`**: The reference of an inventory item.
-  - **Any of**
-    - : Refer to *[Reference](#Reference)*.
-    - *null*
-- **`date`**: When in the point of time mineral inventory valid.
-  - **Any of**
-    - *string, format: date-time*
-    - *null*
-
-## MineralSystem
-
-### Properties
-
-- **`deposit_type`**: Refer to *[DepositType](#DepositType)*.
-- **`trigger`** *(array)*
-  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
-- **`source_fluid`** *(array)*
-  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
-- **`source_ligand`** *(array)*
-  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
-- **`source_metal`** *(array)*
-  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
-- **`source_other`** *(array)*
-  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
-- **`conduit`** *(array)*
-  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
-- **`driver`** *(array)*
-  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
-- **`throttle`** *(array)*
-  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
-- **`trap`** *(array)*
-  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
-- **`dispersion`** *(array)*
-  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
-- **`exhumation`** *(array)*
-  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
-- **`direct_detection`** *(array)*
-  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
-
 ## Ore
 
 ### Properties
@@ -218,13 +222,22 @@
 - **`ore_unit`** *(string)*: The unit in which ore quantity is measured, eg, metric tonnes.
 - **`ore_value`** *(number)*: The value of ore quantity.
 
+## PageInfo
+
+### Properties
+
+- **`page`** *(integer)*
+- **`bounding_box`**: Coordinates of the document where reference is found.
+  - **Any of**
+    - : Refer to *[BoundingBox](#BoundingBox)*.
+    - *null*
+
 ## Reference
 
 ### Properties
 
 - **`id`** *(string)*
 - **`document`**: Refer to *[Document](#Document)*.
-- **`page`** *(integer)*
-- **`bounding_box`** *(array)*: coordinates of the document where reference is found.
-  - **Items**: Refer to *[BoundingBox](#BoundingBox)*.
+- **`page_info`** *(array)*: List of pages and their respective bounding boxes where the reference is found.
+  - **Items**: Refer to *[PageInfo](#PageInfo)*.
 

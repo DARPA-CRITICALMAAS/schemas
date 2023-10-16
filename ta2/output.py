@@ -36,8 +36,6 @@ class Ore(BaseModel):
     ore_unit: str = Field( description="The unit in which ore quantity is measured, eg, metric tonnes")
     ore_value: float = Field( description="The value of ore quantity")
 
-
-
 class DepositType(BaseModel):
     id: str
     name: str = Field( description="Name of the deposit type")
@@ -47,6 +45,11 @@ class BoundingBox(BaseModel):
     x_max: float
     y_min: float
     y_max: float
+
+class PageInfo(BaseModel):
+    page: int
+    bounding_box: Optional[BoundingBox] = Field(description="Coordinates of the document where reference is found")
+
 class Document(BaseModel):
     id: str
     title: str = Field( description="Title of the document")
@@ -60,13 +63,10 @@ class Document(BaseModel):
     issue: Optional[int] = Field(description="Issue number of the document")
     description: str = Field(description="Description of the document")
 
-
-
 class Reference(BaseModel):
     id: str
     document: Document
-    page: int
-    bounding_box: list[BoundingBox] = Field(description="coordinates of the document where reference is found")
+    page_info: List[PageInfo] = Field(description="List of pages and their respective bounding boxes where the reference is found")
 
 class MappableCriteria(BaseModel):
     criteria: str
@@ -104,11 +104,10 @@ class MineralInventory(BaseModel):
     category: Optional[ResourceReserveCategory] = Field( description="The category of an inventory item")
     ore: Optional[Ore] = Field( description="The ore of an inventory item")
     grade: Optional[Grade] = Field( description="The grade of an inventory item")
+    cutoff_grade: Optional[Grade] = Field( description="The cutoff grade of the observed inventory item")
     contained_metal: Optional[float] = Field( description="The quantity of a contained metal in an inventory item")
     reference: Optional[Reference] = Field( description="The reference of an inventory item")
     date: Optional[datetime] = Field(description="When in the point of time mineral inventory valid")
-
-
 
 class LocationInfo(BaseModel):
     location: Geometry = Field(
