@@ -32,6 +32,7 @@ mndr:Q2 a mndr:LocationInfo ;
     mndr:location "POINT( -82.265278 35.764722)"^^geo:wktLiteral ;
     mndr:location_source "MRDS" ;
     mndr:crs "WGS84" ;
+    mndr:location_source_record_id "Location Source Record Id (demo)" ;
     mndr:country "USA" ;
     mndr:state_or_province "North Carolina" .
 
