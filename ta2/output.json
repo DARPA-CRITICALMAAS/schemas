@@ -974,24 +974,5 @@
     ],
     "title": "MineralSystem",
     "type": "object"
-  },
-  {
-    "properties": {
-      "id": {
-        "title": "Id",
-        "type": "string"
-      },
-      "name": {
-        "description": "Name of the deposit type",
-        "title": "Name",
-        "type": "string"
-      }
-    },
-    "required": [
-      "id",
-      "name"
-    ],
-    "title": "DepositType",
-    "type": "object"
   }
 ]
