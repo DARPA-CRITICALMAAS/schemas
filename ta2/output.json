@@ -363,17 +363,6 @@
             "title": "Id",
             "type": "string"
           },
-          "deposit_type": {
-            "anyOf": [
-              {
-                "$ref": "#/$defs/DepositType"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "The deposit type of an inventory item"
-          },
           "commodity": {
             "allOf": [
               {
@@ -465,7 +454,6 @@
         },
         "required": [
           "id",
-          "deposit_type",
           "commodity",
           "category",
           "ore",
@@ -587,6 +575,17 @@
       "geology_info": {
         "$ref": "#/$defs/GeologyInfo"
       },
+      "deposit_type": {
+        "anyOf": [
+          {
+            "$ref": "#/$defs/DepositType"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "description": "The deposit type of an inventory item"
+      },
       "same_as": {
         "anyOf": [
           {
@@ -606,6 +605,7 @@
       "mineral_inventory",
       "location_info",
       "geology_info",
+      "deposit_type",
       "same_as"
     ],
     "title": "MineralSite",
@@ -973,410 +973,6 @@
       "direct_detection"
     ],
     "title": "MineralSystem",
-    "type": "object"
-  },
-  {
-    "$defs": {
-      "BoundingBox": {
-        "properties": {
-          "x_min": {
-            "title": "X Min",
-            "type": "number"
-          },
-          "x_max": {
-            "title": "X Max",
-            "type": "number"
-          },
-          "y_min": {
-            "title": "Y Min",
-            "type": "number"
-          },
-          "y_max": {
-            "title": "Y Max",
-            "type": "number"
-          }
-        },
-        "required": [
-          "x_min",
-          "x_max",
-          "y_min",
-          "y_max"
-        ],
-        "title": "BoundingBox",
-        "type": "object"
-      },
-      "Commodity": {
-        "properties": {
-          "id": {
-            "title": "Id",
-            "type": "string"
-          },
-          "name": {
-            "title": "Name",
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "name"
-        ],
-        "title": "Commodity",
-        "type": "object"
-      },
-      "DepositType": {
-        "properties": {
-          "id": {
-            "title": "Id",
-            "type": "string"
-          },
-          "name": {
-            "description": "Name of the deposit type",
-            "title": "Name",
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "name"
-        ],
-        "title": "DepositType",
-        "type": "object"
-      },
-      "Document": {
-        "properties": {
-          "id": {
-            "title": "Id",
-            "type": "string"
-          },
-          "title": {
-            "description": "Title of the document",
-            "title": "Title",
-            "type": "string"
-          },
-          "doi": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "doi of the document",
-            "title": "Doi"
-          },
-          "uri": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "URI of the document, if it does not have a doi",
-            "title": "Uri"
-          },
-          "authors": {
-            "description": "list of the authors of the document",
-            "items": {
-              "type": "string"
-            },
-            "title": "Authors",
-            "type": "array"
-          },
-          "journal": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "journal document belongs to",
-            "title": "Journal"
-          },
-          "year": {
-            "description": "Published year of the document",
-            "title": "Year",
-            "type": "integer"
-          },
-          "month": {
-            "description": "Published month of the document",
-            "title": "Month",
-            "type": "integer"
-          },
-          "volume": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Volume of the document",
-            "title": "Volume"
-          },
-          "issue": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Issue number of the document",
-            "title": "Issue"
-          },
-          "description": {
-            "description": "Description of the document",
-            "title": "Description",
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "title",
-          "doi",
-          "uri",
-          "authors",
-          "journal",
-          "year",
-          "month",
-          "volume",
-          "issue",
-          "description"
-        ],
-        "title": "Document",
-        "type": "object"
-      },
-      "Grade": {
-        "properties": {
-          "grade_unit": {
-            "description": "The unit in which grade is measured, eg, percent",
-            "title": "Grade Unit",
-            "type": "string"
-          },
-          "grade_value": {
-            "description": "The value of grade",
-            "title": "Grade Value",
-            "type": "number"
-          }
-        },
-        "required": [
-          "grade_unit",
-          "grade_value"
-        ],
-        "title": "Grade",
-        "type": "object"
-      },
-      "Ore": {
-        "properties": {
-          "ore_unit": {
-            "description": "The unit in which ore quantity is measured, eg, metric tonnes",
-            "title": "Ore Unit",
-            "type": "string"
-          },
-          "ore_value": {
-            "description": "The value of ore quantity",
-            "title": "Ore Value",
-            "type": "number"
-          }
-        },
-        "required": [
-          "ore_unit",
-          "ore_value"
-        ],
-        "title": "Ore",
-        "type": "object"
-      },
-      "PageInfo": {
-        "properties": {
-          "page": {
-            "title": "Page",
-            "type": "integer"
-          },
-          "bounding_box": {
-            "anyOf": [
-              {
-                "$ref": "#/$defs/BoundingBox"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Coordinates of the document where reference is found"
-          }
-        },
-        "required": [
-          "page",
-          "bounding_box"
-        ],
-        "title": "PageInfo",
-        "type": "object"
-      },
-      "Reference": {
-        "properties": {
-          "id": {
-            "title": "Id",
-            "type": "string"
-          },
-          "document": {
-            "$ref": "#/$defs/Document"
-          },
-          "page_info": {
-            "description": "List of pages and their respective bounding boxes where the reference is found",
-            "items": {
-              "$ref": "#/$defs/PageInfo"
-            },
-            "title": "Page Info",
-            "type": "array"
-          }
-        },
-        "required": [
-          "id",
-          "document",
-          "page_info"
-        ],
-        "title": "Reference",
-        "type": "object"
-      },
-      "ResourceReserveCategory": {
-        "enum": [
-          "inferred",
-          "indicated",
-          "measured",
-          "probable",
-          "proven",
-          "original resource",
-          "extracted",
-          "cumulative extracted"
-        ],
-        "title": "ResourceReserveCategory",
-        "type": "string"
-      }
-    },
-    "properties": {
-      "id": {
-        "title": "Id",
-        "type": "string"
-      },
-      "deposit_type": {
-        "anyOf": [
-          {
-            "$ref": "#/$defs/DepositType"
-          },
-          {
-            "type": "null"
-          }
-        ],
-        "description": "The deposit type of an inventory item"
-      },
-      "commodity": {
-        "allOf": [
-          {
-            "$ref": "#/$defs/Commodity"
-          }
-        ],
-        "description": "The commodity of an inventory item"
-      },
-      "category": {
-        "anyOf": [
-          {
-            "$ref": "#/$defs/ResourceReserveCategory"
-          },
-          {
-            "type": "null"
-          }
-        ],
-        "description": "The category of an inventory item"
-      },
-      "ore": {
-        "anyOf": [
-          {
-            "$ref": "#/$defs/Ore"
-          },
-          {
-            "type": "null"
-          }
-        ],
-        "description": "The ore of an inventory item"
-      },
-      "grade": {
-        "anyOf": [
-          {
-            "$ref": "#/$defs/Grade"
-          },
-          {
-            "type": "null"
-          }
-        ],
-        "description": "The grade of an inventory item"
-      },
-      "cutoff_grade": {
-        "anyOf": [
-          {
-            "$ref": "#/$defs/Grade"
-          },
-          {
-            "type": "null"
-          }
-        ],
-        "description": "The cutoff grade of the observed inventory item"
-      },
-      "contained_metal": {
-        "anyOf": [
-          {
-            "type": "number"
-          },
-          {
-            "type": "null"
-          }
-        ],
-        "description": "The quantity of a contained metal in an inventory item",
-        "title": "Contained Metal"
-      },
-      "reference": {
-        "anyOf": [
-          {
-            "$ref": "#/$defs/Reference"
-          },
-          {
-            "type": "null"
-          }
-        ],
-        "description": "The reference of an inventory item"
-      },
-      "date": {
-        "anyOf": [
-          {
-            "format": "date-time",
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ],
-        "description": "When in the point of time mineral inventory valid",
-        "title": "Date"
-      }
-    },
-    "required": [
-      "id",
-      "deposit_type",
-      "commodity",
-      "category",
-      "ore",
-      "grade",
-      "cutoff_grade",
-      "contained_metal",
-      "reference",
-      "date"
-    ],
-    "title": "MineralInventory",
     "type": "object"
   }
 ]

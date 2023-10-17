@@ -99,7 +99,6 @@ class Grade(BaseModel):
 
 class MineralInventory(BaseModel):
     id: str
-    deposit_type: Optional[DepositType] = Field( description="The deposit type of an inventory item")
     commodity: Commodity = Field( description="The commodity of an inventory item")
     category: Optional[ResourceReserveCategory] = Field( description="The category of an inventory item")
     ore: Optional[Ore] = Field( description="The ore of an inventory item")
@@ -134,6 +133,7 @@ class MineralSite(BaseModel):
     mineral_inventory: list[MineralInventory]
     location_info: LocationInfo
     geology_info: GeologyInfo
+    deposit_type: Optional[DepositType] = Field(description="The deposit type of an inventory item")
     same_as: Optional[dict] = Field(
         description='Dictionary that stores the IDs point to other databases: e.g.: {"MRDS" : [{"id":1,"Attributes": {"dep_id" : "10289747","mrds_id" : "W018008", "altername_or_previous_names": "Thompson Creek Tungsten Mine, Tungsten Jim Mine" }, "geometry": "POINT (-112.22194434499863 46.756337603970515)"},{"id":2,"Attributes": {"dep_id": "10022920", "mrds_id":"FS00436", "record_type":"Site"},"geometry": "POINT (-112.84298100894938 46.869337351353394)"}], "USMIN" : [ {"id":8, "Attributes": {"ftr_id":"Mf00576", "site_id":"ID00055", "ftr_name":"Tungsten Jim"}, "geometry":"POINT (-112.47445877319991 46.68033517492356)"}, {"id":10, "Attributes": {"ftr_id":"Mo00569", "site_id":"ID00055" }, "geometry":"POINT (-114.58608965399998 44.333859519000065)"} ]}')
 
