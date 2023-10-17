@@ -5,9 +5,10 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix gkbi: <https://geokb.wikibase.cloud/wiki/Item:>
-@prefix gkbp: <https://geokb.wikibase.cloud/wiki/Property:>
+@prefix gkbi: <https://geokb.wikibase.cloud/wiki/Item:> .
+@prefix gkbp: <https://geokb.wikibase.cloud/wiki/Property:> .
 @prefix mndr: <https://minmod.isi.edu/resource/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
 
 mndr:Q0 a mndr:MineralSite ;
     mndr:id "BRMica001 (demo)" ;
@@ -49,13 +50,9 @@ mndr:Q3 a mndr:SameAs ;
     mndr:MRDS_ID "10289747 (demo)" ;
     mndr:USMIN_ID "ID00055 (demo)" .
 
-mndr:Q4 a mndr:DepositType ;
-    mndr:id "DT001 (demo)" ;
-    mndr:name "Mica Deposit (demo)" .
+mndr:Q4 owl:sameAs gkbi:Q26199 .
 
-mndr:Q5 a mndr:Commodity ;
-    mndr:id "Com001 (demo)" ;
-    mndr:name "Mica (demo)" .
+mndr:Q5 owl:sameAs gkbi:Q392 .
 
 mndr:Q6 a mndr:Ore ;
     mndr:ore_unit "metric tonnes" ;
@@ -71,11 +68,38 @@ mndr:Q8 a mndr:Reference ;
     mndr:page 12 ;
     mndr:bounding_box mndr:Q10 .
 
+mndr:Q9 a mndr:Document ;
+    mndr:id "Doc001" ;
+    mndr:title "Mica Deposits in Blue Ridge (demo)" ;
+    mndr:doi "10.1234/mica.br.001" ;
+    mndr:uri <https://mrdata.usgs.gov/pp577/> ;
+    mndr:authors ("J. Doe" "A. Smith") ;
+    mndr:journal "Geological Studies (demo)" ;
+    mndr:year 2023 ;
+    mndr:month 9 ;
+    mndr:volume 10 ;
+    mndr:issue 3 ;
+    mndr:description "A study on Mica deposits in the Blue Ridge area. (demo)" .
+
+mndr:Q9 owl:sameAs gkbi:Q5 .
+
+mndr:doi  owl:sameAs gkbp:P74 .
+
+mndr:uri  owl:sameAs gkbp:P136 .
+
+mndr:authors  owl:sameAs gkbp:P102 .
+
+mndr:Q10 a mndr:BoundingBox ;
+    mndr:x_min 10 ;
+    mndr:x_max 20 ;
+    mndr:y_min 30 ;
+    mndr:y_max 40 .
+
 mndr:Q12 a mndr:MappableCriteria ;
     mndr:criteria "Critera001 (demo)" ;
     mndr:theoretical "theory (demo)" ;
     mndr:potential_dataset "dataset (demo)" ;
-    mndr:references (mndr:Q8) ;
+    mndr:references (mndr:Q8) .
 
 mndr:Q13 a mndr:MineralSystem ;
     mndr:deposit_type mndr:Q4 ;
@@ -90,24 +114,4 @@ mndr:Q13 a mndr:MineralSystem ;
     mndr:trap (mndr:Q12) ;
     mndr:dispersion (mndr:Q12) ;
     mndr:exhumation (mndr:Q12) ;
-    mndr:direct_detection (mndr:Q12) ;
-
-mndr:Q9 a mndr:Document ;
-    mndr:id "Doc001" ;
-    mndr:title "Mica Deposits in Blue Ridge (demo)" ;
-    mndr:doi "10.1234/mica.br.001" ;
-    mndr:uri <https://mrdata.usgs.gov/pp577/> ;
-    mndr:authors ("J. Doe" "A. Smith") ;
-    mndr:journal "Geological Studies (demo)" ;
-    mndr:year 2023 ;
-    mndr:month 9 ;
-    mndr:volume 10 ;
-    mndr:issue 3 ;
-    mndr:description "A study on Mica deposits in the Blue Ridge area. (demo)" .
-
-mndr:Q10 a mndr:BoundingBox ;
-    mndr:x_min 10 ;
-    mndr:x_max 20 ;
-    mndr:y_min 30 ;
-    mndr:y_max 40 .
-
+    mndr:direct_detection (mndr:Q12) .
