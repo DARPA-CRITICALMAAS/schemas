@@ -153,12 +153,9 @@ graph.draw(out=name + ".png")
 schema = MineralSite.model_json_schema()
 
 schema_mineral_system = MineralSystem.model_json_schema()
-schema_deposit_type = DepositType.model_json_schema()
-
-
 
 with open(name + ".json", "w") as f:
-    f.write(dumps([schema, schema_mineral_system, schema_deposit_type], indent=2))
+    f.write(dumps([schema, schema_mineral_system], indent=2))
 
 parser = Parser(
     examples_as_yaml=False,
