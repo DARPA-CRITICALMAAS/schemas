@@ -2,10 +2,6 @@ from pydantic import BaseModel, Field
 from typing import Optional, TypeVar
 from enum import Enum
 
-import erdantic as erd
-from json import dumps
-from jsonschema2md import Parser
-
 
 Polygon = TypeVar("Polygon")
 Line = TypeVar("Line")
