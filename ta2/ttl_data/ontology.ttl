@@ -141,55 +141,57 @@ mndr:MineralInventory
 mndr:ResourceReserveCategory
     a rdfs:Class ;
     rdfs:comment "The category of an inventory item"@en ;
+    rdfs:range mndr:Inferred;
+    rdfs:range mndr:Indicated;
+    rdfs:range mndr:Measured;
+    rdfs:range mndr:Probable;
+    rdfs:range mndr:Proven;
+    rdfs:range mndr:Original_resource;
+    rdfs:range mndr:Extracted;
+    rdfs:range mndr:Cumulative_extracted;
     rdfs:label "ResourceReserveCategory"@en .
 
 mndr:Inferred
     a rdfs:Class ;
-    rdfs:subClassOf rdfs:ResourceReserveCategory ;
     rdfs:label "inferred"@en .
 
 mndr:Indicated
     a rdfs:Class ;
-    rdfs:subClassOf rdfs:ResourceReserveCategory ;
     rdfs:label "indicated"@en .
 
 mndr:Measured
     a rdfs:Class ;
-    rdfs:subClassOf rdfs:ResourceReserveCategory ;
     rdfs:label "measured"@en .
 
 mndr:Probable
     a rdfs:Class ;
-    rdfs:subClassOf rdfs:ResourceReserveCategory ;
     rdfs:label "probable"@en .
 
 mndr:Proven
     a rdfs:Class ;
-    rdfs:subClassOf rdfs:ResourceReserveCategory ;
     rdfs:label "proven"@en .
 
 mndr:Original_resource
     a rdfs:Class ;
-    rdfs:subClassOf rdfs:ResourceReserveCategory ;
     rdfs:label "original_resource"@en .
 
 mndr:Extracted
     a rdfs:Class ;
-    rdfs:subClassOf rdfs:ResourceReserveCategory ;
     rdfs:label "extracted"@en .
 
 mndr:Cumulative_extracted
     a rdfs:Class ;
-    rdfs:subClassOf rdfs:ResourceReserveCategory ;
     rdfs:label "cumulative_extracted"@en .
 
 mndr:DepositType
     a rdfs:Class ;
+    owl:sameAs gkbi:Q26097;
     rdfs:comment "deposit type of minerals"@en ;
     rdfs:label "DepositType"@en .
 
 mndr:Commodity
     a rdfs:Class ;
+    owl:sameAs gkbi:Q5;
     rdfs:comment "commodity of mineral inventory"@en ;
     rdfs:label "Commodity"@en .
 
@@ -363,18 +365,21 @@ mndr:title
 
 mndr:doi
     a rdfs:Property ;
+    owl:sameAs gkbp:P74;
     rdfs:domain mndr:Document;
     rdfs:comment "doi of the document"@en ;
     rdfs:label "doi"@en .
 
 mndr:uri
     a rdfs:Property ;
+    owl:sameAs gkbp:P136;
     rdfs:domain mndr:Document;
     rdfs:comment "URI of the document, if it does not have a doi"@en ;
     rdfs:label "uri"@en .
 
 mndr:authors
     a rdfs:Property ;
+    owl:sameAs gkbp:P102 ;
     rdfs:domain mndr:Document;
     rdfs:comment "list of the authors of the document"@en ;
     rdfs:label "authors"@en .
