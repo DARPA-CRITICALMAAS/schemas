@@ -73,6 +73,7 @@ mndr:same_as
 mndr:category
     a rdfs:Property ;
     rdfs:domain mndr:MineralInventory;
+    rdfs:range mndr:ResourceReserveCategory;
     rdfs:comment "Resource Reserve Category of a mineral inventory"@en ;
     rdfs:label "category"@en .
 
@@ -137,6 +138,50 @@ mndr:MineralInventory
     rdfs:comment "Inventory record of a mineral commodity discovered at a mineral site"@en ;
     rdfs:label "MineralInventory"@en .
 
+mndr:ResourceReserveCategory
+    a rdfs:Class ;
+    rdfs:comment "The category of an inventory item"@en ;
+    rdfs:label "ResourceReserveCategory"@en .
+
+mndr:Inferred
+    a rdfs:Class ;
+    rdfs:subClassOf rdfs:ResourceReserveCategory ;
+    rdfs:label "inferred"@en .
+
+mndr:Indicated
+    a rdfs:Class ;
+    rdfs:subClassOf rdfs:ResourceReserveCategory ;
+    rdfs:label "indicated"@en .
+
+mndr:Measured
+    a rdfs:Class ;
+    rdfs:subClassOf rdfs:ResourceReserveCategory ;
+    rdfs:label "measured"@en .
+
+mndr:Probable
+    a rdfs:Class ;
+    rdfs:subClassOf rdfs:ResourceReserveCategory ;
+    rdfs:label "probable"@en .
+
+mndr:Proven
+    a rdfs:Class ;
+    rdfs:subClassOf rdfs:ResourceReserveCategory ;
+    rdfs:label "proven"@en .
+
+mndr:Original_resource
+    a rdfs:Class ;
+    rdfs:subClassOf rdfs:ResourceReserveCategory ;
+    rdfs:label "original_resource"@en .
+
+mndr:Extracted
+    a rdfs:Class ;
+    rdfs:subClassOf rdfs:ResourceReserveCategory ;
+    rdfs:label "extracted"@en .
+
+mndr:Cumulative_extracted
+    a rdfs:Class ;
+    rdfs:subClassOf rdfs:ResourceReserveCategory ;
+    rdfs:label "cumulative_extracted"@en .
 
 mndr:DepositType
     a rdfs:Class ;
