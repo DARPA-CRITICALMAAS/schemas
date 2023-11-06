@@ -73,9 +73,16 @@
             "type": "string"
           },
           "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "description": "Title of the document",
-            "title": "Title",
-            "type": "string"
+            "title": "Title"
           },
           "doi": {
             "anyOf": [
@@ -102,12 +109,19 @@
             "title": "Uri"
           },
           "authors": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "description": "list of the authors of the document",
-            "items": {
-              "type": "string"
-            },
-            "title": "Authors",
-            "type": "array"
+            "title": "Authors"
           },
           "journal": {
             "anyOf": [
@@ -122,14 +136,28 @@
             "title": "Journal"
           },
           "year": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "description": "Published year of the document",
-            "title": "Year",
-            "type": "integer"
+            "title": "Year"
           },
           "month": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "description": "Published month of the document",
-            "title": "Month",
-            "type": "integer"
+            "title": "Month"
           },
           "volume": {
             "anyOf": [
@@ -156,9 +184,16 @@
             "title": "Issue"
           },
           "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "description": "Description of the document",
-            "title": "Description",
-            "type": "string"
+            "title": "Description"
           }
         },
         "required": [
@@ -450,6 +485,18 @@
             ],
             "description": "When in the point of time mineral inventory valid",
             "title": "Date"
+          },
+          "zone": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "zone of mineral site where inventory item was discovered",
+            "title": "Zone"
           }
         },
         "required": [
@@ -461,7 +508,8 @@
           "cutoff_grade",
           "contained_metal",
           "reference",
-          "date"
+          "date",
+          "zone"
         ],
         "title": "MineralInventory",
         "type": "object"
@@ -667,9 +715,16 @@
             "type": "string"
           },
           "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "description": "Title of the document",
-            "title": "Title",
-            "type": "string"
+            "title": "Title"
           },
           "doi": {
             "anyOf": [
@@ -696,12 +751,19 @@
             "title": "Uri"
           },
           "authors": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "description": "list of the authors of the document",
-            "items": {
-              "type": "string"
-            },
-            "title": "Authors",
-            "type": "array"
+            "title": "Authors"
           },
           "journal": {
             "anyOf": [
@@ -716,14 +778,28 @@
             "title": "Journal"
           },
           "year": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "description": "Published year of the document",
-            "title": "Year",
-            "type": "integer"
+            "title": "Year"
           },
           "month": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "description": "Published month of the document",
-            "title": "Month",
-            "type": "integer"
+            "title": "Month"
           },
           "volume": {
             "anyOf": [
@@ -750,9 +826,16 @@
             "title": "Issue"
           },
           "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "description": "Description of the document",
-            "title": "Description",
-            "type": "string"
+            "title": "Description"
           }
         },
         "required": [

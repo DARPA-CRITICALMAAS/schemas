@@ -45,7 +45,10 @@
 ### Properties
 
 - **`id`** *(string)*
-- **`title`** *(string)*: Title of the document.
+- **`title`**: Title of the document.
+  - **Any of**
+    - *string*
+    - *null*
 - **`doi`**: doi of the document.
   - **Any of**
     - *string*
@@ -54,14 +57,23 @@
   - **Any of**
     - *string*
     - *null*
-- **`authors`** *(array)*: list of the authors of the document.
-  - **Items** *(string)*
+- **`authors`**: list of the authors of the document.
+  - **Any of**
+    - *array*
+      - **Items** *(string)*
+    - *null*
 - **`journal`**: journal document belongs to.
   - **Any of**
     - *string*
     - *null*
-- **`year`** *(integer)*: Published year of the document.
-- **`month`** *(integer)*: Published month of the document.
+- **`year`**: Published year of the document.
+  - **Any of**
+    - *integer*
+    - *null*
+- **`month`**: Published month of the document.
+  - **Any of**
+    - *integer*
+    - *null*
 - **`volume`**: Volume of the document.
   - **Any of**
     - *integer*
@@ -70,7 +82,10 @@
   - **Any of**
     - *integer*
     - *null*
-- **`description`** *(string)*: Description of the document.
+- **`description`**: Description of the document.
+  - **Any of**
+    - *string*
+    - *null*
 
 ## GeologyInfo
 
@@ -183,6 +198,10 @@
 - **`date`**: When in the point of time mineral inventory valid.
   - **Any of**
     - *string, format: date-time*
+    - *null*
+- **`zone`**: zone of mineral site where inventory item was discovered.
+  - **Any of**
+    - *string*
     - *null*
 
 ## MineralSystem

@@ -27,6 +27,7 @@ mndr:Q1 a mndr:MineralInventory ;
     mndr:grade mndr:Q7 ;
     mndr:contained_metal 1000 ;
     mndr:reference mndr:Q8 ;
+    mndr:zone "Zone 1" ;
     mndr:date "2023-09-29T00:00:00Z" .
 
 mndr:Q2 a mndr:LocationInfo ;

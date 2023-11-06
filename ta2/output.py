@@ -52,16 +52,16 @@ class PageInfo(BaseModel):
 
 class Document(BaseModel):
     id: str
-    title: str = Field( description="Title of the document")
+    title: Optional[str] = Field( description="Title of the document")
     doi: Optional[str] = Field(description="doi of the document")
     uri: Optional[str] = Field(description="URI of the document, if it does not have a doi")
-    authors: list[str] = Field(description="list of the authors of the document")
+    authors: Optional[list[str]] = Field(description="list of the authors of the document")
     journal: Optional[str] = Field(description="journal document belongs to")
-    year: int = Field(description="Published year of the document")
-    month: int = Field(description="Published month of the document")
+    year: Optional[int] = Field(description="Published year of the document")
+    month: Optional[int] = Field(description="Published month of the document")
     volume: Optional[int] = Field(description="Volume of the document")
     issue: Optional[int] = Field(description="Issue number of the document")
-    description: str = Field(description="Description of the document")
+    description: Optional[str] = Field(description="Description of the document")
 
 class Reference(BaseModel):
     id: str
@@ -107,6 +107,7 @@ class MineralInventory(BaseModel):
     contained_metal: Optional[float] = Field( description="The quantity of a contained metal in an inventory item")
     reference: Optional[Reference] = Field( description="The reference of an inventory item")
     date: Optional[datetime] = Field(description="When in the point of time mineral inventory valid")
+    zone: Optional[str] = Field(description="zone of mineral site where inventory item was discovered")
 
 class LocationInfo(BaseModel):
     location: Geometry = Field(
