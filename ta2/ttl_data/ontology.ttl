@@ -15,7 +15,7 @@
 mndr:MineralSite
     a rdfs:Class ;
     rdfs:comment "Site where minerals are being discovered"@en ;
-    rdfs:label "MineralSite"@en .
+    rdfs:label "Mineral Site"@en .
 
 mndr:id
     a rdf:Property ;
@@ -41,21 +41,21 @@ mndr:mineral_inventory
     rdfs:domain mndr:MineralSite;
     rdfs:range mndr:MineralInventory ;
     rdfs:comment "inventory details of a discovered mineral"@en ;
-    rdfs:label "mineral_inventory"@en .
+    rdfs:label "mineral inventory"@en .
 
 mndr:location_info
     a rdf:Property ;
     rdfs:domain mndr:MineralSite;
     rdfs:range mndr:LocationInfo ;
     rdfs:comment "location info details of a discovered mineral site"@en ;
-    rdfs:label "location_info"@en .
+    rdfs:label "location info"@en .
 
 mndr:geology_info
     a rdf:Property ;
     rdfs:domain mndr:MineralSite;
     rdfs:range mndr:GeologyInfo ;
     rdfs:comment "geology details of a discovered mineral site"@en ;
-    rdfs:label "geology_info"@en .
+    rdfs:label "geology info"@en .
 
 mndr:deposit_type
     a rdf:Property ;
@@ -63,12 +63,12 @@ mndr:deposit_type
     rdfs:domain mndr:MineralSystem;
     rdfs:range mndr:DepositType ;
     rdfs:comment "deposit type of a discovered mineral"@en ;
-    rdfs:label "deposit_type"@en .
+    rdfs:label "deposit type"@en .
 
 mndr:same_as
     a rdf:Property ;
     rdfs:domain mndr:MineralSite;
-    rdfs:label "same_as"@en .
+    rdfs:label "same as"@en .
 
 mndr:category
     a rdf:Property ;
@@ -103,14 +103,14 @@ mndr:cutoff_grade
     rdfs:domain mndr:MineralInventory;
     rdfs:range mndr:Grade ;
     rdfs:comment "The cutoff grade of the observed inventory item"@en ;
-    rdfs:label "cutoff_grade"@en .
+    rdfs:label "cutoff grade"@en .
 
 mndr:contained_metal
     a rdf:Property ;
     rdfs:domain mndr:MineralInventory;
     rdfs:range xsd:float;
     rdfs:comment "Quantity of metal contained in an inventory"@en ;
-    rdfs:label "contained_metal"@en .
+    rdfs:label "contained metal"@en .
 
 mndr:reference
     a rdf:Property ;
@@ -136,58 +136,58 @@ mndr:date
 mndr:MineralInventory
     a rdfs:Class ;
     rdfs:comment "Inventory record of a mineral commodity discovered at a mineral site"@en ;
-    rdfs:label "MineralInventory"@en .
+    rdfs:label "Mineral Inventory"@en .
 
 mndr:ResourceReserveCategory
     a rdfs:Class ;
     rdfs:comment "The category of an inventory item"@en ;
-    rdfs:label "ResourceReserveCategory"@en .
+    rdfs:label "Resource Reserve Category"@en .
 
 mndr:Inferred
     a rdfs:Class ;
-    rdfs:subClassOf mndr:ResourceReserveCategory;
+    rdfs:range mndr:ResourceReserveCategory ;
     rdfs:label "Inferred"@en .
 
 mndr:Indicated
     a rdfs:Class ;
-    rdfs:subClassOf mndr:ResourceReserveCategory;
+    rdfs:range mndr:ResourceReserveCategory ;
     rdfs:label "Indicated"@en .
 
 mndr:Measured
     a rdfs:Class ;
-    rdfs:subClassOf mndr:ResourceReserveCategory;
+    rdfs:range mndr:ResourceReserveCategory ;
     rdfs:label "Measured"@en .
 
 mndr:Probable
     a rdfs:Class ;
-    rdfs:subClassOf mndr:ResourceReserveCategory;
+    rdfs:range mndr:ResourceReserveCategory ;
     rdfs:label "Probable"@en .
 
 mndr:Proven
     a rdfs:Class ;
-    rdfs:subClassOf mndr:ResourceReserveCategory;
+    rdfs:range mndr:ResourceReserveCategory ;
     rdfs:label "Proven"@en .
 
 mndr:Original_resource
     a rdfs:Class ;
-    rdfs:subClassOf mndr:ResourceReserveCategory;
-    rdfs:label "Original_resource"@en .
+    rdfs:range mndr:ResourceReserveCategory ;
+    rdfs:label "Original Resource"@en .
 
 mndr:Extracted
     a rdfs:Class ;
-    rdfs:subClassOf mndr:ResourceReserveCategory;
+    rdfs:range mndr:ResourceReserveCategory ;
     rdfs:label "Extracted"@en .
 
 mndr:Cumulative_extracted
     a rdfs:Class ;
-    rdfs:subClassOf mndr:ResourceReserveCategory;
-    rdfs:label "Cumulative_extracted"@en .
+    rdfs:range mndr:ResourceReserveCategory ;
+    rdfs:label "Cumulative Extracted"@en .
 
 mndr:DepositType
     a rdfs:Class ;
     owl:sameAs gkbi:Q26097;
     rdfs:comment "deposit type of minerals"@en ;
-    rdfs:label "DepositType"@en .
+    rdfs:label "Deposit Type"@en .
 
 mndr:Commodity
     a rdfs:Class ;
@@ -198,7 +198,7 @@ mndr:Commodity
 mndr:LocationInfo
     a rdfs:Class ;
     rdfs:comment "Defines location of a mineral site"@en ;
-    rdfs:label "LocationInfo"@en .
+    rdfs:label "Location Info"@en .
 
 
 mndr:location
@@ -218,7 +218,7 @@ mndr:location_source_record_id
     a rdf:Property ;
     rdfs:domain mndr:LocationInfo;
     rdfs:comment "ID points to the same_as field in MineralSites"@en ;
-    rdfs:label "location_source_record_id"@en .
+    rdfs:label "location source record ID"@en .
 
 mndr:country
     a rdf:Property ;
@@ -230,18 +230,18 @@ mndr:location_source
     a rdf:Property ;
     rdfs:domain mndr:LocationInfo;
     rdfs:comment "Source of the location information"@en ;
-    rdfs:label "location_source"@en .
+    rdfs:label "location source"@en .
 
 mndr:state_or_province
     a rdf:Property ;
     rdfs:domain mndr:LocationInfo;
     rdfs:comment "State or province that the mine site resides in"@en ;
-    rdfs:label "state_or_province"@en .
+    rdfs:label "state or province"@en .
 
 mndr:GeologyInfo
     a rdfs:Class ;
     rdfs:comment "Geological information related to a mineral site"@en ;
-    rdfs:label "GeologyInfo"@en .
+    rdfs:label "Geology Info"@en .
 
 
 mndr:age
@@ -254,7 +254,7 @@ mndr:unit_name
     a rdf:Property ;
     rdfs:domain mndr:GeologyInfo;
     rdfs:comment "unit name of the geological info of mineral site"@en ;
-    rdfs:label "unit_name"@en .
+    rdfs:label "unit name"@en .
 
 mndr:description
     a rdf:Property ;
@@ -296,14 +296,14 @@ mndr:grade_unit
     rdfs:domain mndr:Grade;
     rdfs:range mndr:Unit;
     rdfs:comment "The unit in which grade is measured, eg, percent"@en ;
-    rdfs:label "grade_unit"@en .
+    rdfs:label "grade unit"@en .
 
 mndr:grade_value
     a rdf:Property ;
     rdfs:domain mndr:Grade;
     rdfs:range xsd:float ;
     rdfs:comment "The value of grade"@en ;
-    rdfs:label "grade_value"@en .
+    rdfs:label "grade value"@en .
 
 
 mndr:Ore
@@ -321,14 +321,14 @@ mndr:ore_unit
     rdfs:domain mndr:Ore;
     rdfs:range mndr:Unit;
     rdfs:comment "The unit in which ore quantity is measured, eg, metric tonnes"@en ;
-    rdfs:label "ore_unit"@en .
+    rdfs:label "ore unit"@en .
 
 mndr:ore_value
     a rdf:Property ;
     rdfs:domain mndr:Ore;
     rdfs:range xsd:float ;
     rdfs:comment "The value of ore quantity"@en ;
-    rdfs:label "ore_value"@en .
+    rdfs:label "ore value"@en .
 
 mndr:Reference
     a rdfs:Class ;
@@ -340,12 +340,12 @@ mndr:page_info
     rdfs:range mndr:PageInfo ;
     rdfs:domain mndr:Reference;
     rdfs:comment "The value of page info"@en ;
-    rdfs:label "page_info"@en .
+    rdfs:label "page info"@en .
 
 mndr:PageInfo
     a rdfs:Class ;
     rdfs:comment "The value of page info"@en ;
-    rdfs:label "PageInfo"@en .
+    rdfs:label "Page Info"@en .
 
 mndr:page
     a rdf:Property ;
@@ -430,13 +430,13 @@ mndr:description
 mndr:BoundingBox
     a rdfs:Class ;
     rdfs:comment "Bounded box area of a document where data is derived from"@en ;
-    rdfs:label "BoundingBox"@en .
+    rdfs:label "Bounding Box"@en .
 
 
 mndr:MappableCriteria
     a rdfs:Class ;
     rdfs:comment "Mappable Criteria"@en ;
-    rdfs:label "MappableCriteria"@en .
+    rdfs:label "Mappable Criteria"@en .
 
 mndr:criteria
     a rdf:Property ;
@@ -452,18 +452,18 @@ mndr:potential_dataset
     a rdf:Property ;
     rdfs:domain mndr:MappableCriteria;
     rdfs:comment "potential_dataset"@en ;
-    rdfs:label "potential_dataset"@en .
+    rdfs:label "potential dataset"@en .
 
 mndr:supporting_references
     a rdf:Property ;
     rdfs:domain mndr:MappableCriteria;
     rdfs:comment "supporting_references"@en ;
-    rdfs:label "supporting_references"@en .
+    rdfs:label "supporting references"@en .
 
 mndr:MineralSystem
     a rdfs:Class ;
     rdfs:comment "Mineral System"@en ;
-    rdfs:label "MineralSystem"@en .
+    rdfs:label "Mineral System"@en .
 
 mndr:exhumation
     a rdf:Property ;
@@ -481,7 +481,7 @@ mndr:direct_detection
     a rdf:Property ;
     rdfs:domain mndr:MineralSystem;
     rdfs:range mndr:MappableCriteria ;
-    rdfs:label "direct_detection"@en .
+    rdfs:label "direct detection"@en .
 
 mndr:trap
     a rdf:Property ;
@@ -511,25 +511,25 @@ mndr:source_other
     a rdf:Property ;
     rdfs:domain mndr:MineralSystem;
     rdfs:range mndr:MappableCriteria ;
-    rdfs:label "source_other"@en .
+    rdfs:label "source other"@en .
 
 mndr:source_metal
     a rdf:Property ;
     rdfs:domain mndr:MineralSystem;
     rdfs:range mndr:MappableCriteria ;
-    rdfs:label "source_metal"@en .
+    rdfs:label "source metal"@en .
 
 mndr:source_ligand
     a rdf:Property ;
     rdfs:domain mndr:MineralSystem;
     rdfs:range mndr:MappableCriteria ;
-    rdfs:label "source_ligand"@en .
+    rdfs:label "source ligand"@en .
 
 mndr:source_fluid
     a rdf:Property ;
     rdfs:domain mndr:MineralSystem;
     rdfs:range mndr:MappableCriteria ;
-    rdfs:label "source_fluid"@en .
+    rdfs:label "source fluid"@en .
 
 mndr:trigger
     a rdf:Property ;
@@ -541,28 +541,28 @@ mndr:bounding_box
     a rdf:Property ;
     rdfs:range mndr:BoundingBox ;
     rdfs:comment "Bounded box area of a document where data is derived from"@en ;
-    rdfs:label "bounding_box"@en .
+    rdfs:label "bounding box"@en .
 
 mndr:x_min
     a rdf:Property ;
     rdfs:range xsd:float;
     rdfs:domain mndr:BoundingBox;
-    rdfs:label "x_min"@en .
+    rdfs:label "x min"@en .
 
 mndr:x_max
     a rdf:Property ;
     rdfs:range xsd:float;
     rdfs:domain mndr:BoundingBox;
-    rdfs:label "x_max"@en .
+    rdfs:label "x max"@en .
 
 mndr:y_min
     a rdf:Property ;
     rdfs:range xsd:float;
     rdfs:domain mndr:BoundingBox;
-    rdfs:label "y_min"@en .
+    rdfs:label "y min"@en .
 
 mndr:y_max
     a rdf:Property ;
     rdfs:range xsd:float;
     rdfs:domain mndr:BoundingBox;
-    rdfs:label "y_max"@en .
+    rdfs:label "y max"@en .
