@@ -141,46 +141,46 @@ mndr:MineralInventory
 mndr:ResourceReserveCategory
     a rdfs:Class ;
     rdfs:comment "The category of an inventory item"@en ;
-    rdfs:range mndr:Inferred;
-    rdfs:range mndr:Indicated;
-    rdfs:range mndr:Measured;
-    rdfs:range mndr:Probable;
-    rdfs:range mndr:Proven;
-    rdfs:range mndr:Original_resource;
-    rdfs:range mndr:Extracted;
-    rdfs:range mndr:Cumulative_extracted;
     rdfs:label "ResourceReserveCategory"@en .
 
 mndr:Inferred
     a rdfs:Class ;
+    rdfs:subClassOf mndr:ResourceReserveCategory;
     rdfs:label "Inferred"@en .
 
 mndr:Indicated
     a rdfs:Class ;
+    rdfs:subClassOf mndr:ResourceReserveCategory;
     rdfs:label "Indicated"@en .
 
 mndr:Measured
     a rdfs:Class ;
+    rdfs:subClassOf mndr:ResourceReserveCategory;
     rdfs:label "Measured"@en .
 
 mndr:Probable
     a rdfs:Class ;
+    rdfs:subClassOf mndr:ResourceReserveCategory;
     rdfs:label "Probable"@en .
 
 mndr:Proven
     a rdfs:Class ;
+    rdfs:subClassOf mndr:ResourceReserveCategory;
     rdfs:label "Proven"@en .
 
 mndr:Original_resource
     a rdfs:Class ;
+    rdfs:subClassOf mndr:ResourceReserveCategory;
     rdfs:label "Original_resource"@en .
 
 mndr:Extracted
     a rdfs:Class ;
+    rdfs:subClassOf mndr:ResourceReserveCategory;
     rdfs:label "Extracted"@en .
 
 mndr:Cumulative_extracted
     a rdfs:Class ;
+    rdfs:subClassOf mndr:ResourceReserveCategory;
     rdfs:label "Cumulative_extracted"@en .
 
 mndr:DepositType
@@ -294,6 +294,7 @@ mndr:Grade
 mndr:grade_unit
     a rdf:Property ;
     rdfs:domain mndr:Grade;
+    rdfs:range mndr:Unit;
     rdfs:comment "The unit in which grade is measured, eg, percent"@en ;
     rdfs:label "grade_unit"@en .
 
@@ -310,9 +311,15 @@ mndr:Ore
     rdfs:comment "Ore of a mineral"@en ;
     rdfs:label "Ore"@en .
 
+mndr:Unit
+    a rdfs:Class ;
+    rdfs:range xsd:string ;
+    rdfs:label "Unit"@en .
+
 mndr:ore_unit
     a rdf:Property ;
     rdfs:domain mndr:Ore;
+    rdfs:range mndr:Unit;
     rdfs:comment "The unit in which ore quantity is measured, eg, metric tonnes"@en ;
     rdfs:label "ore_unit"@en .
 
