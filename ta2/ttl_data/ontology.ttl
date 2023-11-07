@@ -144,43 +144,35 @@ mndr:ResourceReserveCategory
     rdfs:label "Resource Reserve Category"@en .
 
 mndr:Inferred
-    a rdfs:Class ;
-    rdfs:range mndr:ResourceReserveCategory ;
+    a mndr:ResourceReserveCategory ;
     rdfs:label "Inferred"@en .
 
 mndr:Indicated
-    a rdfs:Class ;
-    rdfs:range mndr:ResourceReserveCategory ;
+    a mndr:ResourceReserveCategory ;
     rdfs:label "Indicated"@en .
 
 mndr:Measured
-    a rdfs:Class ;
-    rdfs:range mndr:ResourceReserveCategory ;
+     a mndr:ResourceReserveCategory ;
     rdfs:label "Measured"@en .
 
 mndr:Probable
-    a rdfs:Class ;
-    rdfs:range mndr:ResourceReserveCategory ;
+     a mndr:ResourceReserveCategory ;
     rdfs:label "Probable"@en .
 
 mndr:Proven
-    a rdfs:Class ;
-    rdfs:range mndr:ResourceReserveCategory ;
+     a mndr:ResourceReserveCategory ;
     rdfs:label "Proven"@en .
 
-mndr:Original_resource
-    a rdfs:Class ;
-    rdfs:range mndr:ResourceReserveCategory ;
+mndr:OriginalResource
+     a mndr:ResourceReserveCategory ;
     rdfs:label "Original Resource"@en .
 
 mndr:Extracted
-    a rdfs:Class ;
-    rdfs:range mndr:ResourceReserveCategory ;
+     a mndr:ResourceReserveCategory ;
     rdfs:label "Extracted"@en .
 
-mndr:Cumulative_extracted
-    a rdfs:Class ;
-    rdfs:range mndr:ResourceReserveCategory ;
+mndr:CumulativeExtracted
+     a mndr:ResourceReserveCategory ;
     rdfs:label "Cumulative Extracted"@en .
 
 mndr:DepositType
