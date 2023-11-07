@@ -82,26 +82,32 @@ mndr:Q5 a mndr:Commodity ;
     mndr:id "comm0" ;
     mndr:name "zinc" .
 
+mndr:Q200 a mndr:Unit ;
+    mndr:value "tonnes".
+
+mndr:Q201 a mndr:Unit ;
+    mndr:value "percent".
+
 mndr:Q6 a mndr:Ore ;
-    mndr:ore_unit "tonnes" ;
+    mndr:ore_unit mndr:Q200 ;
     mndr:ore_value 850100 .
 
 mndr:Q7 a mndr:Grade ;
-    mndr:grade_unit "percent" ;
+    mndr:grade_unit mndr:Q201 ;
     mndr:grade_value 13.19 .
 
 mndr:Q71 a mndr:Grade ;
-    mndr:grade_unit "percent" ;
+    mndr:grade_unit mndr:Q201 ;
     mndr:grade_value 6 .
 
 
 
 mndr:Q611 a mndr:Ore ;
-    mndr:ore_unit "tonnes" ;
+    mndr:ore_unit mndr:Q200 ;
     mndr:ore_value 1307900 .
 
 mndr:Q711 a mndr:Grade ;
-    mndr:grade_unit "percent" ;
+    mndr:grade_unit mndr:Q201 ;
     mndr:grade_value 13.35 .
 
 
@@ -109,22 +115,22 @@ mndr:Q711 a mndr:Grade ;
 
 
 mndr:Q622 a mndr:Ore ;
-    mndr:ore_unit "tonnes" ;
+    mndr:ore_unit mndr:Q200 ;
     mndr:ore_value 2158000 .
 
 mndr:Q722 a mndr:Grade ;
-    mndr:grade_unit "percent" ;
+    mndr:grade_unit mndr:Q201 ;
     mndr:grade_value 13.29 .
 
 
 
 
 mndr:Q633 a mndr:Ore ;
-    mndr:ore_unit "tonnes" ;
+    mndr:ore_unit mndr:Q200 ;
     mndr:ore_value 2276600 .
 
 mndr:Q733 a mndr:Grade ;
-    mndr:grade_unit "percent" ;
+    mndr:grade_unit mndr:Q201 ;
     mndr:grade_value 13.37 .
 
 
