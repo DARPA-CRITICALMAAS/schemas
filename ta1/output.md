@@ -21,8 +21,6 @@
     - *array*
       - **Items**: Refer to *[CrossSection](#CrossSection)*.
     - *null*
-- **`pipelines`** *(array)*
-  - **Items**: Refer to *[ModelRun](#ModelRun)*.
 - **`projection_info`**: Refer to *[ProjectionMeta](#ProjectionMeta)*.
 
 ## ConfidenceEstimation
@@ -51,7 +49,8 @@
 
 *Information about a geological cross section (lines of section + images).
 
-NOTE: This would be nice to have but isn't required (especially for the initial target).*
+    NOTE: This would be nice to have but isn't required (especially for the initial target).
+    *
 
 ### Properties
 
@@ -72,7 +71,9 @@ NOTE: This would be nice to have but isn't required (especially for the initial 
 
 ## GeologicUnit
 
-*Information about a geologic unit synthesized from map legend extractions.*
+*
+    Information about a geologic unit synthesized from map legend extractions.
+    *
 
 ### Properties
 
@@ -218,6 +219,8 @@ NOTE: This would be nice to have but isn't required (especially for the initial 
   - **Items**: Refer to *[LineFeature](#LineFeature)*.
 - **`points`** *(array)*: Map points.
   - **Items**: Refer to *[PointFeature](#PointFeature)*.
+- **`pipelines`** *(array)*
+  - **Items**: Refer to *[ModelRun](#ModelRun)*.
 
 ## ModelRun
 
@@ -355,7 +358,7 @@ NOTE: This would be nice to have but isn't required (especially for the initial 
 ## ProjectionMeta
 
 *Information about the map projection. Projection information should also be applied
-to the map image and output vector data (if using GeoPackage output format).*
+    to the map image and output vector data (if using GeoPackage output format).*
 
 ### Properties
 

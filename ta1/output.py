@@ -2,6 +2,7 @@ from pydantic import BaseModel, Field
 from typing import Optional, TypeVar
 from enum import Enum
 
+
 Polygon = TypeVar("Polygon")
 Line = TypeVar("Line")
 Point = TypeVar("Point")
@@ -171,14 +172,6 @@ class PointFeature(BaseModel):
     dip: Optional[float] = Field(..., description="Dip")
 
 
-class MapFeatureExtractions(BaseModel):
-    """Extractions from a map used to estimate features"""
-
-    polygons: list[PolygonFeature] = Field(..., description="Map polygons")
-    lines: list[LineFeature] = Field(..., description="Map lines")
-    points: list[PointFeature] = Field(..., description="Map points")
-
-
 class ExtractionIdentifier(BaseModel):
     """Link to extracted model"""
 
@@ -230,6 +223,27 @@ class PageExtraction(BaseModel):
     model: Optional[ExtractionIdentifier]
 
 
+class ModelRun(BaseModel):
+    """Information about a model run."""
+
+    pipeline_name: str = Field(..., description="Model name")
+    version: str = Field(..., description="Model version")
+    timestamp: str = Field(..., description="Time of model run")
+    batch_id: Optional[str] = Field(..., description="Batch ID")
+    confidence: list[ConfidenceEstimation]
+    boxes: list[PageExtraction]
+
+
+class MapFeatureExtractions(BaseModel):
+    """Extractions from a map used to estimate features"""
+
+    polygons: list[PolygonFeature] = Field(..., description="Map polygons")
+    lines: list[LineFeature] = Field(..., description="Map lines")
+    points: list[PointFeature] = Field(..., description="Map points")
+    pipelines: list[ModelRun]
+
+
+
 class GroundControlPoint(BaseModel):
     """Ground control point"""
 
@@ -245,16 +259,6 @@ class ProjectionMeta(BaseModel):
     gcps: list[GroundControlPoint] = Field(..., description="Ground control points")
     projection: WKT = Field(..., description="Map projection information")
 
-
-class ModelRun(BaseModel):
-    """Information about a model run."""
-
-    pipeline_name: str = Field(..., description="Model name")
-    version: str = Field(..., description="Model version")
-    timestamp: str = Field(..., description="Time of model run")
-    batch_id: Optional[str] = Field(..., description="Batch ID")
-    confidence: list[ConfidenceEstimation]
-    boxes: list[PageExtraction]
 
 
 class CrossSection(BaseModel):
@@ -293,5 +297,6 @@ class Map(BaseModel):
     features: MapFeatureExtractions
     cross_sections: Optional[list[CrossSection]]
 
-    pipelines: list[ModelRun]
+    
     projection_info: ProjectionMeta
+
