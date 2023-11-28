@@ -67,9 +67,12 @@ class PolygonType(BaseModel):
 class PolygonFeature(BaseModel):
     """Polygon containing map unit information."""
 
-    geometry: Polygon = Field(..., description="Polygon geometry")
     id: str = Field(..., description="Internal ID")
+    map_geom: Polygon = Field(..., description="Polygon geometry, world coordinates")
+    px_geom: PixelBoundingPolygon = Field(..., description="Polygon geometry, pixel coordinates") 
     type: PolygonType = Field(..., description="Polygon type information")
+    confidence: Optional[float] = Field(..., description="Confidence associated with this extraction")
+
 
 class LineTypeName(Enum):
     anticline = "anticline"
@@ -120,8 +123,9 @@ class LineType(BaseModel):
 class LineFeature(BaseModel):
     """Line containing map unit information."""
 
-    geometry: Line = Field(..., description="Line geometry")
     id: str = Field(..., description="Internal ID")
+    map_geom: Line = Field(..., description="Line geometry, world coordinates")
+    px_geom: Line = Field(..., description="Line geometry, pixel coordinates") 
     name: Optional[str] = Field(
         ..., description="Name of this map feature", examples=["San Andreas Fault"]
     )
@@ -130,6 +134,7 @@ class LineFeature(BaseModel):
     direction: LinePolarity = Field(
         ..., description="Line polarity", examples=[1, -1]
     )
+    confidence: Optional[float] = Field(..., description="Confidence associated with this extraction")
 
 
 class PointTypeName(Enum):
@@ -165,9 +170,11 @@ class PointFeature(BaseModel):
 
     id: str = Field(..., description="Internal ID")
     type: PointType = Field(..., description="Point type")
-    geometry: Point = Field(..., description="Point geometry")
+    map_geom: Point = Field(..., description="Point geometry, world coordinates")
+    px_geom: Point = Field(..., description="Point geometry, pixel coordinates")    
     dip_direction: Optional[float] = Field(..., description="Dip direction")
     dip: Optional[float] = Field(..., description="Dip")
+    confidence: Optional[float] = Field(..., description="Confidence associated with this extraction")
 
 
 class ExtractionIdentifier(BaseModel):
@@ -219,6 +226,7 @@ class PageExtraction(BaseModel):
         ..., description="Bounds of the page extraction, in pixel coordinates"
     )
     model: Optional[ExtractionIdentifier]
+    confidence: Optional[float] = Field(..., description="Confidence associated with this extraction")
 
 
 class ModelRun(BaseModel):
@@ -244,18 +252,19 @@ class MapFeatureExtractions(BaseModel):
 class GroundControlPoint(BaseModel):
     """Ground control point"""
 
-    map_geom: Point = Field(..., description="Point geometry")
-    px_geom: Point = Field(..., description="Point geometry")
     id: str = Field(..., description="Internal ID")
+    map_geom: Point = Field(..., description="Point geometry, world coordinates")
+    px_geom: Point = Field(..., description="Point geometry, pixel coordinates")
+    confidence: Optional[float] = Field(..., description="Confidence associated with this extraction")
 
 
-class ProjectionMeta(BaseModel):
-    """Information about the map projection. Projection information should also be applied
+class GeoReferenceMeta(BaseModel):
+    """Geo-referencing and projection info about the map. Projection information should also be applied
     to the map image and output vector data (if using GeoPackage output format)."""
 
     gcps: list[GroundControlPoint] = Field(..., description="Ground control points")
     projection: WKT = Field(..., description="Map projection information")
-
+    bounds: Polygon = Field(..., description="Polygon boundary of the map area, in world coordinates")
 
 
 class CrossSection(BaseModel):
@@ -267,7 +276,20 @@ class CrossSection(BaseModel):
     id: str = Field(..., description="Internal ID")
     label: str = Field(..., description="Cross section label")
     line_of_section: Line = Field(..., description="Geographic line of section")
-    image: PixelBoundingPolygon = Field(..., description="Bounding pixel coordinates of the cross section")
+    px_geom: PixelBoundingPolygon = Field(..., description="Bounding pixel coordinates of the cross section")
+    confidence: Optional[float] = Field(..., description="Confidence associated with this extraction")
+
+
+class MapMetadata(BaseModel):
+    """Map Metadata extractions"""
+
+    id: str = Field(..., description="Internal ID")
+    authors: str = Field(..., description="Map authors")
+    publisher: str = Field(..., description="Map publisher")
+    year: int = Field(..., description="Map publication year")
+    organization: str = Field(..., description="Map organization")
+    scale: str = Field(..., description="Map scale")
+    confidence: Optional[float] = Field(..., description="Confidence associated with these extractions")
 
 
 class Map(BaseModel):
@@ -285,16 +307,7 @@ class Map(BaseModel):
     )
     image_size: list[int] = Field(..., description="Pixel size of the map image")
 
-    authors: str = Field(..., description="Map authors")
-    publisher: str = Field(..., description="Map publisher")
-    year: int = Field(..., description="Map publication year")
-    organization: str = Field(..., description="Map organization")
-    scale: str = Field(..., description="Map scale")
-    bounds: Polygon = Field(..., description="Map geographic bounds")
-
     features: MapFeatureExtractions
-    cross_sections: Optional[list[CrossSection]]
-
-    
-    projection_info: ProjectionMeta
+    cross_sections: Optional[list[CrossSection]]    
+    projection_info: GeoReferenceMeta
 
