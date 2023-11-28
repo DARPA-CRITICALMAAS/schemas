@@ -45,10 +45,11 @@ class PolygonTypeName(Enum):
     other = "other"
     unknown = "unknown"
 
+
 class PolygonType(BaseModel):
     """Information about a polygon extracted from the map legend."""
 
-    id: int = Field(..., description="Internal ID")
+    id: str = Field(..., description="Internal ID")
     name: PolygonTypeName = Field(..., description="Type of feature")
 
     color: str = Field(..., description="Color extracted from map/legend")
@@ -63,13 +64,11 @@ class PolygonType(BaseModel):
     map_unit: Optional[GeologicUnit] = Field(..., description="Map unit information")
 
 
-
 class PolygonFeature(BaseModel):
     """Polygon containing map unit information."""
 
-    id: int = Field(..., description="Internal ID")
-
     geometry: Polygon = Field(..., description="Polygon geometry")
+    id: str = Field(..., description="Internal ID")
     type: PolygonType = Field(..., description="Polygon type information")
 
 class LineTypeName(Enum):
@@ -106,7 +105,7 @@ class LinePolarity(Enum):
 class LineType(BaseModel):
     """Line type information."""
 
-    id: int = Field(..., description="Internal ID")
+    id: str = Field(..., description="Internal ID")
 
     name: LineTypeName = Field(
         ...,
@@ -121,9 +120,8 @@ class LineType(BaseModel):
 class LineFeature(BaseModel):
     """Line containing map unit information."""
 
-    id: int = Field(..., description="Internal ID")
-
     geometry: Line = Field(..., description="Line geometry")
+    id: str = Field(..., description="Internal ID")
     name: Optional[str] = Field(
         ..., description="Name of this map feature", examples=["San Andreas Fault"]
     )
@@ -153,7 +151,7 @@ class PointTypeName(Enum):
 class PointType(BaseModel):
     """Point type information."""
 
-    id: int = Field(..., description="Internal ID")
+    id: str = Field(..., description="Internal ID")
     name: PointTypeName = Field(
         ...,
         description="Name of this point type",
@@ -165,7 +163,7 @@ class PointType(BaseModel):
 class PointFeature(BaseModel):
     """Point for map measurement"""
 
-    id: int = Field(..., description="Internal ID")
+    id: str = Field(..., description="Internal ID")
     type: PointType = Field(..., description="Point type")
     geometry: Point = Field(..., description="Point geometry")
     dip_direction: Optional[float] = Field(..., description="Dip direction")
@@ -243,13 +241,12 @@ class MapFeatureExtractions(BaseModel):
     pipelines: list[ModelRun]
 
 
-
 class GroundControlPoint(BaseModel):
     """Ground control point"""
 
-    id: int = Field(..., description="Internal ID")
     map_geom: Point = Field(..., description="Point geometry")
     px_geom: Point = Field(..., description="Point geometry")
+    id: str = Field(..., description="Internal ID")
 
 
 class ProjectionMeta(BaseModel):
@@ -267,7 +264,7 @@ class CrossSection(BaseModel):
     NOTE: This would be nice to have but isn't required (especially for the initial target).
     """
 
-    id: int = Field(..., description="Internal ID")
+    id: str = Field(..., description="Internal ID")
     label: str = Field(..., description="Cross section label")
     line_of_section: Line = Field(..., description="Geographic line of section")
     image: PixelBoundingPolygon = Field(..., description="Bounding pixel coordinates of the cross section")
@@ -277,6 +274,7 @@ class Map(BaseModel):
     """Basic information about the extracted map."""
 
     name: str = Field(..., description="Map name")
+    id: str = Field(..., description="Unique ID to identify this raster map, such as MD5")
     source_url: str = Field(
         ..., description="URL of the map source (e.g., NGMDB information page)"
     )
