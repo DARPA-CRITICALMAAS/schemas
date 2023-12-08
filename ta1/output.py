@@ -325,6 +325,7 @@ class Map(BaseModel):
     )
     image_size: list[int] = Field(..., description="Pixel size of the map image")
 
+    map_metadata: MapMetadata
     features: MapFeatureExtractions
     cross_sections: Optional[list[CrossSection]]    
     projection_info: GeoReferenceMeta
