@@ -5,23 +5,19 @@
 ### Properties
 
 - **`name`** *(string)*: Map name.
+- **`id`** *(string)*: Unique ID to identify this raster map, such as MD5.
 - **`source_url`** *(string)*: URL of the map source (e.g., NGMDB information page).
 - **`image_url`** *(string)*: URL of the map image, as a web-accessible, cloud-optimized GeoTIFF.
 - **`image_size`** *(array)*: Pixel size of the map image.
   - **Items** *(integer)*
-- **`authors`** *(string)*: Map authors.
-- **`publisher`** *(string)*: Map publisher.
-- **`year`** *(integer)*: Map publication year.
-- **`organization`** *(string)*: Map organization.
-- **`scale`** *(string)*: Map scale.
-- **`bounds`**: Map geographic bounds.
+- **`map_metadata`**: Refer to *[MapMetadata](#MapMetadata)*.
 - **`features`**: Refer to *[MapFeatureExtractions](#MapFeatureExtractions)*.
 - **`cross_sections`**
   - **Any of**
     - *array*
       - **Items**: Refer to *[CrossSection](#CrossSection)*.
     - *null*
-- **`projection_info`**: Refer to *[ProjectionMeta](#ProjectionMeta)*.
+- **`projection_info`**: Refer to *[GeoReferenceMeta](#GeoReferenceMeta)*.
 
 ## ConfidenceEstimation
 
@@ -49,15 +45,18 @@
 
 *Information about a geological cross section (lines of section + images).
 
-    NOTE: This would be nice to have but isn't required (especially for the initial target).
-    *
+NOTE: This would be nice to have but isn't required (especially for the initial target).*
 
 ### Properties
 
-- **`id`** *(integer)*: Internal ID.
+- **`id`** *(string)*: Internal ID.
 - **`label`** *(string)*: Cross section label.
 - **`line_of_section`**: Geographic line of section.
-- **`image`**: Bounding pixel coordinates of the cross section.
+- **`px_geom`**: Bounding pixel coordinates of the cross section.
+- **`confidence`**: Confidence associated with this extraction.
+  - **Any of**
+    - *number*
+    - *null*
 
 ## ExtractionIdentifier
 
@@ -69,11 +68,25 @@
 - **`id`** *(integer)*: ID of the extracted feature.
 - **`field`** *(string)*: Field name of the model.
 
+## GeoReferenceMeta
+
+*Geo-referencing and projection info about the map. Projection information should also be applied
+to the map image and output vector data (if using GeoPackage output format).*
+
+### Properties
+
+- **`gcps`** *(array)*: Ground control points.
+  - **Items**: Refer to *[GroundControlPoint](#GroundControlPoint)*.
+- **`projection`** *(string)*: Map projection information.
+- **`bounds`**: Polygon boundary of the map area, in world coordinates.
+- **`provenance`**: Provenance for this extraction.
+  - **Any of**
+    - : Refer to *[ProvenanceType](#ProvenanceType)*.
+    - *null*
+
 ## GeologicUnit
 
-*
-    Information about a geologic unit synthesized from map legend extractions.
-    *
+*Information about a geologic unit synthesized from map legend extractions.*
 
 ### Properties
 
@@ -131,9 +144,17 @@
 
 ### Properties
 
-- **`id`** *(integer)*: Internal ID.
-- **`map_geom`**: Point geometry.
-- **`px_geom`**: Point geometry.
+- **`id`** *(string)*: Internal ID.
+- **`map_geom`**: Point geometry, world coordinates.
+- **`px_geom`**: Point geometry, pixel coordinates.
+- **`confidence`**: Confidence associated with this extraction.
+  - **Any of**
+    - *number*
+    - *null*
+- **`provenance`**: Provenance for this extraction.
+  - **Any of**
+    - : Refer to *[ProvenanceType](#ProvenanceType)*.
+    - *null*
 
 ## LineFeature
 
@@ -141,8 +162,9 @@
 
 ### Properties
 
-- **`id`** *(integer)*: Internal ID.
-- **`geometry`**: Line geometry.
+- **`id`** *(string)*: Internal ID.
+- **`map_geom`**: Line geometry, world coordinates.
+- **`px_geom`**: Line geometry, pixel coordinates.
 - **`name`**: Name of this map feature.
   - **Any of**
     - *string*
@@ -169,6 +191,14 @@
   -1
   ```
 
+- **`confidence`**: Confidence associated with this extraction.
+  - **Any of**
+    - *number*
+    - *null*
+- **`provenance`**: Provenance for this extraction.
+  - **Any of**
+    - : Refer to *[ProvenanceType](#ProvenanceType)*.
+    - *null*
 
 ## LineType
 
@@ -176,7 +206,7 @@
 
 ### Properties
 
-- **`id`** *(integer)*: Internal ID.
+- **`id`** *(string)*: Internal ID.
 - **`name`**: Name of this line type.
   - **All of**
     - : Refer to *[LineTypeName](#LineTypeName)*.
@@ -222,6 +252,27 @@
 - **`pipelines`** *(array)*
   - **Items**: Refer to *[ModelRun](#ModelRun)*.
 
+## MapMetadata
+
+*Map Metadata extractions*
+
+### Properties
+
+- **`id`** *(string)*: Internal ID.
+- **`authors`** *(string)*: Map authors.
+- **`publisher`** *(string)*: Map publisher.
+- **`year`** *(integer)*: Map publication year.
+- **`organization`** *(string)*: Map organization.
+- **`scale`** *(string)*: Map scale.
+- **`confidence`**: Confidence associated with these extractions.
+  - **Any of**
+    - *number*
+    - *null*
+- **`provenance`**: Provenance for this extraction.
+  - **Any of**
+    - : Refer to *[ProvenanceType](#ProvenanceType)*.
+    - *null*
+
 ## ModelRun
 
 *Information about a model run.*
@@ -257,6 +308,14 @@
   - **Any of**
     - : Refer to *[ExtractionIdentifier](#ExtractionIdentifier)*.
     - *null*
+- **`confidence`**: Confidence associated with this extraction.
+  - **Any of**
+    - *number*
+    - *null*
+- **`provenance`**: Provenance for this extraction.
+  - **Any of**
+    - : Refer to *[ProvenanceType](#ProvenanceType)*.
+    - *null*
 
 ## PointFeature
 
@@ -264,11 +323,12 @@
 
 ### Properties
 
-- **`id`** *(integer)*: Internal ID.
+- **`id`** *(string)*: Internal ID.
 - **`type`**: Point type.
   - **All of**
     - : Refer to *[PointType](#PointType)*.
-- **`geometry`**: Point geometry.
+- **`map_geom`**: Point geometry, world coordinates.
+- **`px_geom`**: Point geometry, pixel coordinates.
 - **`dip_direction`**: Dip direction.
   - **Any of**
     - *number*
@@ -277,6 +337,14 @@
   - **Any of**
     - *number*
     - *null*
+- **`confidence`**: Confidence associated with this extraction.
+  - **Any of**
+    - *number*
+    - *null*
+- **`provenance`**: Provenance for this extraction.
+  - **Any of**
+    - : Refer to *[ProvenanceType](#ProvenanceType)*.
+    - *null*
 
 ## PointType
 
@@ -284,7 +352,7 @@
 
 ### Properties
 
-- **`id`** *(integer)*: Internal ID.
+- **`id`** *(string)*: Internal ID.
 - **`name`**: Name of this point type.
   - **All of**
     - : Refer to *[PointTypeName](#PointTypeName)*.
@@ -317,11 +385,20 @@
 
 ### Properties
 
-- **`id`** *(integer)*: Internal ID.
-- **`geometry`**: Polygon geometry.
+- **`id`** *(string)*: Internal ID.
+- **`map_geom`**: Polygon geometry, world coordinates.
+- **`px_geom`**: Polygon geometry, pixel coordinates.
 - **`type`**: Polygon type information.
   - **All of**
     - : Refer to *[PolygonType](#PolygonType)*.
+- **`confidence`**: Confidence associated with this extraction.
+  - **Any of**
+    - *number*
+    - *null*
+- **`provenance`**: Provenance for this extraction.
+  - **Any of**
+    - : Refer to *[ProvenanceType](#ProvenanceType)*.
+    - *null*
 
 ## PolygonType
 
@@ -329,7 +406,7 @@
 
 ### Properties
 
-- **`id`** *(integer)*: Internal ID.
+- **`id`** *(string)*: Internal ID.
 - **`name`**: Type of feature.
   - **All of**
     - : Refer to *[PolygonTypeName](#PolygonTypeName)*.
@@ -354,15 +431,4 @@
   - **Any of**
     - : Refer to *[GeologicUnit](#GeologicUnit)*.
     - *null*
-
-## ProjectionMeta
-
-*Information about the map projection. Projection information should also be applied
-    to the map image and output vector data (if using GeoPackage output format).*
-
-### Properties
-
-- **`gcps`** *(array)*: Ground control points.
-  - **Items**: Refer to *[GroundControlPoint](#GroundControlPoint)*.
-- **`projection`** *(string)*: Map projection information.
 

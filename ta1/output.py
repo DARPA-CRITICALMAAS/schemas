@@ -11,6 +11,18 @@ WKT = TypeVar("WKT", bound=str)
 PixelBoundingPolygon = TypeVar("PixelBoundingPolygon")
 
 
+class ProvenanceType(Enum):
+    """
+    Type of provenance for data and extractions
+    """
+    ground_truth = "ground truth"           # ground truth data/annotations
+    human_verified = "human verified"       # extraction(s) verified by human-in-loop
+    human_modified = "human modified"       # extraction(s) modified by human-in-loop
+    modelled = "modelled"                   # model or algorithm-based predictions
+    raw_data = "raw data"                   # raw data object
+    skipped = "not processed"               # data/extractions were excluded 
+
+
 class GeologicUnit(BaseModel):
     """
     Information about a geologic unit synthesized from map legend extractions.
@@ -45,10 +57,11 @@ class PolygonTypeName(Enum):
     other = "other"
     unknown = "unknown"
 
+
 class PolygonType(BaseModel):
     """Information about a polygon extracted from the map legend."""
 
-    id: int = Field(..., description="Internal ID")
+    id: str = Field(..., description="Internal ID")
     name: PolygonTypeName = Field(..., description="Type of feature")
 
     color: str = Field(..., description="Color extracted from map/legend")
@@ -63,14 +76,16 @@ class PolygonType(BaseModel):
     map_unit: Optional[GeologicUnit] = Field(..., description="Map unit information")
 
 
-
 class PolygonFeature(BaseModel):
     """Polygon containing map unit information."""
 
-    id: int = Field(..., description="Internal ID")
-
-    geometry: Polygon = Field(..., description="Polygon geometry")
+    id: str = Field(..., description="Internal ID")
+    map_geom: Polygon = Field(..., description="Polygon geometry, world coordinates")
+    px_geom: PixelBoundingPolygon = Field(..., description="Polygon geometry, pixel coordinates") 
     type: PolygonType = Field(..., description="Polygon type information")
+    confidence: Optional[float] = Field(..., description="Confidence associated with this extraction")
+    provenance: Optional[ProvenanceType] = Field(..., description="Provenance for this extraction")
+
 
 class LineTypeName(Enum):
     anticline = "anticline"
@@ -106,7 +121,7 @@ class LinePolarity(Enum):
 class LineType(BaseModel):
     """Line type information."""
 
-    id: int = Field(..., description="Internal ID")
+    id: str = Field(..., description="Internal ID")
 
     name: LineTypeName = Field(
         ...,
@@ -121,17 +136,18 @@ class LineType(BaseModel):
 class LineFeature(BaseModel):
     """Line containing map unit information."""
 
-    id: int = Field(..., description="Internal ID")
-
-    geometry: Line = Field(..., description="Line geometry")
+    id: str = Field(..., description="Internal ID")
+    map_geom: Line = Field(..., description="Line geometry, world coordinates")
+    px_geom: Line = Field(..., description="Line geometry, pixel coordinates") 
     name: Optional[str] = Field(
         ..., description="Name of this map feature", examples=["San Andreas Fault"]
     )
-
     type: LineType = Field(..., description="Line type")
     direction: LinePolarity = Field(
         ..., description="Line polarity", examples=[1, -1]
     )
+    confidence: Optional[float] = Field(..., description="Confidence associated with this extraction")
+    provenance: Optional[ProvenanceType] = Field(..., description="Provenance for this extraction")
 
 
 class PointTypeName(Enum):
@@ -153,7 +169,7 @@ class PointTypeName(Enum):
 class PointType(BaseModel):
     """Point type information."""
 
-    id: int = Field(..., description="Internal ID")
+    id: str = Field(..., description="Internal ID")
     name: PointTypeName = Field(
         ...,
         description="Name of this point type",
@@ -165,11 +181,14 @@ class PointType(BaseModel):
 class PointFeature(BaseModel):
     """Point for map measurement"""
 
-    id: int = Field(..., description="Internal ID")
+    id: str = Field(..., description="Internal ID")
     type: PointType = Field(..., description="Point type")
-    geometry: Point = Field(..., description="Point geometry")
+    map_geom: Point = Field(..., description="Point geometry, world coordinates")
+    px_geom: Point = Field(..., description="Point geometry, pixel coordinates")    
     dip_direction: Optional[float] = Field(..., description="Dip direction")
     dip: Optional[float] = Field(..., description="Dip")
+    confidence: Optional[float] = Field(..., description="Confidence associated with this extraction")
+    provenance: Optional[ProvenanceType] = Field(..., description="Provenance for this extraction")
 
 
 class ExtractionIdentifier(BaseModel):
@@ -221,6 +240,8 @@ class PageExtraction(BaseModel):
         ..., description="Bounds of the page extraction, in pixel coordinates"
     )
     model: Optional[ExtractionIdentifier]
+    confidence: Optional[float] = Field(..., description="Confidence associated with this extraction")
+    provenance: Optional[ProvenanceType] = Field(..., description="Provenance for this extraction")
 
 
 class ModelRun(BaseModel):
@@ -243,22 +264,24 @@ class MapFeatureExtractions(BaseModel):
     pipelines: list[ModelRun]
 
 
-
 class GroundControlPoint(BaseModel):
     """Ground control point"""
 
-    id: int = Field(..., description="Internal ID")
-    map_geom: Point = Field(..., description="Point geometry")
-    px_geom: Point = Field(..., description="Point geometry")
+    id: str = Field(..., description="Internal ID")
+    map_geom: Point = Field(..., description="Point geometry, world coordinates")
+    px_geom: Point = Field(..., description="Point geometry, pixel coordinates")
+    confidence: Optional[float] = Field(..., description="Confidence associated with this extraction")
+    provenance: Optional[ProvenanceType] = Field(..., description="Provenance for this extraction")
 
 
-class ProjectionMeta(BaseModel):
-    """Information about the map projection. Projection information should also be applied
+class GeoReferenceMeta(BaseModel):
+    """Geo-referencing and projection info about the map. Projection information should also be applied
     to the map image and output vector data (if using GeoPackage output format)."""
 
     gcps: list[GroundControlPoint] = Field(..., description="Ground control points")
     projection: WKT = Field(..., description="Map projection information")
-
+    bounds: Polygon = Field(..., description="Polygon boundary of the map area, in world coordinates")
+    provenance: Optional[ProvenanceType] = Field(..., description="Provenance for this extraction")
 
 
 class CrossSection(BaseModel):
@@ -267,16 +290,31 @@ class CrossSection(BaseModel):
     NOTE: This would be nice to have but isn't required (especially for the initial target).
     """
 
-    id: int = Field(..., description="Internal ID")
+    id: str = Field(..., description="Internal ID")
     label: str = Field(..., description="Cross section label")
     line_of_section: Line = Field(..., description="Geographic line of section")
-    image: PixelBoundingPolygon = Field(..., description="Bounding pixel coordinates of the cross section")
+    px_geom: PixelBoundingPolygon = Field(..., description="Bounding pixel coordinates of the cross section")
+    confidence: Optional[float] = Field(..., description="Confidence associated with this extraction")
+
+
+class MapMetadata(BaseModel):
+    """Map Metadata extractions"""
+
+    id: str = Field(..., description="Internal ID")
+    authors: str = Field(..., description="Map authors")
+    publisher: str = Field(..., description="Map publisher")
+    year: int = Field(..., description="Map publication year")
+    organization: str = Field(..., description="Map organization")
+    scale: str = Field(..., description="Map scale")
+    confidence: Optional[float] = Field(..., description="Confidence associated with these extractions")
+    provenance: Optional[ProvenanceType] = Field(..., description="Provenance for this extraction")
 
 
 class Map(BaseModel):
     """Basic information about the extracted map."""
 
     name: str = Field(..., description="Map name")
+    id: str = Field(..., description="Unique ID to identify this raster map, such as MD5")
     source_url: str = Field(
         ..., description="URL of the map source (e.g., NGMDB information page)"
     )
@@ -287,16 +325,8 @@ class Map(BaseModel):
     )
     image_size: list[int] = Field(..., description="Pixel size of the map image")
 
-    authors: str = Field(..., description="Map authors")
-    publisher: str = Field(..., description="Map publisher")
-    year: int = Field(..., description="Map publication year")
-    organization: str = Field(..., description="Map organization")
-    scale: str = Field(..., description="Map scale")
-    bounds: Polygon = Field(..., description="Map geographic bounds")
-
+    map_metadata: MapMetadata
     features: MapFeatureExtractions
-    cross_sections: Optional[list[CrossSection]]
-
-    
-    projection_info: ProjectionMeta
+    cross_sections: Optional[list[CrossSection]]    
+    projection_info: GeoReferenceMeta
 
