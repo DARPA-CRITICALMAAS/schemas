@@ -127,14 +127,13 @@ class GeologyInfo(BaseModel):
     comments: Optional[str]
 
 class MineralSite(BaseModel):
-    id: str
+    source_id: str = Field(description="Source dataset that the site info is retrieved from. e.g., MRDS")
+    record_id: str = Field(description="Unique ID of the record that the info is retrieved from e.g., 10022920")
     name: str = Field(description = "Name of the mine, e.g., Tungsten Jim")
     mineral_inventory: list[MineralInventory]
     location_info: LocationInfo
-    geology_info: GeologyInfo
+    geology_info: Optional[GeologyInfo]
     deposit_type: Optional[DepositType] = Field(description="The deposit type of an inventory item")
-    source_id: str = Field(description="Source dataset that the site info is retrieved from. e.g., MRDS")
-    record_id: str = Field(description="Unique ID of the record that the info is retrieved from e.g., 10022920")
     same_as: Optional[dict] = Field(
         description='Dictionary that stores the IDs point to other databases: e.g.: {{"source_id":"MRDS", "record_id":"10022920"}, {"source_id":"USMIN", "record_id":"ID00055"}}')
 

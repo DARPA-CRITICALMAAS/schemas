@@ -2,12 +2,16 @@
 
 ### Properties
 
-- **`id`** *(string)*
+- **`source_id`** *(string)*: Source dataset that the site info is retrieved from. e.g., MRDS.
+- **`record_id`** *(string)*: Unique ID of the record that the info is retrieved from e.g., 10022920.
 - **`name`** *(string)*: Name of the mine, e.g., Tungsten Jim.
 - **`mineral_inventory`** *(array)*
   - **Items**: Refer to *[MineralInventory](#MineralInventory)*.
 - **`location_info`**: Refer to *[LocationInfo](#LocationInfo)*.
-- **`geology_info`**: Refer to *[GeologyInfo](#GeologyInfo)*.
+- **`geology_info`**
+  - **Any of**
+    - : Refer to *[GeologyInfo](#GeologyInfo)*.
+    - *null*
 - **`deposit_type`**: The deposit type of an inventory item.
   - **Any of**
     - : Refer to *[DepositType](#DepositType)*.
@@ -135,9 +139,7 @@
 ### Properties
 
 - **`location`**: Type: Polygon or Point, value indicates the geolocation of the site.
-- **`location_source`** *(string)*: Source dataset that the location info is retrieved from. e.g., MRDS.
 - **`crs`** *(string)*: The Coordinate Reference System (CRS) of the location.
-- **`location_source_record_id`** *(string)*: ID points to the same_as field in MineralSites.
 - **`country`**: Country that the mine site resides in.
   - **Any of**
     - *string*
