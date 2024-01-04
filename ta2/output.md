@@ -2,17 +2,21 @@
 
 ### Properties
 
-- **`id`** *(string)*
+- **`source_id`** *(string)*: Source dataset that the site info is retrieved from. e.g., MRDS.
+- **`record_id`** *(string)*: Unique ID of the record that the info is retrieved from e.g., 10022920.
 - **`name`** *(string)*: Name of the mine, e.g., Tungsten Jim.
 - **`mineral_inventory`** *(array)*
   - **Items**: Refer to *[MineralInventory](#MineralInventory)*.
 - **`location_info`**: Refer to *[LocationInfo](#LocationInfo)*.
-- **`geology_info`**: Refer to *[GeologyInfo](#GeologyInfo)*.
+- **`geology_info`**
+  - **Any of**
+    - : Refer to *[GeologyInfo](#GeologyInfo)*.
+    - *null*
 - **`deposit_type`**: The deposit type of an inventory item.
   - **Any of**
     - : Refer to *[DepositType](#DepositType)*.
     - *null*
-- **`same_as`**: Dictionary that stores the IDs point to other databases: e.g.: {"MRDS" : [{"id":1,"Attributes": {"dep_id" : "10289747","mrds_id" : "W018008", "altername_or_previous_names": "Thompson Creek Tungsten Mine, Tungsten Jim Mine" }, "geometry": "POINT (-112.22194434499863 46.756337603970515)"},{"id":2,"Attributes": {"dep_id": "10022920", "mrds_id":"FS00436", "record_type":"Site"},"geometry": "POINT (-112.84298100894938 46.869337351353394)"}], "USMIN" : [ {"id":8, "Attributes": {"ftr_id":"Mf00576", "site_id":"ID00055", "ftr_name":"Tungsten Jim"}, "geometry":"POINT (-112.47445877319991 46.68033517492356)"}, {"id":10, "Attributes": {"ftr_id":"Mo00569", "site_id":"ID00055" }, "geometry":"POINT (-114.58608965399998 44.333859519000065)"} ]}.
+- **`same_as`**: Dictionary that stores the IDs point to other databases: e.g.: {{"source_id":"MRDS", "record_id":"10022920"}, {"source_id":"USMIN", "record_id":"ID00055"}}.
   - **Any of**
     - *object*
     - *null*
@@ -135,9 +139,7 @@
 ### Properties
 
 - **`location`**: Type: Polygon or Point, value indicates the geolocation of the site.
-- **`location_source`** *(string)*: Source dataset that the location info is retrieved from. e.g., MRDS.
 - **`crs`** *(string)*: The Coordinate Reference System (CRS) of the location.
-- **`location_source_record_id`** *(string)*: ID points to the same_as field in MineralSites.
 - **`country`**: Country that the mine site resides in.
   - **Any of**
     - *string*

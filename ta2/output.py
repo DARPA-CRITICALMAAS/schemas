@@ -127,16 +127,15 @@ class GeologyInfo(BaseModel):
     comments: Optional[str]
 
 class MineralSite(BaseModel):
-    id: str
+    source_id: str = Field(description="Source dataset that the site info is retrieved from. e.g., MRDS")
+    record_id: str = Field(description="Unique ID of the record that the info is retrieved from e.g., 10022920")
     name: str = Field(description = "Name of the mine, e.g., Tungsten Jim")
     mineral_inventory: list[MineralInventory]
     location_info: LocationInfo
-    geology_info: GeologyInfo
-    source_id: str = Field(description = "Source dataset that the site info is retrieved from. e.g., MRDS")
-    record_id: str = Field(description="Unique ID of the record that the info is retrieved from e.g., 10022920")
+    geology_info: Optional[GeologyInfo]
     deposit_type: Optional[DepositType] = Field(description="The deposit type of an inventory item")
     same_as: Optional[dict] = Field(
-        description='Dictionary that stores the IDs point to other databases: e.g.: {{"source_ID":"MRDS", "record_id":"10022920"}, {"source_ID":"USMIN", "record_id":"ID00055"}}')
+        description='Dictionary that stores the IDs point to other databases: e.g.: {{"source_id":"MRDS", "record_id":"10022920"}, {"source_id":"USMIN", "record_id":"ID00055"}}')
 
 
 # Schemas can conform to other ones by inheriting from them or by declaring conformance
@@ -182,5 +181,5 @@ with open(name + ".md", "w") as f:
     f.write(text)
 
     same_as: Optional[dict] = Field(
-        description='Dictionary that stores the IDs point to other databases: e.g.: {"MRDS" : [{"dep_id" : "10289747","mrds_id" : "W018008",    "altername_or_previous_names": "Thompson Creek Tungsten Mine, Tungsten Jim Mine"    },    {"dep_id": "10022920",    "mrds_id":"FS00436",    "record_type":"Site"}  ],  "USMIN" : [  {"ftr_id":"Mf00576",  "site_id":"ID00055",  "ftr_name":"Tungsten Jim"},  {"ftr_id":"Mo00569",  "site_id":"ID00055"  }  ]}'
+        description='Dictionary that stores the IDs point to other databases: e.g.: {{"source_id":"MRDS", "record_id":"10022920"}, {"source_id":"USMIN", "record_id":"ID00055"}}'
     )
