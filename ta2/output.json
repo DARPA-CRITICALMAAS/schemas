@@ -31,17 +31,12 @@
       },
       "Commodity": {
         "properties": {
-          "id": {
-            "title": "Id",
-            "type": "string"
-          },
           "name": {
             "title": "Name",
             "type": "string"
           }
         },
         "required": [
-          "id",
           "name"
         ],
         "title": "Commodity",
@@ -49,10 +44,6 @@
       },
       "DepositType": {
         "properties": {
-          "id": {
-            "title": "Id",
-            "type": "string"
-          },
           "name": {
             "description": "Name of the deposit type",
             "title": "Name",
@@ -60,7 +51,6 @@
           }
         },
         "required": [
-          "id",
           "name"
         ],
         "title": "DepositType",
@@ -68,10 +58,6 @@
       },
       "Document": {
         "properties": {
-          "id": {
-            "title": "Id",
-            "type": "string"
-          },
           "title": {
             "anyOf": [
               {
@@ -197,7 +183,6 @@
           }
         },
         "required": [
-          "id",
           "title",
           "doi",
           "uri",
@@ -341,19 +326,9 @@
             "description": "Type: Polygon or Point, value indicates the geolocation of the site",
             "title": "Location"
           },
-          "location_source": {
-            "description": "Source dataset that the location info is retrieved from. e.g., MRDS",
-            "title": "Location Source",
-            "type": "string"
-          },
           "crs": {
             "description": "The Coordinate Reference System (CRS) of the location",
             "title": "Crs",
-            "type": "string"
-          },
-          "location_source_record_id": {
-            "description": "ID points to the same_as field in MineralSites",
-            "title": "Location Source Record Id",
             "type": "string"
           },
           "country": {
@@ -383,9 +358,7 @@
         },
         "required": [
           "location",
-          "location_source",
           "crs",
-          "location_source_record_id",
           "country",
           "state_or_province"
         ],
@@ -394,10 +367,6 @@
       },
       "MineralInventory": {
         "properties": {
-          "id": {
-            "title": "Id",
-            "type": "string"
-          },
           "commodity": {
             "allOf": [
               {
@@ -463,12 +432,9 @@
             "title": "Contained Metal"
           },
           "reference": {
-            "anyOf": [
+            "allOf": [
               {
                 "$ref": "#/$defs/Reference"
-              },
-              {
-                "type": "null"
               }
             ],
             "description": "The reference of an inventory item"
@@ -500,7 +466,6 @@
           }
         },
         "required": [
-          "id",
           "commodity",
           "category",
           "ore",
@@ -561,10 +526,6 @@
       },
       "Reference": {
         "properties": {
-          "id": {
-            "title": "Id",
-            "type": "string"
-          },
           "document": {
             "$ref": "#/$defs/Document"
           },
@@ -578,7 +539,6 @@
           }
         },
         "required": [
-          "id",
           "document",
           "page_info"
         ],
@@ -601,8 +561,14 @@
       }
     },
     "properties": {
-      "id": {
-        "title": "Id",
+      "source_id": {
+        "description": "Source dataset that the site info is retrieved from. e.g., MRDS",
+        "title": "Source Id",
+        "type": "string"
+      },
+      "record_id": {
+        "description": "Unique ID of the record that the info is retrieved from e.g., 10022920",
+        "title": "Record Id",
         "type": "string"
       },
       "name": {
@@ -621,7 +587,14 @@
         "$ref": "#/$defs/LocationInfo"
       },
       "geology_info": {
-        "$ref": "#/$defs/GeologyInfo"
+        "anyOf": [
+          {
+            "$ref": "#/$defs/GeologyInfo"
+          },
+          {
+            "type": "null"
+          }
+        ]
       },
       "deposit_type": {
         "anyOf": [
@@ -643,12 +616,13 @@
             "type": "null"
           }
         ],
-        "description": "Dictionary that stores the IDs point to other databases: e.g.: {\"MRDS\" : [{\"id\":1,\"Attributes\": {\"dep_id\" : \"10289747\",\"mrds_id\" : \"W018008\", \"altername_or_previous_names\": \"Thompson Creek Tungsten Mine, Tungsten Jim Mine\" }, \"geometry\": \"POINT (-112.22194434499863 46.756337603970515)\"},{\"id\":2,\"Attributes\": {\"dep_id\": \"10022920\", \"mrds_id\":\"FS00436\", \"record_type\":\"Site\"},\"geometry\": \"POINT (-112.84298100894938 46.869337351353394)\"}], \"USMIN\" : [ {\"id\":8, \"Attributes\": {\"ftr_id\":\"Mf00576\", \"site_id\":\"ID00055\", \"ftr_name\":\"Tungsten Jim\"}, \"geometry\":\"POINT (-112.47445877319991 46.68033517492356)\"}, {\"id\":10, \"Attributes\": {\"ftr_id\":\"Mo00569\", \"site_id\":\"ID00055\" }, \"geometry\":\"POINT (-114.58608965399998 44.333859519000065)\"} ]}",
+        "description": "Dictionary that stores the IDs point to other databases: e.g.: {{\"source_id\":\"MRDS\", \"record_id\":\"10022920\"}, {\"source_id\":\"USMIN\", \"record_id\":\"ID00055\"}}",
         "title": "Same As"
       }
     },
     "required": [
-      "id",
+      "source_id",
+      "record_id",
       "name",
       "mineral_inventory",
       "location_info",
@@ -691,10 +665,6 @@
       },
       "DepositType": {
         "properties": {
-          "id": {
-            "title": "Id",
-            "type": "string"
-          },
           "name": {
             "description": "Name of the deposit type",
             "title": "Name",
@@ -702,7 +672,6 @@
           }
         },
         "required": [
-          "id",
           "name"
         ],
         "title": "DepositType",
@@ -710,10 +679,6 @@
       },
       "Document": {
         "properties": {
-          "id": {
-            "title": "Id",
-            "type": "string"
-          },
           "title": {
             "anyOf": [
               {
@@ -839,7 +804,6 @@
           }
         },
         "required": [
-          "id",
           "title",
           "doi",
           "uri",
@@ -926,10 +890,6 @@
       },
       "Reference": {
         "properties": {
-          "id": {
-            "title": "Id",
-            "type": "string"
-          },
           "document": {
             "$ref": "#/$defs/Document"
           },
@@ -943,7 +903,6 @@
           }
         },
         "required": [
-          "id",
           "document",
           "page_info"
         ],

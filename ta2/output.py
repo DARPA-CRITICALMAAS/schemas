@@ -37,7 +37,6 @@ class Ore(BaseModel):
     ore_value: float = Field( description="The value of ore quantity")
 
 class DepositType(BaseModel):
-    id: str
     name: str = Field( description="Name of the deposit type")
 
 class BoundingBox(BaseModel):
@@ -51,7 +50,6 @@ class PageInfo(BaseModel):
     bounding_box: Optional[BoundingBox] = Field(description="Coordinates of the document where reference is found")
 
 class Document(BaseModel):
-    id: str
     title: Optional[str] = Field( description="Title of the document")
     doi: Optional[str] = Field(description="doi of the document")
     uri: Optional[str] = Field(description="URI of the document, if it does not have a doi")
@@ -64,7 +62,6 @@ class Document(BaseModel):
     description: Optional[str] = Field(description="Description of the document")
 
 class Reference(BaseModel):
-    id: str
     document: Document
     page_info: List[PageInfo] = Field(description="List of pages and their respective bounding boxes where the reference is found")
 
@@ -90,7 +87,6 @@ class MineralSystem(BaseModel):
     direct_detection: list[MappableCriteria]
 
 class Commodity(BaseModel):
-    id: str
     name: str
 
 class Grade(BaseModel):
@@ -98,14 +94,13 @@ class Grade(BaseModel):
     grade_value: float = Field( description="The value of grade")
 
 class MineralInventory(BaseModel):
-    id: str
     commodity: Commodity = Field( description="The commodity of an inventory item")
     category: Optional[ResourceReserveCategory] = Field( description="The category of an inventory item")
     ore: Optional[Ore] = Field( description="The ore of an inventory item")
     grade: Optional[Grade] = Field( description="The grade of an inventory item")
     cutoff_grade: Optional[Grade] = Field( description="The cutoff grade of the observed inventory item")
     contained_metal: Optional[float] = Field( description="The quantity of a contained metal in an inventory item")
-    reference: Optional[Reference] = Field( description="The reference of an inventory item")
+    reference: Reference = Field( description="The reference of an inventory item")
     date: Optional[datetime] = Field(description="When in the point of time mineral inventory valid")
     zone: Optional[str] = Field(description="zone of mineral site where inventory item was discovered")
 

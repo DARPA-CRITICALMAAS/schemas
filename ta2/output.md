@@ -34,21 +34,18 @@
 
 ### Properties
 
-- **`id`** *(string)*
 - **`name`** *(string)*
 
 ## DepositType
 
 ### Properties
 
-- **`id`** *(string)*
 - **`name`** *(string)*: Name of the deposit type.
 
 ## Document
 
 ### Properties
 
-- **`id`** *(string)*
 - **`title`**: Title of the document.
   - **Any of**
     - *string*
@@ -169,7 +166,6 @@
 
 ### Properties
 
-- **`id`** *(string)*
 - **`commodity`**: The commodity of an inventory item.
   - **All of**
     - : Refer to *[Commodity](#Commodity)*.
@@ -194,9 +190,8 @@
     - *number*
     - *null*
 - **`reference`**: The reference of an inventory item.
-  - **Any of**
+  - **All of**
     - : Refer to *[Reference](#Reference)*.
-    - *null*
 - **`date`**: When in the point of time mineral inventory valid.
   - **Any of**
     - *string, format: date-time*
@@ -257,7 +252,6 @@
 
 ### Properties
 
-- **`id`** *(string)*
 - **`document`**: Refer to *[Document](#Document)*.
 - **`page_info`** *(array)*: List of pages and their respective bounding boxes where the reference is found.
   - **Items**: Refer to *[PageInfo](#PageInfo)*.
