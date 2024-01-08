@@ -606,18 +606,6 @@
           }
         ],
         "description": "The deposit type of an inventory item"
-      },
-      "same_as": {
-        "anyOf": [
-          {
-            "type": "object"
-          },
-          {
-            "type": "null"
-          }
-        ],
-        "description": "Dictionary that stores the IDs point to other databases: e.g.: {{\"source_id\":\"MRDS\", \"record_id\":\"10022920\"}, {\"source_id\":\"USMIN\", \"record_id\":\"ID00055\"}}",
-        "title": "Same As"
       }
     },
     "required": [
@@ -627,8 +615,7 @@
       "mineral_inventory",
       "location_info",
       "geology_info",
-      "deposit_type",
-      "same_as"
+      "deposit_type"
     ],
     "title": "MineralSite",
     "type": "object"

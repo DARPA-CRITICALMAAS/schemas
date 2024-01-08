@@ -16,10 +16,6 @@
   - **Any of**
     - : Refer to *[DepositType](#DepositType)*.
     - *null*
-- **`same_as`**: Dictionary that stores the IDs point to other databases: e.g.: {{"source_id":"MRDS", "record_id":"10022920"}, {"source_id":"USMIN", "record_id":"ID00055"}}.
-  - **Any of**
-    - *object*
-    - *null*
 
 ## BoundingBox
 
