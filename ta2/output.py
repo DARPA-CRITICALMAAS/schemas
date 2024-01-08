@@ -129,8 +129,6 @@ class MineralSite(BaseModel):
     location_info: LocationInfo
     geology_info: Optional[GeologyInfo]
     deposit_type: Optional[DepositType] = Field(description="The deposit type of an inventory item")
-    same_as: Optional[dict] = Field(
-        description='Dictionary that stores the IDs point to other databases: e.g.: {{"source_id":"MRDS", "record_id":"10022920"}, {"source_id":"USMIN", "record_id":"ID00055"}}')
 
 
 # Schemas can conform to other ones by inheriting from them or by declaring conformance
@@ -174,7 +172,3 @@ text = text.replace("\n#", "\n##")
 
 with open(name + ".md", "w") as f:
     f.write(text)
-
-    same_as: Optional[dict] = Field(
-        description='Dictionary that stores the IDs point to other databases: e.g.: {{"source_id":"MRDS", "record_id":"10022920"}, {"source_id":"USMIN", "record_id":"ID00055"}}'
-    )
