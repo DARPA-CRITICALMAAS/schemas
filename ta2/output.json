@@ -547,14 +547,11 @@
       },
       "ResourceReserveCategory": {
         "enum": [
-          "inferred",
-          "indicated",
-          "measured",
-          "probable",
-          "proven",
-          "original resource",
-          "extracted",
-          "cumulative extracted"
+          "Inferred Mineral Resource",
+          "Indicated Mineral Resource",
+          "Measured Mineral Resource",
+          "Probable Mineral Reserve",
+          "Proven Mineral Reserve"
         ],
         "title": "ResourceReserveCategory",
         "type": "string"

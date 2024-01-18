@@ -14,14 +14,11 @@ Geometry = TypeVar("Geometry")
 
 
 class ResourceReserveCategory(Enum):
-    INFERRED = "inferred"
-    INDICATED = "indicated"
-    MEASURED = "measured"
-    PROBABLE = "probable"
-    PROVEN = "proven"
-    ORIGINAL_RESOURCE = "original resource"
-    EXTRACTED = "extracted"
-    CUMULATIVE_EXTRACTED = "cumulative extracted"
+    INFERRED = "Inferred Mineral Resource"
+    INDICATED = "Indicated Mineral Resource"
+    MEASURED = "Measured Mineral Resource"
+    PROBABLE = "Probable Mineral Reserve"
+    PROVEN = "Proven Mineral Reserve"
 
 class GeologyInfo(BaseModel):
     age: Optional[str] = Field(description = "Age of the geologic unit or event")
