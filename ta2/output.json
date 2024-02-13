@@ -548,17 +548,6 @@
       },
       "PageInfo": {
         "properties": {
-          "text": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Text"
-          },
           "page": {
             "title": "Page",
             "type": "integer"
@@ -576,7 +565,6 @@
           }
         },
         "required": [
-          "text",
           "page",
           "bounding_box"
         ],
@@ -652,11 +640,11 @@
           }
         ]
       },
-      "deposit_type_candidates": {
+      "deposit_type_candidate": {
         "items": {
           "$ref": "#/$defs/DepositTypeCandidate"
         },
-        "title": "Deposit Type Candidates",
+        "title": "Deposit Type Candidate",
         "type": "array"
       }
     },
@@ -667,7 +655,7 @@
       "mineral_inventory",
       "location_info",
       "geology_info",
-      "deposit_type_candidates"
+      "deposit_type_candidate"
     ],
     "title": "MineralSite",
     "type": "object"
@@ -937,17 +925,6 @@
       },
       "PageInfo": {
         "properties": {
-          "text": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Text"
-          },
           "page": {
             "title": "Page",
             "type": "integer"
@@ -965,7 +942,6 @@
           }
         },
         "required": [
-          "text",
           "page",
           "bounding_box"
         ],

@@ -12,7 +12,7 @@
   - **Any of**
     - : Refer to *[GeologyInfo](#GeologyInfo)*.
     - *null*
-- **`deposit_type_candidates`** *(array)*
+- **`deposit_type_candidate`** *(array)*
   - **Items**: Refer to *[DepositTypeCandidate](#DepositTypeCandidate)*.
 
 ## BoundingBox
@@ -242,10 +242,6 @@
 
 ### Properties
 
-- **`text`**
-  - **Any of**
-    - *string*
-    - *null*
 - **`page`** *(integer)*
 - **`bounding_box`**: Coordinates of the document where reference is found.
   - **Any of**

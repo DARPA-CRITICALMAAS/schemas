@@ -51,7 +51,6 @@ class BoundingBox(BaseModel):
     y_max: float
 
 class PageInfo(BaseModel):
-    text: Optional[str]
     page: int
     bounding_box: Optional[BoundingBox] = Field(description="Coordinates of the document where reference is found")
 
@@ -130,7 +129,7 @@ class MineralSite(BaseModel):
     mineral_inventory: list[MineralInventory]
     location_info: LocationInfo
     geology_info: Optional[GeologyInfo]
-    deposit_type_candidates: list[DepositTypeCandidate]
+    deposit_type_candidate: list[DepositTypeCandidate]
 
 
 # Schemas can conform to other ones by inheriting from them or by declaring conformance
