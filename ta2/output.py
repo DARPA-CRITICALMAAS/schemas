@@ -81,11 +81,13 @@ class MappableCriteria(BaseModel):
     supporting_references: list[Reference]
 
 class MineralSystem(BaseModel):
-    deposit_types: list[DepositType]
+    deposit_type: DepositType
     source: list[MappableCriteria]
     pathway: list[MappableCriteria]
-    trap: list[MappableCriteria]
-    preservation: list[MappableCriteria]
+    trap: Optional[list[MappableCriteria]]
+    preservation: Optional[list[MappableCriteria]]
+    energy: Optional[list[MappableCriteria]]
+    outflow: Optional[list[MappableCriteria]]
 
 class Commodity(BaseModel):
     name: str

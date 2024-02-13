@@ -971,12 +971,8 @@
       }
     },
     "properties": {
-      "deposit_types": {
-        "items": {
-          "$ref": "#/$defs/DepositType"
-        },
-        "title": "Deposit Types",
-        "type": "array"
+      "deposit_type": {
+        "$ref": "#/$defs/DepositType"
       },
       "source": {
         "items": {
@@ -993,26 +989,70 @@
         "type": "array"
       },
       "trap": {
-        "items": {
-          "$ref": "#/$defs/MappableCriteria"
-        },
-        "title": "Trap",
-        "type": "array"
+        "anyOf": [
+          {
+            "items": {
+              "$ref": "#/$defs/MappableCriteria"
+            },
+            "type": "array"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Trap"
       },
       "preservation": {
-        "items": {
-          "$ref": "#/$defs/MappableCriteria"
-        },
-        "title": "Preservation",
-        "type": "array"
+        "anyOf": [
+          {
+            "items": {
+              "$ref": "#/$defs/MappableCriteria"
+            },
+            "type": "array"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Preservation"
+      },
+      "energy": {
+        "anyOf": [
+          {
+            "items": {
+              "$ref": "#/$defs/MappableCriteria"
+            },
+            "type": "array"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Energy"
+      },
+      "outflow": {
+        "anyOf": [
+          {
+            "items": {
+              "$ref": "#/$defs/MappableCriteria"
+            },
+            "type": "array"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Outflow"
       }
     },
     "required": [
-      "deposit_types",
+      "deposit_type",
       "source",
       "pathway",
       "trap",
-      "preservation"
+      "preservation",
+      "energy",
+      "outflow"
     ],
     "title": "MineralSystem",
     "type": "object"

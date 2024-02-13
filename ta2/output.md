@@ -220,16 +220,31 @@
 
 ### Properties
 
-- **`deposit_types`** *(array)*
-  - **Items**: Refer to *[DepositType](#DepositType)*.
+- **`deposit_type`**: Refer to *[DepositType](#DepositType)*.
 - **`source`** *(array)*
   - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
 - **`pathway`** *(array)*
   - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
-- **`trap`** *(array)*
-  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
-- **`preservation`** *(array)*
-  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
+- **`trap`**
+  - **Any of**
+    - *array*
+      - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
+    - *null*
+- **`preservation`**
+  - **Any of**
+    - *array*
+      - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
+    - *null*
+- **`energy`**
+  - **Any of**
+    - *array*
+      - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
+    - *null*
+- **`outflow`**
+  - **Any of**
+    - *array*
+      - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
+    - *null*
 
 ## Ore
 
