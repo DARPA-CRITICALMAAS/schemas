@@ -45,15 +45,62 @@
       "DepositType": {
         "properties": {
           "name": {
-            "description": "Name of the deposit type",
+            "description": "Deposit type name",
             "title": "Name",
+            "type": "string"
+          },
+          "environment": {
+            "description": "Deposit type environment",
+            "title": "Environment",
+            "type": "string"
+          },
+          "group": {
+            "description": "Deposit type group",
+            "title": "Group",
             "type": "string"
           }
         },
         "required": [
-          "name"
+          "name",
+          "environment",
+          "group"
         ],
         "title": "DepositType",
+        "type": "object"
+      },
+      "DepositTypeCandidate": {
+        "properties": {
+          "observed_name": {
+            "description": "Source dataset that the site info is retrieved from. e.g., MRDS",
+            "title": "Observed Name",
+            "type": "string"
+          },
+          "normalized_uri": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/DepositType"
+              }
+            ],
+            "description": "The deposit type of an inventory item"
+          },
+          "confidence": {
+            "description": "Score deposit type of an inventory item",
+            "title": "Confidence",
+            "type": "number"
+          },
+          "source": {
+            "description": "Source of the classification (automated model version / SME / etc...)",
+            "title": "Source",
+            "type": "string"
+          }
+        },
+        "required": [
+          "observed_name",
+          "normalized_uri",
+          "confidence",
+          "source"
+        ],
+        "title": "DepositTypeCandidate",
         "type": "object"
       },
       "Document": {
@@ -501,6 +548,17 @@
       },
       "PageInfo": {
         "properties": {
+          "text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Text"
+          },
           "page": {
             "title": "Page",
             "type": "integer"
@@ -518,6 +576,7 @@
           }
         },
         "required": [
+          "text",
           "page",
           "bounding_box"
         ],
@@ -593,16 +652,12 @@
           }
         ]
       },
-      "deposit_type": {
-        "anyOf": [
-          {
-            "$ref": "#/$defs/DepositType"
-          },
-          {
-            "type": "null"
-          }
-        ],
-        "description": "The deposit type of an inventory item"
+      "deposit_type_candidates": {
+        "items": {
+          "$ref": "#/$defs/DepositTypeCandidate"
+        },
+        "title": "Deposit Type Candidates",
+        "type": "array"
       }
     },
     "required": [
@@ -612,7 +667,7 @@
       "mineral_inventory",
       "location_info",
       "geology_info",
-      "deposit_type"
+      "deposit_type_candidates"
     ],
     "title": "MineralSite",
     "type": "object"
@@ -650,13 +705,25 @@
       "DepositType": {
         "properties": {
           "name": {
-            "description": "Name of the deposit type",
+            "description": "Deposit type name",
             "title": "Name",
+            "type": "string"
+          },
+          "environment": {
+            "description": "Deposit type environment",
+            "title": "Environment",
+            "type": "string"
+          },
+          "group": {
+            "description": "Deposit type group",
+            "title": "Group",
             "type": "string"
           }
         },
         "required": [
-          "name"
+          "name",
+          "environment",
+          "group"
         ],
         "title": "DepositType",
         "type": "object"
@@ -802,6 +869,24 @@
         "title": "Document",
         "type": "object"
       },
+      "EvidenceLayer": {
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "relevance_score": {
+            "title": "Relevance Score",
+            "type": "number"
+          }
+        },
+        "required": [
+          "name",
+          "relevance_score"
+        ],
+        "title": "EvidenceLayer",
+        "type": "object"
+      },
       "MappableCriteria": {
         "properties": {
           "criteria": {
@@ -822,7 +907,10 @@
           "potential_dataset": {
             "anyOf": [
               {
-                "type": "string"
+                "items": {
+                  "$ref": "#/$defs/EvidenceLayer"
+                },
+                "type": "array"
               },
               {
                 "type": "null"
@@ -849,6 +937,17 @@
       },
       "PageInfo": {
         "properties": {
+          "text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Text"
+          },
           "page": {
             "title": "Page",
             "type": "integer"
@@ -866,6 +965,7 @@
           }
         },
         "required": [
+          "text",
           "page",
           "bounding_box"
         ],
@@ -895,63 +995,25 @@
       }
     },
     "properties": {
-      "deposit_type": {
-        "$ref": "#/$defs/DepositType"
-      },
-      "trigger": {
+      "deposit_types": {
         "items": {
-          "$ref": "#/$defs/MappableCriteria"
+          "$ref": "#/$defs/DepositType"
         },
-        "title": "Trigger",
+        "title": "Deposit Types",
         "type": "array"
       },
-      "source_fluid": {
+      "source": {
         "items": {
           "$ref": "#/$defs/MappableCriteria"
         },
-        "title": "Source Fluid",
+        "title": "Source",
         "type": "array"
       },
-      "source_ligand": {
+      "pathway": {
         "items": {
           "$ref": "#/$defs/MappableCriteria"
         },
-        "title": "Source Ligand",
-        "type": "array"
-      },
-      "source_metal": {
-        "items": {
-          "$ref": "#/$defs/MappableCriteria"
-        },
-        "title": "Source Metal",
-        "type": "array"
-      },
-      "source_other": {
-        "items": {
-          "$ref": "#/$defs/MappableCriteria"
-        },
-        "title": "Source Other",
-        "type": "array"
-      },
-      "conduit": {
-        "items": {
-          "$ref": "#/$defs/MappableCriteria"
-        },
-        "title": "Conduit",
-        "type": "array"
-      },
-      "driver": {
-        "items": {
-          "$ref": "#/$defs/MappableCriteria"
-        },
-        "title": "Driver",
-        "type": "array"
-      },
-      "throttle": {
-        "items": {
-          "$ref": "#/$defs/MappableCriteria"
-        },
-        "title": "Throttle",
+        "title": "Pathway",
         "type": "array"
       },
       "trap": {
@@ -961,42 +1023,20 @@
         "title": "Trap",
         "type": "array"
       },
-      "dispersion": {
+      "preservation": {
         "items": {
           "$ref": "#/$defs/MappableCriteria"
         },
-        "title": "Dispersion",
-        "type": "array"
-      },
-      "exhumation": {
-        "items": {
-          "$ref": "#/$defs/MappableCriteria"
-        },
-        "title": "Exhumation",
-        "type": "array"
-      },
-      "direct_detection": {
-        "items": {
-          "$ref": "#/$defs/MappableCriteria"
-        },
-        "title": "Direct Detection",
+        "title": "Preservation",
         "type": "array"
       }
     },
     "required": [
-      "deposit_type",
-      "trigger",
-      "source_fluid",
-      "source_ligand",
-      "source_metal",
-      "source_other",
-      "conduit",
-      "driver",
-      "throttle",
+      "deposit_types",
+      "source",
+      "pathway",
       "trap",
-      "dispersion",
-      "exhumation",
-      "direct_detection"
+      "preservation"
     ],
     "title": "MineralSystem",
     "type": "object"

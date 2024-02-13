@@ -12,10 +12,8 @@
   - **Any of**
     - : Refer to *[GeologyInfo](#GeologyInfo)*.
     - *null*
-- **`deposit_type`**: The deposit type of an inventory item.
-  - **Any of**
-    - : Refer to *[DepositType](#DepositType)*.
-    - *null*
+- **`deposit_type_candidates`** *(array)*
+  - **Items**: Refer to *[DepositTypeCandidate](#DepositTypeCandidate)*.
 
 ## BoundingBox
 
@@ -36,7 +34,20 @@
 
 ### Properties
 
-- **`name`** *(string)*: Name of the deposit type.
+- **`name`** *(string)*: Deposit type name.
+- **`environment`** *(string)*: Deposit type environment.
+- **`group`** *(string)*: Deposit type group.
+
+## DepositTypeCandidate
+
+### Properties
+
+- **`observed_name`** *(string)*: Source dataset that the site info is retrieved from. e.g., MRDS.
+- **`normalized_uri`**: The deposit type of an inventory item.
+  - **All of**
+    - : Refer to *[DepositType](#DepositType)*.
+- **`confidence`** *(number)*: Score deposit type of an inventory item.
+- **`source`** *(string)*: Source of the classification (automated model version / SME / etc...).
 
 ## Document
 
@@ -83,6 +94,13 @@
   - **Any of**
     - *string*
     - *null*
+
+## EvidenceLayer
+
+### Properties
+
+- **`name`** *(string)*
+- **`relevance_score`** *(number)*
 
 ## GeologyInfo
 
@@ -153,7 +171,8 @@
     - *null*
 - **`potential_dataset`**
   - **Any of**
-    - *string*
+    - *array*
+      - **Items**: Refer to *[EvidenceLayer](#EvidenceLayer)*.
     - *null*
 - **`supporting_references`** *(array)*
   - **Items**: Refer to *[Reference](#Reference)*.
@@ -201,30 +220,15 @@
 
 ### Properties
 
-- **`deposit_type`**: Refer to *[DepositType](#DepositType)*.
-- **`trigger`** *(array)*
+- **`deposit_types`** *(array)*
+  - **Items**: Refer to *[DepositType](#DepositType)*.
+- **`source`** *(array)*
   - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
-- **`source_fluid`** *(array)*
-  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
-- **`source_ligand`** *(array)*
-  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
-- **`source_metal`** *(array)*
-  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
-- **`source_other`** *(array)*
-  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
-- **`conduit`** *(array)*
-  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
-- **`driver`** *(array)*
-  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
-- **`throttle`** *(array)*
+- **`pathway`** *(array)*
   - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
 - **`trap`** *(array)*
   - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
-- **`dispersion`** *(array)*
-  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
-- **`exhumation`** *(array)*
-  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
-- **`direct_detection`** *(array)*
+- **`preservation`** *(array)*
   - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
 
 ## Ore
@@ -238,6 +242,10 @@
 
 ### Properties
 
+- **`text`**
+  - **Any of**
+    - *string*
+    - *null*
 - **`page`** *(integer)*
 - **`bounding_box`**: Coordinates of the document where reference is found.
   - **Any of**

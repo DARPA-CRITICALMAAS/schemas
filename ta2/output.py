@@ -34,7 +34,15 @@ class Ore(BaseModel):
     ore_value: float = Field( description="The value of ore quantity")
 
 class DepositType(BaseModel):
-    name: str = Field( description="Name of the deposit type")
+    name: str = Field( description="Deposit type name")
+    environment: str = Field( description="Deposit type environment")
+    group: str = Field( description="Deposit type group")
+
+class DepositTypeCandidate(BaseModel):
+    observed_name: str = Field(description="Source dataset that the site info is retrieved from. e.g., MRDS")
+    normalized_uri: DepositType = Field(description="The deposit type of an inventory item")
+    confidence: float = Field(description="Score deposit type of an inventory item")
+    source: str = Field(description="Source of the classification (automated model version / SME / etc...)")
 
 class BoundingBox(BaseModel):
     x_min: float
@@ -43,6 +51,7 @@ class BoundingBox(BaseModel):
     y_max: float
 
 class PageInfo(BaseModel):
+    text: Optional[str]
     page: int
     bounding_box: Optional[BoundingBox] = Field(description="Coordinates of the document where reference is found")
 
@@ -62,26 +71,22 @@ class Reference(BaseModel):
     document: Document
     page_info: List[PageInfo] = Field(description="List of pages and their respective bounding boxes where the reference is found")
 
+class EvidenceLayer(BaseModel):
+    name: str
+    relevance_score: float
+
 class MappableCriteria(BaseModel):
     criteria: str
     theoretical: Optional[str]
-    potential_dataset: Optional[str]
+    potential_dataset: Optional[list[EvidenceLayer]]
     supporting_references: list[Reference]
 
 class MineralSystem(BaseModel):
-    deposit_type: DepositType
-    trigger: list[MappableCriteria]
-    source_fluid: list[MappableCriteria]
-    source_ligand: list[MappableCriteria]
-    source_metal: list[MappableCriteria]
-    source_other: list[MappableCriteria]
-    conduit: list[MappableCriteria]
-    driver: list[MappableCriteria]
-    throttle: list[MappableCriteria]
+    deposit_types: list[DepositType]
+    source: list[MappableCriteria]
+    pathway: list[MappableCriteria]
     trap: list[MappableCriteria]
-    dispersion: list[MappableCriteria]
-    exhumation: list[MappableCriteria]
-    direct_detection: list[MappableCriteria]
+    preservation: list[MappableCriteria]
 
 class Commodity(BaseModel):
     name: str
@@ -125,7 +130,7 @@ class MineralSite(BaseModel):
     mineral_inventory: list[MineralInventory]
     location_info: LocationInfo
     geology_info: Optional[GeologyInfo]
-    deposit_type: Optional[DepositType] = Field(description="The deposit type of an inventory item")
+    deposit_type_candidates: list[DepositTypeCandidate]
 
 
 # Schemas can conform to other ones by inheriting from them or by declaring conformance
