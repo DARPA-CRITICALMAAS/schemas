@@ -4,7 +4,28 @@
 
 - **`source_id`** *(string)*: Source dataset that the site info is retrieved from. e.g., MRDS.
 - **`record_id`** *(string)*: Unique ID of the record that the info is retrieved from e.g., 10022920.
-- **`name`** *(string)*: Name of the mine, e.g., Tungsten Jim.
+- **`name`**: Name of the mine, e.g., Tungsten Jim.
+  - **Any of**
+    - *string*
+    - *null*
+- **`other_name`**: Other possible names of the mine, e.g., [Iron Mass, Golden Glow].
+  - **Any of**
+    - *array*
+      - **Items** *(string)*
+    - *null*
+- **`commodity`**: Commodities present at the site, e.g., [Nickel, Cobalt].
+  - **Any of**
+    - *array*
+      - **Items** *(string)*
+    - *null*
+- **`operation_type`**: Operational status of the mine when the record was created, e.g., Past Occurrence.
+  - **Any of**
+    - *string*
+    - *null*
+- **`record_year`**: Year the record was created, e.g., 1977.
+  - **Any of**
+    - *integer*
+    - *null*
 - **`mineral_inventory`** *(array)*
   - **Items**: Refer to *[MineralInventory](#MineralInventory)*.
 - **`location_info`**: Refer to *[LocationInfo](#LocationInfo)*.
@@ -12,14 +33,8 @@
   - **Any of**
     - : Refer to *[GeologyInfo](#GeologyInfo)*.
     - *null*
-- **`deposit_type`**: The deposit type of an inventory item.
-  - **Any of**
-    - : Refer to *[DepositType](#DepositType)*.
-    - *null*
-- **`same_as`**: Dictionary that stores the IDs point to other databases: e.g.: {{"source_id":"MRDS", "record_id":"10022920"}, {"source_id":"USMIN", "record_id":"ID00055"}}.
-  - **Any of**
-    - *object*
-    - *null*
+- **`deposit_type_candidate`** *(array)*
+  - **Items**: Refer to *[DepositTypeCandidate](#DepositTypeCandidate)*.
 
 ## BoundingBox
 
@@ -34,21 +49,31 @@
 
 ### Properties
 
-- **`id`** *(string)*
 - **`name`** *(string)*
 
 ## DepositType
 
 ### Properties
 
-- **`id`** *(string)*
-- **`name`** *(string)*: Name of the deposit type.
+- **`name`** *(string)*: Deposit type name.
+- **`environment`** *(string)*: Deposit type environment.
+- **`group`** *(string)*: Deposit type group.
+
+## DepositTypeCandidate
+
+### Properties
+
+- **`observed_name`** *(string)*: Source dataset that the site info is retrieved from. e.g., MRDS.
+- **`normalized_uri`**: The deposit type of an inventory item.
+  - **All of**
+    - : Refer to *[DepositType](#DepositType)*.
+- **`confidence`** *(number)*: Score deposit type of an inventory item.
+- **`source`** *(string)*: Source of the classification (automated model version / SME / etc...).
 
 ## Document
 
 ### Properties
 
-- **`id`** *(string)*
 - **`title`**: Title of the document.
   - **Any of**
     - *string*
@@ -90,6 +115,13 @@
   - **Any of**
     - *string*
     - *null*
+
+## EvidenceLayer
+
+### Properties
+
+- **`name`** *(string)*
+- **`relevance_score`** *(number)*
 
 ## GeologyInfo
 
@@ -160,7 +192,8 @@
     - *null*
 - **`potential_dataset`**
   - **Any of**
-    - *string*
+    - *array*
+      - **Items**: Refer to *[EvidenceLayer](#EvidenceLayer)*.
     - *null*
 - **`supporting_references`** *(array)*
   - **Items**: Refer to *[Reference](#Reference)*.
@@ -169,7 +202,6 @@
 
 ### Properties
 
-- **`id`** *(string)*
 - **`commodity`**: The commodity of an inventory item.
   - **All of**
     - : Refer to *[Commodity](#Commodity)*.
@@ -194,9 +226,8 @@
     - *number*
     - *null*
 - **`reference`**: The reference of an inventory item.
-  - **Any of**
+  - **All of**
     - : Refer to *[Reference](#Reference)*.
-    - *null*
 - **`date`**: When in the point of time mineral inventory valid.
   - **Any of**
     - *string, format: date-time*
@@ -211,30 +242,30 @@
 ### Properties
 
 - **`deposit_type`**: Refer to *[DepositType](#DepositType)*.
-- **`trigger`** *(array)*
+- **`source`** *(array)*
   - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
-- **`source_fluid`** *(array)*
+- **`pathway`** *(array)*
   - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
-- **`source_ligand`** *(array)*
-  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
-- **`source_metal`** *(array)*
-  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
-- **`source_other`** *(array)*
-  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
-- **`conduit`** *(array)*
-  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
-- **`driver`** *(array)*
-  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
-- **`throttle`** *(array)*
-  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
-- **`trap`** *(array)*
-  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
-- **`dispersion`** *(array)*
-  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
-- **`exhumation`** *(array)*
-  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
-- **`direct_detection`** *(array)*
-  - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
+- **`trap`**
+  - **Any of**
+    - *array*
+      - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
+    - *null*
+- **`preservation`**
+  - **Any of**
+    - *array*
+      - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
+    - *null*
+- **`energy`**
+  - **Any of**
+    - *array*
+      - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
+    - *null*
+- **`outflow`**
+  - **Any of**
+    - *array*
+      - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
+    - *null*
 
 ## Ore
 
@@ -257,7 +288,6 @@
 
 ### Properties
 
-- **`id`** *(string)*
 - **`document`**: Refer to *[Document](#Document)*.
 - **`page_info`** *(array)*: List of pages and their respective bounding boxes where the reference is found.
   - **Items**: Refer to *[PageInfo](#PageInfo)*.

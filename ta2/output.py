@@ -14,14 +14,11 @@ Geometry = TypeVar("Geometry")
 
 
 class ResourceReserveCategory(Enum):
-    INFERRED = "inferred"
-    INDICATED = "indicated"
-    MEASURED = "measured"
-    PROBABLE = "probable"
-    PROVEN = "proven"
-    ORIGINAL_RESOURCE = "original resource"
-    EXTRACTED = "extracted"
-    CUMULATIVE_EXTRACTED = "cumulative extracted"
+    INFERRED = "Inferred Mineral Resource"
+    INDICATED = "Indicated Mineral Resource"
+    MEASURED = "Measured Mineral Resource"
+    PROBABLE = "Probable Mineral Reserve"
+    PROVEN = "Proven Mineral Reserve"
 
 class GeologyInfo(BaseModel):
     age: Optional[str] = Field(description = "Age of the geologic unit or event")
@@ -37,8 +34,15 @@ class Ore(BaseModel):
     ore_value: float = Field( description="The value of ore quantity")
 
 class DepositType(BaseModel):
-    id: str
-    name: str = Field( description="Name of the deposit type")
+    name: str = Field( description="Deposit type name")
+    environment: str = Field( description="Deposit type environment")
+    group: str = Field( description="Deposit type group")
+
+class DepositTypeCandidate(BaseModel):
+    observed_name: str = Field(description="Source dataset that the site info is retrieved from. e.g., MRDS")
+    normalized_uri: DepositType = Field(description="The deposit type of an inventory item")
+    confidence: float = Field(description="Score deposit type of an inventory item")
+    source: str = Field(description="Source of the classification (automated model version / SME / etc...)")
 
 class BoundingBox(BaseModel):
     x_min: float
@@ -51,7 +55,6 @@ class PageInfo(BaseModel):
     bounding_box: Optional[BoundingBox] = Field(description="Coordinates of the document where reference is found")
 
 class Document(BaseModel):
-    id: str
     title: Optional[str] = Field( description="Title of the document")
     doi: Optional[str] = Field(description="doi of the document")
     uri: Optional[str] = Field(description="URI of the document, if it does not have a doi")
@@ -64,33 +67,29 @@ class Document(BaseModel):
     description: Optional[str] = Field(description="Description of the document")
 
 class Reference(BaseModel):
-    id: str
     document: Document
     page_info: List[PageInfo] = Field(description="List of pages and their respective bounding boxes where the reference is found")
+
+class EvidenceLayer(BaseModel):
+    name: str
+    relevance_score: float
 
 class MappableCriteria(BaseModel):
     criteria: str
     theoretical: Optional[str]
-    potential_dataset: Optional[str]
+    potential_dataset: Optional[list[EvidenceLayer]]
     supporting_references: list[Reference]
 
 class MineralSystem(BaseModel):
     deposit_type: DepositType
-    trigger: list[MappableCriteria]
-    source_fluid: list[MappableCriteria]
-    source_ligand: list[MappableCriteria]
-    source_metal: list[MappableCriteria]
-    source_other: list[MappableCriteria]
-    conduit: list[MappableCriteria]
-    driver: list[MappableCriteria]
-    throttle: list[MappableCriteria]
-    trap: list[MappableCriteria]
-    dispersion: list[MappableCriteria]
-    exhumation: list[MappableCriteria]
-    direct_detection: list[MappableCriteria]
+    source: list[MappableCriteria]
+    pathway: list[MappableCriteria]
+    trap: Optional[list[MappableCriteria]]
+    preservation: Optional[list[MappableCriteria]]
+    energy: Optional[list[MappableCriteria]]
+    outflow: Optional[list[MappableCriteria]]
 
 class Commodity(BaseModel):
-    id: str
     name: str
 
 class Grade(BaseModel):
@@ -98,14 +97,13 @@ class Grade(BaseModel):
     grade_value: float = Field( description="The value of grade")
 
 class MineralInventory(BaseModel):
-    id: str
     commodity: Commodity = Field( description="The commodity of an inventory item")
     category: Optional[ResourceReserveCategory] = Field( description="The category of an inventory item")
     ore: Optional[Ore] = Field( description="The ore of an inventory item")
     grade: Optional[Grade] = Field( description="The grade of an inventory item")
     cutoff_grade: Optional[Grade] = Field( description="The cutoff grade of the observed inventory item")
     contained_metal: Optional[float] = Field( description="The quantity of a contained metal in an inventory item")
-    reference: Optional[Reference] = Field( description="The reference of an inventory item")
+    reference: Reference = Field( description="The reference of an inventory item")
     date: Optional[datetime] = Field(description="When in the point of time mineral inventory valid")
     zone: Optional[str] = Field(description="zone of mineral site where inventory item was discovered")
 
@@ -129,13 +127,15 @@ class GeologyInfo(BaseModel):
 class MineralSite(BaseModel):
     source_id: str = Field(description="Source dataset that the site info is retrieved from. e.g., MRDS")
     record_id: str = Field(description="Unique ID of the record that the info is retrieved from e.g., 10022920")
-    name: str = Field(description = "Name of the mine, e.g., Tungsten Jim")
+    name: Optional[str] = Field(description = "Name of the mine, e.g., Tungsten Jim")
+    other_name: Optional[list[str]] = Field(description = "Other possible names of the mine, e.g., [Iron Mass, Golden Glow]")
+    commodity: Optional[list[str]] = Field(description = "Commodities present at the site, e.g., [Nickel, Cobalt]")
+    operation_type: Optional[str] = Field(description = "Operational status of the mine when the record was created, e.g., Past Occurrence")
+    record_year: Optional[int] = Field(description="Year the record was created, e.g., 1977")
     mineral_inventory: list[MineralInventory]
     location_info: LocationInfo
     geology_info: Optional[GeologyInfo]
-    deposit_type: Optional[DepositType] = Field(description="The deposit type of an inventory item")
-    same_as: Optional[dict] = Field(
-        description='Dictionary that stores the IDs point to other databases: e.g.: {{"source_id":"MRDS", "record_id":"10022920"}, {"source_id":"USMIN", "record_id":"ID00055"}}')
+    deposit_type_candidate: list[DepositTypeCandidate]
 
 
 # Schemas can conform to other ones by inheriting from them or by declaring conformance
@@ -179,7 +179,3 @@ text = text.replace("\n#", "\n##")
 
 with open(name + ".md", "w") as f:
     f.write(text)
-
-    same_as: Optional[dict] = Field(
-        description='Dictionary that stores the IDs point to other databases: e.g.: {{"source_id":"MRDS", "record_id":"10022920"}, {"source_id":"USMIN", "record_id":"ID00055"}}'
-    )

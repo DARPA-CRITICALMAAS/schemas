@@ -31,17 +31,12 @@
       },
       "Commodity": {
         "properties": {
-          "id": {
-            "title": "Id",
-            "type": "string"
-          },
           "name": {
             "title": "Name",
             "type": "string"
           }
         },
         "required": [
-          "id",
           "name"
         ],
         "title": "Commodity",
@@ -49,29 +44,67 @@
       },
       "DepositType": {
         "properties": {
-          "id": {
-            "title": "Id",
+          "name": {
+            "description": "Deposit type name",
+            "title": "Name",
             "type": "string"
           },
-          "name": {
-            "description": "Name of the deposit type",
-            "title": "Name",
+          "environment": {
+            "description": "Deposit type environment",
+            "title": "Environment",
+            "type": "string"
+          },
+          "group": {
+            "description": "Deposit type group",
+            "title": "Group",
             "type": "string"
           }
         },
         "required": [
-          "id",
-          "name"
+          "name",
+          "environment",
+          "group"
         ],
         "title": "DepositType",
         "type": "object"
       },
-      "Document": {
+      "DepositTypeCandidate": {
         "properties": {
-          "id": {
-            "title": "Id",
+          "observed_name": {
+            "description": "Source dataset that the site info is retrieved from. e.g., MRDS",
+            "title": "Observed Name",
             "type": "string"
           },
+          "normalized_uri": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/DepositType"
+              }
+            ],
+            "description": "The deposit type of an inventory item"
+          },
+          "confidence": {
+            "description": "Score deposit type of an inventory item",
+            "title": "Confidence",
+            "type": "number"
+          },
+          "source": {
+            "description": "Source of the classification (automated model version / SME / etc...)",
+            "title": "Source",
+            "type": "string"
+          }
+        },
+        "required": [
+          "observed_name",
+          "normalized_uri",
+          "confidence",
+          "source"
+        ],
+        "title": "DepositTypeCandidate",
+        "type": "object"
+      },
+      "Document": {
+        "properties": {
           "title": {
             "anyOf": [
               {
@@ -197,7 +230,6 @@
           }
         },
         "required": [
-          "id",
           "title",
           "doi",
           "uri",
@@ -341,19 +373,9 @@
             "description": "Type: Polygon or Point, value indicates the geolocation of the site",
             "title": "Location"
           },
-          "location_source": {
-            "description": "Source dataset that the location info is retrieved from. e.g., MRDS",
-            "title": "Location Source",
-            "type": "string"
-          },
           "crs": {
             "description": "The Coordinate Reference System (CRS) of the location",
             "title": "Crs",
-            "type": "string"
-          },
-          "location_source_record_id": {
-            "description": "ID points to the same_as field in MineralSites",
-            "title": "Location Source Record Id",
             "type": "string"
           },
           "country": {
@@ -383,9 +405,7 @@
         },
         "required": [
           "location",
-          "location_source",
           "crs",
-          "location_source_record_id",
           "country",
           "state_or_province"
         ],
@@ -394,10 +414,6 @@
       },
       "MineralInventory": {
         "properties": {
-          "id": {
-            "title": "Id",
-            "type": "string"
-          },
           "commodity": {
             "allOf": [
               {
@@ -463,12 +479,9 @@
             "title": "Contained Metal"
           },
           "reference": {
-            "anyOf": [
+            "allOf": [
               {
                 "$ref": "#/$defs/Reference"
-              },
-              {
-                "type": "null"
               }
             ],
             "description": "The reference of an inventory item"
@@ -500,7 +513,6 @@
           }
         },
         "required": [
-          "id",
           "commodity",
           "category",
           "ore",
@@ -561,10 +573,6 @@
       },
       "Reference": {
         "properties": {
-          "id": {
-            "title": "Id",
-            "type": "string"
-          },
           "document": {
             "$ref": "#/$defs/Document"
           },
@@ -578,7 +586,6 @@
           }
         },
         "required": [
-          "id",
           "document",
           "page_info"
         ],
@@ -587,28 +594,92 @@
       },
       "ResourceReserveCategory": {
         "enum": [
-          "inferred",
-          "indicated",
-          "measured",
-          "probable",
-          "proven",
-          "original resource",
-          "extracted",
-          "cumulative extracted"
+          "Inferred Mineral Resource",
+          "Indicated Mineral Resource",
+          "Measured Mineral Resource",
+          "Probable Mineral Reserve",
+          "Proven Mineral Reserve"
         ],
         "title": "ResourceReserveCategory",
         "type": "string"
       }
     },
     "properties": {
-      "id": {
-        "title": "Id",
+      "source_id": {
+        "description": "Source dataset that the site info is retrieved from. e.g., MRDS",
+        "title": "Source Id",
+        "type": "string"
+      },
+      "record_id": {
+        "description": "Unique ID of the record that the info is retrieved from e.g., 10022920",
+        "title": "Record Id",
         "type": "string"
       },
       "name": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
         "description": "Name of the mine, e.g., Tungsten Jim",
-        "title": "Name",
-        "type": "string"
+        "title": "Name"
+      },
+      "other_name": {
+        "anyOf": [
+          {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "description": "Other possible names of the mine, e.g., [Iron Mass, Golden Glow]",
+        "title": "Other Name"
+      },
+      "commodity": {
+        "anyOf": [
+          {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "description": "Commodities present at the site, e.g., [Nickel, Cobalt]",
+        "title": "Commodity"
+      },
+      "operation_type": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "description": "Operational status of the mine when the record was created, e.g., Past Occurrence",
+        "title": "Operation Type"
+      },
+      "record_year": {
+        "anyOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "description": "Year the record was created, e.g., 1977",
+        "title": "Record Year"
       },
       "mineral_inventory": {
         "items": {
@@ -621,40 +692,35 @@
         "$ref": "#/$defs/LocationInfo"
       },
       "geology_info": {
-        "$ref": "#/$defs/GeologyInfo"
-      },
-      "deposit_type": {
         "anyOf": [
           {
-            "$ref": "#/$defs/DepositType"
+            "$ref": "#/$defs/GeologyInfo"
           },
           {
             "type": "null"
           }
-        ],
-        "description": "The deposit type of an inventory item"
+        ]
       },
-      "same_as": {
-        "anyOf": [
-          {
-            "type": "object"
-          },
-          {
-            "type": "null"
-          }
-        ],
-        "description": "Dictionary that stores the IDs point to other databases: e.g.: {\"MRDS\" : [{\"id\":1,\"Attributes\": {\"dep_id\" : \"10289747\",\"mrds_id\" : \"W018008\", \"altername_or_previous_names\": \"Thompson Creek Tungsten Mine, Tungsten Jim Mine\" }, \"geometry\": \"POINT (-112.22194434499863 46.756337603970515)\"},{\"id\":2,\"Attributes\": {\"dep_id\": \"10022920\", \"mrds_id\":\"FS00436\", \"record_type\":\"Site\"},\"geometry\": \"POINT (-112.84298100894938 46.869337351353394)\"}], \"USMIN\" : [ {\"id\":8, \"Attributes\": {\"ftr_id\":\"Mf00576\", \"site_id\":\"ID00055\", \"ftr_name\":\"Tungsten Jim\"}, \"geometry\":\"POINT (-112.47445877319991 46.68033517492356)\"}, {\"id\":10, \"Attributes\": {\"ftr_id\":\"Mo00569\", \"site_id\":\"ID00055\" }, \"geometry\":\"POINT (-114.58608965399998 44.333859519000065)\"} ]}",
-        "title": "Same As"
+      "deposit_type_candidate": {
+        "items": {
+          "$ref": "#/$defs/DepositTypeCandidate"
+        },
+        "title": "Deposit Type Candidate",
+        "type": "array"
       }
     },
     "required": [
-      "id",
+      "source_id",
+      "record_id",
       "name",
+      "other_name",
+      "commodity",
+      "operation_type",
+      "record_year",
       "mineral_inventory",
       "location_info",
       "geology_info",
-      "deposit_type",
-      "same_as"
+      "deposit_type_candidate"
     ],
     "title": "MineralSite",
     "type": "object"
@@ -691,29 +757,32 @@
       },
       "DepositType": {
         "properties": {
-          "id": {
-            "title": "Id",
+          "name": {
+            "description": "Deposit type name",
+            "title": "Name",
             "type": "string"
           },
-          "name": {
-            "description": "Name of the deposit type",
-            "title": "Name",
+          "environment": {
+            "description": "Deposit type environment",
+            "title": "Environment",
+            "type": "string"
+          },
+          "group": {
+            "description": "Deposit type group",
+            "title": "Group",
             "type": "string"
           }
         },
         "required": [
-          "id",
-          "name"
+          "name",
+          "environment",
+          "group"
         ],
         "title": "DepositType",
         "type": "object"
       },
       "Document": {
         "properties": {
-          "id": {
-            "title": "Id",
-            "type": "string"
-          },
           "title": {
             "anyOf": [
               {
@@ -839,7 +908,6 @@
           }
         },
         "required": [
-          "id",
           "title",
           "doi",
           "uri",
@@ -852,6 +920,24 @@
           "description"
         ],
         "title": "Document",
+        "type": "object"
+      },
+      "EvidenceLayer": {
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "relevance_score": {
+            "title": "Relevance Score",
+            "type": "number"
+          }
+        },
+        "required": [
+          "name",
+          "relevance_score"
+        ],
+        "title": "EvidenceLayer",
         "type": "object"
       },
       "MappableCriteria": {
@@ -874,7 +960,10 @@
           "potential_dataset": {
             "anyOf": [
               {
-                "type": "string"
+                "items": {
+                  "$ref": "#/$defs/EvidenceLayer"
+                },
+                "type": "array"
               },
               {
                 "type": "null"
@@ -926,10 +1015,6 @@
       },
       "Reference": {
         "properties": {
-          "id": {
-            "title": "Id",
-            "type": "string"
-          },
           "document": {
             "$ref": "#/$defs/Document"
           },
@@ -943,7 +1028,6 @@
           }
         },
         "required": [
-          "id",
           "document",
           "page_info"
         ],
@@ -955,105 +1039,85 @@
       "deposit_type": {
         "$ref": "#/$defs/DepositType"
       },
-      "trigger": {
+      "source": {
         "items": {
           "$ref": "#/$defs/MappableCriteria"
         },
-        "title": "Trigger",
+        "title": "Source",
         "type": "array"
       },
-      "source_fluid": {
+      "pathway": {
         "items": {
           "$ref": "#/$defs/MappableCriteria"
         },
-        "title": "Source Fluid",
-        "type": "array"
-      },
-      "source_ligand": {
-        "items": {
-          "$ref": "#/$defs/MappableCriteria"
-        },
-        "title": "Source Ligand",
-        "type": "array"
-      },
-      "source_metal": {
-        "items": {
-          "$ref": "#/$defs/MappableCriteria"
-        },
-        "title": "Source Metal",
-        "type": "array"
-      },
-      "source_other": {
-        "items": {
-          "$ref": "#/$defs/MappableCriteria"
-        },
-        "title": "Source Other",
-        "type": "array"
-      },
-      "conduit": {
-        "items": {
-          "$ref": "#/$defs/MappableCriteria"
-        },
-        "title": "Conduit",
-        "type": "array"
-      },
-      "driver": {
-        "items": {
-          "$ref": "#/$defs/MappableCriteria"
-        },
-        "title": "Driver",
-        "type": "array"
-      },
-      "throttle": {
-        "items": {
-          "$ref": "#/$defs/MappableCriteria"
-        },
-        "title": "Throttle",
+        "title": "Pathway",
         "type": "array"
       },
       "trap": {
-        "items": {
-          "$ref": "#/$defs/MappableCriteria"
-        },
-        "title": "Trap",
-        "type": "array"
+        "anyOf": [
+          {
+            "items": {
+              "$ref": "#/$defs/MappableCriteria"
+            },
+            "type": "array"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Trap"
       },
-      "dispersion": {
-        "items": {
-          "$ref": "#/$defs/MappableCriteria"
-        },
-        "title": "Dispersion",
-        "type": "array"
+      "preservation": {
+        "anyOf": [
+          {
+            "items": {
+              "$ref": "#/$defs/MappableCriteria"
+            },
+            "type": "array"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Preservation"
       },
-      "exhumation": {
-        "items": {
-          "$ref": "#/$defs/MappableCriteria"
-        },
-        "title": "Exhumation",
-        "type": "array"
+      "energy": {
+        "anyOf": [
+          {
+            "items": {
+              "$ref": "#/$defs/MappableCriteria"
+            },
+            "type": "array"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Energy"
       },
-      "direct_detection": {
-        "items": {
-          "$ref": "#/$defs/MappableCriteria"
-        },
-        "title": "Direct Detection",
-        "type": "array"
+      "outflow": {
+        "anyOf": [
+          {
+            "items": {
+              "$ref": "#/$defs/MappableCriteria"
+            },
+            "type": "array"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Outflow"
       }
     },
     "required": [
       "deposit_type",
-      "trigger",
-      "source_fluid",
-      "source_ligand",
-      "source_metal",
-      "source_other",
-      "conduit",
-      "driver",
-      "throttle",
+      "source",
+      "pathway",
       "trap",
-      "dispersion",
-      "exhumation",
-      "direct_detection"
+      "preservation",
+      "energy",
+      "outflow"
     ],
     "title": "MineralSystem",
     "type": "object"
