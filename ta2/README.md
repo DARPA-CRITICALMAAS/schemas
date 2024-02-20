@@ -1,23 +1,15 @@
-# TA2 schemas
+# TA2 schema
 
-## Output schemas
-
-*Data provided by TA2 performers to TA4 for feedback/synthesis*
-
-_Date Updated: 02/20/2024_
-
-TA1 output schemas are defined in the [TA2 output JSONSchema](output.json) file.
+## Output schema
 
 ![TA2 output schema summary](output.png)
 
+_Please note_:
+* _all `id` fields have been removed as each (non-blank) object in the schema will be assigned a URI, hence a unique identifier._
+* _Matching entities will be denoted using the relation `owl:sameAs`._
+* _non-blank objects (URI mandatory) are `MineralSite`, `MineralInventory`, `Document`._
+* _visit [here](https://github.com/DARPA-CRITICALMAAS/ta2-minmod-data/tree/main/data#readme) to read more about the expected input format and resulting output data (that is then deployed as `ttl`/triples format on our [SPARQL endpoint](https://minmod.isi.edu/sparql))._
+
+TA2 output schemas are defined in the [TA2 output JSON schema](output.json) file.
+
 Documentation of each schema: [**TA2 output schema documentation**](output.md)
-
-
-##
-
-
-## Feedback schemas
-
-*Data provided to TA2 performers by TA4 for feedback*
-
-TBD
