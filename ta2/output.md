@@ -4,7 +4,10 @@
 
 - **`source_id`** *(string)*: Source dataset that the site info is retrieved from. e.g., MRDS.
 - **`record_id`** *(string)*: Unique ID of the record that the info is retrieved from e.g., 10022920.
-- **`name`** *(string)*: Name of the mine, e.g., Tungsten Jim.
+- **`name`**: Name of the mine, e.g., Tungsten Jim.
+  - **Any of**
+    - *string*
+    - *null*
 - **`mineral_inventory`** *(array)*
   - **Items**: Refer to *[MineralInventory](#MineralInventory)*.
 - **`location_info`**: Refer to *[LocationInfo](#LocationInfo)*.
@@ -184,6 +187,10 @@
 - **`commodity`**: The commodity of an inventory item.
   - **All of**
     - : Refer to *[Commodity](#Commodity)*.
+- **`observed_commodity`**: The observed commodity in the source data (textual format).
+  - **Any of**
+    - *string*
+    - *null*
 - **`category`**: The category of an inventory item.
   - **Any of**
     - : Refer to *[ResourceReserveCategory](#ResourceReserveCategory)*.
@@ -220,7 +227,8 @@
 
 ### Properties
 
-- **`deposit_type`**: Refer to *[DepositType](#DepositType)*.
+- **`deposit_type`** *(array)*
+  - **Items**: Refer to *[DepositType](#DepositType)*.
 - **`source`** *(array)*
   - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
 - **`pathway`** *(array)*
