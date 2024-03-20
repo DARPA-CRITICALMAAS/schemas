@@ -184,6 +184,10 @@
 - **`commodity`**: The commodity of an inventory item.
   - **All of**
     - : Refer to *[Commodity](#Commodity)*.
+- **`observed_commodity`**: The observed commodity in the source data (textual format).
+  - **Any of**
+    - *string*
+    - *null*
 - **`category`**: The category of an inventory item.
   - **Any of**
     - : Refer to *[ResourceReserveCategory](#ResourceReserveCategory)*.
@@ -220,7 +224,8 @@
 
 ### Properties
 
-- **`deposit_type`**: Refer to *[DepositType](#DepositType)*.
+- **`deposit_type`** *(array)*
+  - **Items**: Refer to *[DepositType](#DepositType)*.
 - **`source`** *(array)*
   - **Items**: Refer to *[MappableCriteria](#MappableCriteria)*.
 - **`pathway`** *(array)*

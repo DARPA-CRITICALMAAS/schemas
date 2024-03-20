@@ -422,6 +422,18 @@
             ],
             "description": "The commodity of an inventory item"
           },
+          "observed_commodity": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The observed commodity in the source data (textual format)",
+            "title": "Observed Commodity"
+          },
           "category": {
             "anyOf": [
               {
@@ -514,6 +526,7 @@
         },
         "required": [
           "commodity",
+          "observed_commodity",
           "category",
           "ore",
           "grade",
@@ -972,7 +985,11 @@
     },
     "properties": {
       "deposit_type": {
-        "$ref": "#/$defs/DepositType"
+        "items": {
+          "$ref": "#/$defs/DepositType"
+        },
+        "title": "Deposit Type",
+        "type": "array"
       },
       "source": {
         "items": {

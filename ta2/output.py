@@ -81,7 +81,7 @@ class MappableCriteria(BaseModel):
     supporting_references: list[Reference]
 
 class MineralSystem(BaseModel):
-    deposit_type: DepositType
+    deposit_type: list[DepositType]
     source: list[MappableCriteria]
     pathway: list[MappableCriteria]
     trap: Optional[list[MappableCriteria]]
@@ -98,6 +98,7 @@ class Grade(BaseModel):
 
 class MineralInventory(BaseModel):
     commodity: Commodity = Field( description="The commodity of an inventory item")
+    observed_commodity: Optional[str] = Field(description="The observed commodity in the source data (textual format)")
     category: Optional[ResourceReserveCategory] = Field( description="The category of an inventory item")
     ore: Optional[Ore] = Field( description="The ore of an inventory item")
     grade: Optional[Grade] = Field( description="The grade of an inventory item")
