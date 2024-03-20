@@ -629,9 +629,16 @@
         "type": "string"
       },
       "name": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
         "description": "Name of the mine, e.g., Tungsten Jim",
-        "title": "Name",
-        "type": "string"
+        "title": "Name"
       },
       "mineral_inventory": {
         "items": {

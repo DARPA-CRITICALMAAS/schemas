@@ -4,7 +4,10 @@
 
 - **`source_id`** *(string)*: Source dataset that the site info is retrieved from. e.g., MRDS.
 - **`record_id`** *(string)*: Unique ID of the record that the info is retrieved from e.g., 10022920.
-- **`name`** *(string)*: Name of the mine, e.g., Tungsten Jim.
+- **`name`**: Name of the mine, e.g., Tungsten Jim.
+  - **Any of**
+    - *string*
+    - *null*
 - **`mineral_inventory`** *(array)*
   - **Items**: Refer to *[MineralInventory](#MineralInventory)*.
 - **`location_info`**: Refer to *[LocationInfo](#LocationInfo)*.

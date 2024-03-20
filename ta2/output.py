@@ -128,7 +128,7 @@ class GeologyInfo(BaseModel):
 class MineralSite(BaseModel):
     source_id: str = Field(description="Source dataset that the site info is retrieved from. e.g., MRDS")
     record_id: str = Field(description="Unique ID of the record that the info is retrieved from e.g., 10022920")
-    name: str = Field(description = "Name of the mine, e.g., Tungsten Jim")
+    name: Optional[str] = Field(description = "Name of the mine, e.g., Tungsten Jim")
     mineral_inventory: list[MineralInventory]
     location_info: LocationInfo
     geology_info: Optional[GeologyInfo]
